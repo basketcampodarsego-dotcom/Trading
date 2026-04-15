@@ -3,45 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trading PAC DEBUG</title>
+    <title>PAC Debugger v2</title>
     <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
     <style>
-        body { font-family: monospace; background: #000; color: #0f0; margin: 0; padding: 10px; }
-        .card { background: #111; border: 1px solid #333; border-radius: 12px; padding: 15px; max-width: 450px; margin: auto; }
+        body { font-family: 'Courier New', monospace; background: #000; color: #0f0; margin: 0; padding: 10px; }
+        .card { background: #111; border: 1px solid #333; border-radius: 12px; padding: 15px; max-width: 500px; margin: auto; }
         #assetName { font-size: 1.2em; color: #f0b90b; margin: 0; }
-        #isinTicker { color: #888; font-size: 0.9em; }
-        #chart { width: 100%; height: 300px; background: #000; margin: 10px 0; border: 1px solid #222; }
+        #chart { width: 100%; height: 280px; background: #000; margin: 10px 0; border: 1px solid #222; }
         .nav { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        button { background: #222; color: #fff; border: 1px solid #444; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        /* Console di Debug Visibile */
-        #debugConsole { 
-            background: #050505; 
-            border: 1px solid #222; 
-            color: #0c0; 
-            font-size: 10px; 
-            padding: 10px; 
-            margin-top: 15px; 
-            height: 100px; 
-            overflow-y: auto; 
-            text-align: left;
+        button { background: #222; color: #fff; border: 1px solid #444; padding: 12px; border-radius: 8px; cursor: pointer; font-family: monospace; }
+        #console { 
+            background: #050505; border: 1px solid #333; color: #0c0; font-size: 11px; 
+            padding: 10px; margin-top: 15px; height: 150px; overflow-y: auto; text-align: left;
+            line-height: 1.4;
         }
-        .err { color: #f44; }
+        .err { color: #f44; font-weight: bold; }
+        .msg { color: #4af; }
     </style>
 </head>
 <body>
 
 <div class="card">
-    <p id="assetName">System Initializing...</p>
+    <p id="assetName">BOOTING SYSTEM...</p>
     <div id="isinTicker">--- | ---</div>
-    
     <div id="chart"></div>
-
     <div class="nav">
-        <button onclick="navigate(-1)">⬅ PREV</button>
-        <button onclick="navigate(1)">NEXT ➡</button>
+        <button onclick="navigate(-1)">[ PREV ]</button>
+        <button onclick="navigate(1)">[ NEXT ]</button>
     </div>
-    
-    <div id="debugConsole">Ready...</div>
+    <div id="console">--- DEBUG LOG START ---<br></div>
 </div>
 
 <script>
@@ -49,103 +39,109 @@
     let cursor = 0;
     let chart, candleSeries;
 
-    function log(msg, isError = false) {
-        const console = document.getElementById('debugConsole');
-        const time = new Date().toLocaleTimeString();
-        console.innerHTML += `<div class="${isError ? 'err' : ''}">[${time}] ${msg}</div>`;
-        console.scrollTop = console.scrollHeight;
+    function log(msg, type = '') {
+        const c = document.getElementById('console');
+        const t = new Date().toLocaleTimeString();
+        let className = '';
+        if(type === 'err') className = 'err';
+        if(type === 'msg') className = 'msg';
+        c.innerHTML += `<div class="${className}">[${t}] ${msg}</div>`;
+        c.scrollTop = c.scrollHeight;
     }
 
-    function initChart() {
+    // 1. INIZIALIZZAZIONE GRAFICO
+    try {
         log("Inizializzo Lightweight Charts...");
         chart = LightweightCharts.createChart(document.getElementById('chart'), {
             layout: { backgroundColor: '#000', textColor: '#d1d4dc' },
             grid: { vertLines: { color: '#111' }, horzLines: { color: '#111' } },
         });
         candleSeries = chart.addCandlestickSeries({ upColor: '#0ecb81', downColor: '#f6465d' });
+        log("Grafico OK.", "msg");
+    } catch(e) {
+        log("ERRORE GRAFICO: " + e.message, "err");
     }
 
+    // 2. CARICAMENTO DATI
     async function loadData() {
         const fileName = 'tr_isin_ticker.csv';
-        log(`Tentativo di fetch: ${fileName}`);
+        log(`Richiedo file: ${fileName}...`);
         
         try {
-            const response = await fetch(fileName);
+            const response = await fetch(fileName, { cache: "no-store" });
+            
+            log(`Risposta server: ${response.status} ${response.statusText}`);
             
             if (!response.ok) {
-                log(`ERRORE HTTP: ${response.status} - File non trovato!`, true);
-                document.getElementById('assetName').innerText = "FILE MANCANTE";
+                log(`FALLITO: Il file ${fileName} non risponde. Verificare maiuscole/minuscole su GitHub.`, "err");
                 return;
             }
 
-            log("File scaricato. Inizio lettura testo...");
             const text = await response.text();
+            log(`File scaricato. Dimensione: ${Math.round(text.length/1024)} KB`);
+            
             const rows = text.split('\n').map(r => r.trim()).filter(r => r.length > 0);
-            log(`Trovate ${rows.length} righe nel CSV.`);
+            log(`Righe trovate: ${rows.length}`);
+
+            if (rows.length < 2) {
+                log("ERRORE: Il file CSV sembra vuoto o ha solo l'intestazione.", "err");
+                return;
+            }
 
             const headers = rows[0].split(',').map(h => h.trim().toLowerCase());
-            log(`Headers: ${headers.join(' | ')}`);
+            log(`Headers rilevati: ${headers.join(' | ')}`, "msg");
 
             const iIsin = headers.indexOf('isin');
             const iTick = headers.indexOf('ticker');
             const iName = headers.indexOf('name');
 
             if (iIsin === -1 || iTick === -1) {
-                log("ERRORE: Colonne ISIN o TICKER non trovate!", true);
+                log("ERRORE: Colonne ISIN o TICKER non trovate! Controlla la prima riga del CSV.", "err");
                 return;
             }
 
-            db = rows.slice(1).map((row, index) => {
+            db = rows.slice(1).map(row => {
                 const c = row.split(',').map(v => v.trim());
-                return {
-                    isin: c[iIsin],
-                    ticker: c[iTick],
-                    name: c[iName] || c[iTick]
-                };
+                return { isin: c[iIsin], ticker: c[iTick], name: c[iName] || c[iTick] };
             }).filter(item => item.ticker && item.ticker !== "NaN");
 
-            log(`Database pronto: ${db.length} titoli validi.`);
-            updateUI();
+            log(`Analisi completata: ${db.length} asset validi.`, "msg");
+            if(db.length > 0) updateUI();
+
         } catch (e) {
-            log(`ECCEZIONE: ${e.message}`, true);
+            log("ECCEZIONE DURANTE IL LOAD: " + e.message, "err");
         }
     }
 
+    // 3. AGGIORNAMENTO UI
     function updateUI() {
         const item = db[cursor];
         document.getElementById('assetName').innerText = item.name;
         document.getElementById('isinTicker').innerText = `${item.isin} | ${item.ticker}`;
-        log(`Visualizzo: ${item.ticker} (${cursor + 1}/${db.length})`);
+        log(`Asset corrente: ${item.ticker} (${cursor + 1}/${db.length})`, "msg");
         fetchYahoo(item.ticker);
     }
 
+    // 4. DATI YAHOO
     async function fetchYahoo(ticker) {
-        log(`Richiedo dati Yahoo per ${ticker}...`);
+        log(`Yahoo: Richiedo ${ticker}...`);
         const url = `https://corsproxy.io/?${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/'+ticker+'?range=1y&interval=1d')}`;
         
         try {
             const r = await fetch(url);
             const d = await r.json();
-            
-            if (!d.chart || !d.chart.result) {
-                log(`Yahoo non ha dati per ${ticker}`, true);
-                return;
-            }
-
             const res = d.chart.result[0];
             const p = res.timestamp.map((t, i) => ({
                 time: t, 
-                open: res.indicators.quote[0].open[i], 
-                high: res.indicators.quote[0].high[i],
-                low: res.indicators.quote[0].low[i], 
-                close: res.indicators.quote[0].close[i]
+                open: res.indicators.quote[0].open[i], high: res.indicators.quote[0].high[i],
+                low: res.indicators.quote[0].low[i], close: res.indicators.quote[0].close[i]
             })).filter(x => x.open != null);
 
-            log(`Ricevute ${p.length} candele.`);
+            log(`Yahoo: ${p.length} candele ricevute.`);
             candleSeries.setData(p);
             chart.timeScale().fitContent();
         } catch (e) {
-            log(`Errore Yahoo: ${e.message}`, true);
+            log(`Errore Yahoo: ${ticker} non trovato o proxy down.`, "err");
         }
     }
 
@@ -155,8 +151,10 @@
         updateUI();
     }
 
-    initChart();
+    // AVVIO
+    log("Avvio sequenza di caricamento...");
     loadData();
+
 </script>
 </body>
 </html>
