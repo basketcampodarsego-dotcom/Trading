@@ -3,96 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PAC Terminal Pro</title>
+    <title>PAC Terminal v3.5.2</title>
     <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
     <style>
-        body { font-family: sans-serif; background: #121212; color: #e0e0e0; margin: 0; padding: 15px; }
-        .card { background: #1e1e1e; border-radius: 12px; padding: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .nav-btn { background: #2962ff; color: white; border: none; padding: 8px 15px; border-radius: 5px; font-weight: bold; }
-        #chart { width: 100%; height: 350px; margin: 15px 0; background: #1e1e1e; border-radius: 8px; }
-        .pac-info { padding: 10px; border-radius: 8px; margin-bottom: 10px; font-size: 0.9em; }
-        .warning { background: #b71c1c; color: white; border-left: 5px solid #ff5252; }
-        .normal { background: #2c2c2c; color: #aaa; }
-        .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.85em; }
-        .stat-box { background: #262626; padding: 8px; border-radius: 5px; border: 1px solid #333; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #000; color: #fff; margin: 0; padding: 10px; }
+        .container { max-width: 600px; margin: auto; }
+        .card { background: #111; border: 1px solid #333; border-radius: 12px; padding: 15px; margin-bottom: 10px; }
+        .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+        .title-area { flex-grow: 1; }
+        #assetName { font-size: 1.2em; font-weight: bold; color: #4dadff; margin: 0; }
+        #isinTicker { font-size: 0.85em; color: #888; margin-top: 4px; }
+        .status-banner { padding: 10px; border-radius: 8px; text-align: center; font-weight: bold; font-size: 0.9em; margin-bottom: 15px; border: 1px solid transparent; }
+        .status-attivo { background: rgba(27, 94, 32, 0.2); color: #81c784; border-color: #1b5e20; }
+        .status-bloccato { background: rgba(183, 28, 28, 0.2); color: #e57373; border-color: #b71c1c; }
+        #chart { width: 100%; height: 320px; background: #000; border-radius: 8px; }
+        .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        button { background: #2962ff; color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; font-size: 1em; cursor: pointer; }
+        button:active { background: #1565c0; }
+        .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 15px; font-size: 0.8em; }
+        .detail-item { background: #1a1a1a; padding: 10px; border-radius: 6px; border: 1px solid #222; }
+        .detail-label { color: #666; display: block; margin-bottom: 2px; }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <div class="header">
-        <button class="nav-btn" onclick="change(1)">Successivo ➡</button>
-        <div style="text-align:right">
-            <div id="isinDisplay" style="font-weight:bold; color:#4dadff;">ISIN</div>
-            <div id="tickerDisplay" style="font-size:0.8em; color:#888;">TICKER</div>
+<div class="container">
+    <div class="card">
+        <div class="header">
+            <div class="title-area">
+                <p id="assetName">Caricamento...</p>
+                <div id="isinTicker">--- | ---</div>
+            </div>
+            <div id="indexPos" style="font-size: 0.8em; color: #666;">0/0</div>
         </div>
-    </div>
 
-    <div id="pacBanner" class="pac-info normal">Nessun dato PAC trovato</div>
-    
-    <div id="chart"></div>
+        <div id="statusBanner" class="status-banner">Inizializzazione database...</div>
 
-    <div class="stats">
-        <div class="stat-box">Prezzo: <b id="p-val">-</b></div>
-        <div class="stat-box">P/E: <b id="pe-val">-</b></div>
-        <div class="stat-box">Cap: <b id="cap-val">-</b></div>
-        <div class="stat-box">Borsa: <b id="exch-val">-</b></div>
+        <div id="chart"></div>
+
+        <div class="details-grid">
+            <div class="detail-item"><span class="detail-label">Prezzo Attuale</span><span id="valPrice">-</span></div>
+            <div class="detail-item"><span class="detail-label">Borsa</span><span id="valExch">-</span></div>
+        </div>
+
+        <div class="nav-grid">
+            <button onclick="navigate(-1)">⬅ PRECEDENTE</button>
+            <button onclick="navigate(1)">SUCCESSIVO ➡</button>
+        </div>
     </div>
 </div>
 
 <script>
+    let db = [];
+    let currentIndex = 0;
     let chart, candleSeries;
-    let items = ["US5949181045", "JP3811000003"]; // Qui verranno caricati i tuoi 13.000 ISIN
-    let idx = 0;
 
-    async function loadStock(isin) {
-        const proxy = "https://corsproxy.io/?";
+    // Inizializzazione Grafico
+    function initChart() {
+        const chartElement = document.getElementById('chart');
+        chart = LightweightCharts.createChart(chartElement, {
+            layout: { backgroundColor: '#000', textColor: '#d1d4dc' },
+            grid: { vertLines: { color: '#111' }, horzLines: { color: '#111' } },
+            crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
+            timeScale: { borderColor: '#333' }
+        });
+        candleSeries = chart.addCandlestickSeries({
+            upColor: '#26a69a', downColor: '#ef5350', borderVisible: false,
+            wickUpColor: '#26a69a', wickDownColor: '#ef5350'
+        });
+    }
+
+    // Caricamento Dati dal file database_pac.csv (Nome esatto dal tuo Colab)
+    async function loadDatabase() {
         try {
-            const sUrl = `https://query2.finance.yahoo.com/v1/finance/search?q=${isin}`;
-            const sRes = await fetch(proxy + encodeURIComponent(sUrl));
-            const sData = await sRes.json();
-            const ticker = sData.quotes[0].symbol;
+            const response = await fetch('database_pac.csv');
+            const data = await response.text();
+            const rows = data.split('\n').filter(r => r.trim().length > 0);
+            const headers = rows[0].split(',').map(h => h.trim().toLowerCase());
 
-            document.getElementById('isinDisplay').innerText = isin;
-            document.getElementById('tickerDisplay').innerText = ticker;
+            db = rows.slice(1).map(row => {
+                const cols = row.split(',');
+                return {
+                    isin: cols[headers.indexOf('isin')],
+                    ticker: cols[headers.indexOf('ticker')],
+                    nome: cols[headers.indexOf('nome')] || "N/A",
+                    stato: cols[headers.indexOf('stato')] || "Attivo",
+                    note: cols[headers.indexOf('note')] || ""
+                };
+            }).filter(item => item.isin && item.ticker);
 
-            const hUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=6mo&interval=1d`;
-            const hRes = await fetch(proxy + encodeURIComponent(hUrl));
-            const hData = await hRes.json();
+            if (db.length > 0) {
+                updateUI();
+            } else {
+                document.getElementById('statusBanner').innerText = "Database vuoto o errato";
+            }
+        } catch (e) {
+            document.getElementById('statusBanner').innerText = "File database_pac.csv non trovato";
+            document.getElementById('statusBanner').className = "status-banner status-bloccato";
+        }
+    }
+
+    async function updateUI() {
+        const item = db[currentIndex];
+        
+        // Testi di base
+        document.getElementById('assetName').innerText = item.nome;
+        document.getElementById('isinTicker').innerText = `${item.isin} | ${item.ticker}`;
+        document.getElementById('indexPos').innerText = `${currentIndex + 1}/${db.length}`;
+
+        // Banner di Stato (Congelato, Delisted, ecc.)
+        const banner = document.getElementById('statusBanner');
+        if (item.stato.toLowerCase() === 'attivo') {
+            banner.innerText = "✅ TITOLO ATTIVO";
+            banner.className = "status-banner status-attivo";
+        } else {
+            banner.innerText = `⚠️ ${item.stato.toUpperCase()}: ${item.note}`;
+            banner.className = "status-banner status-bloccato";
+        }
+
+        // Caricamento Dati Yahoo
+        fetchStockData(item.ticker);
+    }
+
+    async function fetchStockData(ticker) {
+        const proxy = "https://corsproxy.io/?";
+        const url = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=6mo&interval=1d`;
+        
+        try {
+            const response = await fetch(proxy + encodeURIComponent(url));
+            const data = await response.json();
+            const res = data.chart.result[0];
             
-            const res = hData.chart.result[0];
-            const meta = res.meta;
-            
-            // Riempimento dati
-            document.getElementById('p-val').innerText = meta.regularMarketPrice + " " + meta.currency;
-            document.getElementById('exch-val').innerText = meta.exchangeName;
+            // Aggiorna prezzi e borsa
+            document.getElementById('valPrice').innerText = `${res.meta.regularMarketPrice} ${res.meta.currency}`;
+            document.getElementById('valExch').innerText = res.meta.exchangeName;
 
-            const cData = res.timestamp.map((t, i) => ({
-                time: t, open: res.indicators.quote[0].open[i],
-                high: res.indicators.quote[0].high[i], low: res.indicators.quote[0].low[i],
+            // Prepara candele
+            const candles = res.timestamp.map((t, i) => ({
+                time: t,
+                open: res.indicators.quote[0].open[i],
+                high: res.indicators.quote[0].high[i],
+                low: res.indicators.quote[0].low[i],
                 close: res.indicators.quote[0].close[i]
-            })).filter(d => d.open != null);
+            })).filter(c => c.open != null);
 
-            if (chart) chart.remove();
-            chart = LightweightCharts.createChart(document.getElementById('chart'), {
-                layout: { backgroundColor: '#1e1e1e', textColor: '#d1d4dc' },
-                grid: { vertLines: { color: '#2b2b2b' }, horzLines: { color: '#2b2b2b' } }
-            });
-            candleSeries = chart.addCandlestickSeries();
-            candleSeries.setData(cData);
+            candleSeries.setData(candles);
             chart.timeScale().fitContent();
-
-        } catch (e) { console.error(e); }
+        } catch (e) {
+            console.error("Errore Yahoo Finance");
+        }
     }
 
-    function change(step) {
-        idx += step;
-        if (idx >= items.length) idx = 0;
-        loadStock(items[idx]);
+    function navigate(direction) {
+        currentIndex += direction;
+        if (currentIndex < 0) currentIndex = 0;
+        if (currentIndex >= db.length) currentIndex = db.length - 1;
+        updateUI();
     }
 
-    loadStock(items[idx]);
+    // Start
+    initChart();
+    loadDatabase();
 </script>
+
 </body>
 </html>
