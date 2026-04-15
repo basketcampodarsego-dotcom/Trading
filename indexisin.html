@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>ISIN to Ticker Translator</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; max-width: 500px; margin: auto; }
+        input { width: 100%; padding: 10px; margin-bottom: 10px; }
+        button { width: 100%; padding: 10px; background: #1967D2; color: white; border: none; cursor: pointer; }
+        #result { margin-top: 20px; padding: 15px; border: 1px solid #ddd; display: none; }
+    </style>
+</head>
+<body>
+    <h2>Cerca Ticker da ISIN</h2>
+    <input type="text" id="isinInput" placeholder="Inserisci ISIN (es. JP3811000003)">
+    <button onclick="searchTicker()">Trova Ticker</button>
+    <div id="result"></div>
+
+    <script>
+        async function searchTicker() {
+            const isin = document.getElementById('isinInput').value.trim();
+            const resDiv = document.getElementById('result');
+            if (!isin) return;
+
+            resDiv.style.display = 'block';
+            resDiv.innerHTML = "Ricerca in corso...";
+
+            try {
+                // Utilizziamo un proxy CORS per evitare i blocchi di sicurezza dei browser
+                const proxy = "https://corsproxy.io/?";
+                const url = `https://query2.finance.yahoo.com/v1/finance/search?q=${isin}`;
+                
+                const response = await fetch(proxy + encodeURIComponent(url));
+                const data = await response.json();
+
+                if (data.quotes && data.quotes.length > 0) {
+                    const ticker = data.quotes[0].symbol;
+                    const name = data.quotes[0].shortname || "";
+                    resDiv.innerHTML = `<strong>Ticker:</strong> ${ticker}<br><strong>Nome:</strong> ${name}`;
+                } else {
+                    resDiv.innerHTML = "Nessun risultato trovato.";
+                }
+            } catch (error) {
+                resDiv.innerHTML = "Errore nella ricerca. Riprova tra poco.";
+            }
+        }
+    </script>
+</body>
+</html>
