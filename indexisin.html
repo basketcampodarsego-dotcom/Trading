@@ -9,7 +9,6 @@
         body { font-family: -apple-system, system-ui, sans-serif; background: #0b0e11; color: #eaecef; margin: 0; padding: 10px; display: flex; justify-content: center; }
         .app-container { width: 100%; max-width: 450px; }
         .card { background: #181a20; border-radius: 16px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); border: 1px solid #2b3139; }
-        .info-header { margin-bottom: 15px; }
         #assetName { font-size: 1.3em; font-weight: bold; color: #f0b90b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         #isinTicker { color: #848e9c; font-size: 0.9em; margin-top: 5px; }
         #chart { width: 100%; height: 350px; margin: 15px 0; border-radius: 8px; background: #0b0e11; }
@@ -24,18 +23,18 @@
 
 <div class="app-container">
     <div class="card">
-        <div id="errorBox" class="error-msg">File 'tr_isin_tickers.csv' non trovato nel repository</div>
+        <div id="errorBox" class="error-msg">Cercando 'tr_isin_tickers.csv'...</div>
         
         <div class="info-header">
-            <p id="assetName">Caricamento dati...</p>
+            <p id="assetName">Caricamento...</p>
             <div id="isinTicker">--- | ---</div>
         </div>
         
         <div id="chart"></div>
 
         <div class="nav-buttons">
-            <button onclick="navigate(-1)">⬅ PRECEDENTE</button>
-            <button onclick="navigate(1)">SUCCESSIVO ➡</button>
+            <button onclick="navigate(-1)">⬅ PREC</button>
+            <button onclick="navigate(1)">SUCC ➡</button>
         </div>
         
         <div id="posCounter" class="counter">0 / 0</div>
@@ -48,7 +47,8 @@
     let chart, candleSeries;
 
     function initChart() {
-        chart = LightweightCharts.createChart(document.getElementById('chart'), {
+        const chartContainer = document.getElementById('chart');
+        chart = LightweightCharts.createChart(chartContainer, {
             layout: { backgroundColor: '#181a20', textColor: '#d1d4dc' },
             grid: { vertLines: { color: '#2b3139' }, horzLines: { color: '#2b3139' } },
             timeScale: { borderColor: '#48515d' },
@@ -61,12 +61,14 @@
 
     async function loadData() {
         try {
-            // Utilizzo del nome esatto confermato: tr_isin_tickers.csv
+            // Cerchiamo il file esatto che vedo nel tuo screenshot
             const response = await fetch('tr_isin_tickers.csv');
-            if (!response.ok) throw new Error();
+            if (!response.ok) throw new Error("File non trovato");
             
             const text = await response.text();
             const lines = text.split('\n').filter(l => l.trim().length > 0);
+            
+            // Togliamo gli spazi dai nomi delle colonne
             const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
 
             stockList = lines.slice(1).map(line => {
@@ -80,10 +82,13 @@
 
             if (stockList.length > 0) {
                 renderStock();
+            } else {
+                throw new Error("Dati mancanti");
             }
         } catch (e) {
             document.getElementById('errorBox').style.display = 'block';
-            document.getElementById('assetName').innerText = "Errore Database";
+            document.getElementById('errorBox').innerText = "Errore: " + e.message;
+            document.getElementById('assetName').innerText = "Controlla file CSV";
         }
     }
 
@@ -92,14 +97,12 @@
         document.getElementById('assetName').innerText = stock.name;
         document.getElementById('isinTicker').innerText = `${stock.isin} | ${stock.ticker}`;
         document.getElementById('posCounter').innerText = `${currentIndex + 1} / ${stockList.length}`;
-
         fetchYahooData(stock.ticker);
     }
 
     async function fetchYahooData(ticker) {
         const proxy = "https://corsproxy.io/?";
         const url = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=1y&interval=1d`;
-        
         try {
             const r = await fetch(proxy + encodeURIComponent(url));
             const d = await r.json();
@@ -111,12 +114,9 @@
                 low: result.indicators.quote[0].low[i],
                 close: result.indicators.quote[0].close[i]
             })).filter(p => p.open != null);
-
             candleSeries.setData(prices);
             chart.timeScale().fitContent();
-        } catch (err) {
-            console.error("Errore Yahoo per:", ticker);
-        }
+        } catch (err) { console.error("Errore Yahoo"); }
     }
 
     function navigate(step) {
