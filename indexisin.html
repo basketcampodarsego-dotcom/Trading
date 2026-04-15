@@ -3,38 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trading PAC Terminal v3.5.4</title>
+    <title>Trading PAC Terminal v3.5.5</title>
     <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
     <style>
         body { font-family: sans-serif; background: #0b0e11; color: #eaecef; margin: 0; padding: 10px; display: flex; justify-content: center; }
         .card { background: #181a20; border-radius: 16px; padding: 20px; width: 100%; max-width: 420px; border: 1px solid #2b3139; }
-        .version { font-size: 10px; color: #5e6673; text-align: right; margin-bottom: 5px; }
+        .header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+        .version { font-size: 10px; color: #5e6673; }
+        .btn-reset { background: none; border: 1px solid #5e6673; color: #5e6673; font-size: 9px; padding: 2px 5px; border-radius: 4px; cursor: pointer; }
+        
         .search-box { display: flex; gap: 5px; margin-bottom: 15px; }
-        input { flex: 1; background: #2b3139; border: 1px solid #48515d; color: white; padding: 10px; border-radius: 6px; font-size: 14px; }
+        input { flex: 1; background: #2b3139; border: 1px solid #48515d; color: white; padding: 10px; border-radius: 6px; font-size: 14px; outline: none; }
+        input:focus { border-color: #f0b90b; }
         .btn-vai { background: #f0b90b; color: #000; border: none; padding: 0 15px; border-radius: 6px; font-weight: bold; cursor: pointer; }
+
         #assetName { font-size: 1.2em; font-weight: bold; color: #f0b90b; margin: 0; }
         #isinTicker { color: #848e9c; font-size: 0.85em; margin-bottom: 10px; }
+        
         #chart { width: 100%; height: 320px; background: #000; border-radius: 8px; border: 1px solid #2b3139; }
+        
         .nav { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
         .btn-nav { background: #2b3139; color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer; }
+        .btn-nav:active { background: #3b424c; }
+        
         #status { font-family: monospace; font-size: 11px; color: #0c0; background: #000; padding: 10px; margin-top: 15px; border-radius: 6px; border: 1px solid #222; min-height: 20px; }
+        .err { color: #f6465d !important; }
     </style>
 </head>
 <body>
 <div class="card">
-    <div class="version">v3.5.4</div>
+    <div class="header-row">
+        <button class="btn-reset" onclick="location.reload(true)">FORZA REFRESH</button>
+        <div class="version">v3.5.5</div>
+    </div>
+    
     <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Cerca ISIN o Ticker...">
+        <input type="search" id="searchInput" placeholder="Inserisci ISIN o Ticker...">
         <button class="btn-vai" onclick="cerca()">VAI</button>
     </div>
-    <p id="assetName">In attesa dati...</p>
+
+    <p id="assetName">Attesa Database...</p>
     <div id="isinTicker">--- | ---</div>
+    
     <div id="chart"></div>
+
     <div class="nav">
         <button class="btn-nav" onclick="naviga(-1)">⬅ PREC</button>
         <button class="btn-nav" onclick="naviga(1)">SUCC ➡</button>
     </div>
-    <div id="status">Inizializzazione...</div>
+    
+    <div id="status">Inizializzazione sistema...</div>
 </div>
 
 <script>
@@ -42,7 +60,12 @@
     let idx = 0;
     let chart, series;
 
-    // 1. Inizializza subito il grafico
+    function setStatus(msg, isError = false) {
+        const s = document.getElementById('status');
+        s.innerText = msg;
+        s.className = isError ? 'err' : '';
+    }
+
     function setupChart() {
         const chartEl = document.getElementById('chart');
         chart = LightweightCharts.createChart(chartEl, {
@@ -53,29 +76,38 @@
         series = chart.addCandlestickSeries({ upColor: '#0ecb81', downColor: '#f6465d' });
     }
 
-    // 2. Carica i dati dal file tr_isin_ticker.csv
     async function loadCSV() {
+        setStatus("Download CSV in corso...");
         try {
-            const res = await fetch('tr_isin_ticker.csv');
-            if (!res.ok) throw new Error("File CSV non trovato sul server");
+            // Aggiungo un parametro casuale per evitare la cache di GitHub
+            const res = await fetch('tr_isin_ticker.csv?v=' + Math.random());
+            if (!res.ok) throw new Error("File 'tr_isin_ticker.csv' non trovato nel repository.");
+            
             const text = await res.text();
             const lines = text.split('\n').filter(l => l.trim().length > 0);
+            if (lines.length < 2) throw new Error("Il file CSV sembra vuoto.");
+
             const head = lines[0].split(',').map(h => h.trim().toLowerCase());
-            
+            const iIsin = head.indexOf('isin');
+            const iTick = head.indexOf('ticker');
+            const iName = head.indexOf('name');
+
+            if (iIsin === -1 || iTick === -1) throw new Error("Colonne ISIN o Ticker non trovate nel CSV.");
+
             stockData = lines.slice(1).map(l => {
                 const c = l.split(',').map(v => v.trim());
                 return {
-                    isin: c[head.indexOf('isin')] || "",
-                    ticker: c[head.indexOf('ticker')] || "",
-                    name: c[head.indexOf('name')] || c[head.indexOf('ticker')]
+                    isin: c[iIsin] || "",
+                    ticker: c[iTick] || "",
+                    name: c[iName] || c[iTick] || "Senza Nome"
                 };
             }).filter(s => s.ticker && s.ticker !== "NaN");
 
-            document.getElementById('status').innerText = `Database: ${stockData.length} titoli`;
+            setStatus(`Database: ${stockData.length} titoli pronti.`);
             aggiornaTitolo();
         } catch (e) {
-            document.getElementById('status').style.color = 'red';
-            document.getElementById('status').innerText = "ERRORE: " + e.message;
+            setStatus("ERRORE: " + e.message, true);
+            document.getElementById('assetName').innerText = "ERRORE CARICAMENTO";
         }
     }
 
@@ -85,13 +117,16 @@
         document.getElementById('assetName').innerText = s.name;
         document.getElementById('isinTicker').innerText = `${s.isin} | ${s.ticker} (${idx + 1}/${stockData.length})`;
         
-        // Scarica candele da Yahoo
+        setStatus(`Caricamento grafico: ${s.ticker}...`);
+        
         const proxy = "https://corsproxy.io/?";
         const yahoo = encodeURIComponent(`https://query1.finance.yahoo.com/v8/finance/chart/${s.ticker}?range=1y&interval=1d`);
         
         try {
             const r = await fetch(proxy + yahoo);
             const d = await r.json();
+            if (!d.chart.result) throw new Error("Dati Yahoo non disponibili.");
+
             const quotes = d.chart.result[0];
             const candles = quotes.timestamp.map((t, i) => ({
                 time: t,
@@ -103,12 +138,14 @@
 
             series.setData(candles);
             chart.timeScale().fitContent();
+            setStatus(`${s.ticker}: OK.`);
         } catch (err) {
-            document.getElementById('status').innerText = "Errore dati per: " + s.ticker;
+            setStatus(`Errore: ${s.ticker} non trovato su Yahoo.`, true);
         }
     }
 
     function naviga(dir) {
+        if (stockData.length === 0) return;
         idx = (idx + dir + stockData.length) % stockData.length;
         aggiornaTitolo();
     }
@@ -121,10 +158,11 @@
             idx = found;
             aggiornaTitolo();
         } else {
-            alert("Titolo non trovato");
+            setStatus(`Ricerca: '${val}' non trovato.`, true);
         }
     }
 
+    // Esecuzione
     setupChart();
     loadCSV();
 </script>
