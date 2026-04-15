@@ -3,159 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trading PAC Terminal v3.5.3</title>
+    <title>Trading PAC Terminal v3.5.4</title>
     <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
     <style>
-        body { font-family: -apple-system, system-ui, sans-serif; background: #0b0e11; color: #eaecef; margin: 0; padding: 10px; display: flex; justify-content: center; }
-        .card { background: #181a20; border-radius: 16px; padding: 20px; width: 100%; max-width: 420px; border: 1px solid #2b3139; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+        body { font-family: sans-serif; background: #0b0e11; color: #eaecef; margin: 0; padding: 10px; display: flex; justify-content: center; }
+        .card { background: #181a20; border-radius: 16px; padding: 20px; width: 100%; max-width: 420px; border: 1px solid #2b3139; }
         .version { font-size: 10px; color: #5e6673; text-align: right; margin-bottom: 5px; }
-        
-        #assetName { font-size: 1.2em; font-weight: bold; color: #f0b90b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        #isinTicker { color: #848e9c; font-size: 0.85em; margin-bottom: 15px; }
-        
-        /* Sezione Ricerca */
-        .search-container { display: grid; grid-template-columns: 1fr 1fr auto; gap: 8px; margin-bottom: 15px; }
-        input { background: #2b3139; border: 1px solid #48515d; color: white; padding: 8px; border-radius: 6px; font-size: 12px; outline: none; }
-        input:focus { border-color: #f0b90b; }
-        .btn-search { background: #f0b90b; color: #000; border: none; padding: 8px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 12px; }
-
-        #chart { width: 100%; height: 320px; background: #000; border-radius: 8px; margin: 10px 0; border: 1px solid #2b3139; }
-        
+        .search-box { display: flex; gap: 5px; margin-bottom: 15px; }
+        input { flex: 1; background: #2b3139; border: 1px solid #48515d; color: white; padding: 10px; border-radius: 6px; font-size: 14px; }
+        .btn-vai { background: #f0b90b; color: #000; border: none; padding: 0 15px; border-radius: 6px; font-weight: bold; cursor: pointer; }
+        #assetName { font-size: 1.2em; font-weight: bold; color: #f0b90b; margin: 0; }
+        #isinTicker { color: #848e9c; font-size: 0.85em; margin-bottom: 10px; }
+        #chart { width: 100%; height: 320px; background: #000; border-radius: 8px; border: 1px solid #2b3139; }
         .nav { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .btn-nav { background: #2b3139; color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 1em; }
-        .btn-nav:active { background: #3b424c; }
-        
-        #debug { font-family: monospace; font-size: 10px; color: #0c0; background: #000; padding: 10px; margin-top: 15px; border-radius: 6px; height: 50px; overflow-y: auto; border: 1px solid #222; }
-        .err { color: #f6465d; }
+        .btn-nav { background: #2b3139; color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer; }
+        #status { font-family: monospace; font-size: 11px; color: #0c0; background: #000; padding: 10px; margin-top: 15px; border-radius: 6px; border: 1px solid #222; min-height: 20px; }
     </style>
 </head>
 <body>
 <div class="card">
-    <div class="version">v3.5.3</div>
-    
-    <div class="search-container">
-        <input type="text" id="searchIsin" placeholder="Cerca ISIN...">
-        <input type="text" id="searchTick" placeholder="Ticker...">
-        <button class="btn-search" onclick="performSearch()">VAI</button>
+    <div class="version">v3.5.4</div>
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Cerca ISIN o Ticker...">
+        <button class="btn-vai" onclick="cerca()">VAI</button>
     </div>
-
-    <p id="assetName">Inizializzazione...</p>
+    <p id="assetName">In attesa dati...</p>
     <div id="isinTicker">--- | ---</div>
-    
     <div id="chart"></div>
-
     <div class="nav">
-        <button class="btn-nav" onclick="navigate(-1)">⬅ PREC</button>
-        <button class="btn-nav" onclick="navigate(1)">SUCC ➡</button>
+        <button class="btn-nav" onclick="naviga(-1)">⬅ PREC</button>
+        <button class="btn-nav" onclick="naviga(1)">SUCC ➡</button>
     </div>
-    
-    <div id="debug">System Ready.</div>
+    <div id="status">Inizializzazione...</div>
 </div>
 
 <script>
-    let db = [];
-    let cursor = 0;
-    let chart, candleSeries;
+    let stockData = [];
+    let idx = 0;
+    let chart, series;
 
-    function log(m, isErr = false) { 
-        const d = document.getElementById('debug');
-        d.innerHTML = isErr ? `<span class="err">${m}</span>` : m;
-    }
-
-    function initChart() {
-        chart = LightweightCharts.createChart(document.getElementById('chart'), {
+    // 1. Inizializza subito il grafico
+    function setupChart() {
+        const chartEl = document.getElementById('chart');
+        chart = LightweightCharts.createChart(chartEl, {
             layout: { backgroundColor: '#000', textColor: '#d1d4dc' },
             grid: { vertLines: { color: '#111' }, horzLines: { color: '#111' } },
-            timeScale: { borderColor: '#333' }
+            timeScale: { borderColor: '#333' },
         });
-        candleSeries = chart.addCandlestickSeries({ upColor: '#0ecb81', downColor: '#f6465d' });
+        series = chart.addCandlestickSeries({ upColor: '#0ecb81', downColor: '#f6465d' });
     }
 
-    async function loadData() {
+    // 2. Carica i dati dal file tr_isin_ticker.csv
+    async function loadCSV() {
         try {
-            log("Caricamento database...");
-            const r = await fetch('tr_isin_ticker.csv');
-            if(!r.ok) throw new Error("File CSV non trovato");
-            const t = await r.text();
-            const rows = t.split('\n').filter(l => l.trim().length > 0);
-            const h = rows[0].split(',').map(x => x.trim().toLowerCase());
+            const res = await fetch('tr_isin_ticker.csv');
+            if (!res.ok) throw new Error("File CSV non trovato sul server");
+            const text = await res.text();
+            const lines = text.split('\n').filter(l => l.trim().length > 0);
+            const head = lines[0].split(',').map(h => h.trim().toLowerCase());
             
-            db = rows.slice(1).map(row => {
-                const c = row.split(',').map(v => v.trim());
-                return { 
-                    isin: c[h.indexOf('isin')] || "", 
-                    ticker: c[h.indexOf('ticker')] || "", 
-                    name: c[h.indexOf('name')] || c[h.indexOf('ticker')] || "Unknown"
+            stockData = lines.slice(1).map(l => {
+                const c = l.split(',').map(v => v.trim());
+                return {
+                    isin: c[head.indexOf('isin')] || "",
+                    ticker: c[head.indexOf('ticker')] || "",
+                    name: c[head.indexOf('name')] || c[head.indexOf('ticker')]
                 };
-            }).filter(i => i.ticker && i.ticker !== "NaN");
+            }).filter(s => s.ticker && s.ticker !== "NaN");
 
-            log(`Database caricato: ${db.length} titoli.`);
-            updateUI();
-        } catch (e) { log("Errore: " + e.message, true); }
+            document.getElementById('status').innerText = `Database: ${stockData.length} titoli`;
+            aggiornaTitolo();
+        } catch (e) {
+            document.getElementById('status').style.color = 'red';
+            document.getElementById('status').innerText = "ERRORE: " + e.message;
+        }
     }
 
-    function updateUI() {
-        if(db.length === 0) return;
-        const item = db[cursor];
-        document.getElementById('assetName').innerText = item.name;
-        document.getElementById('isinTicker').innerText = `${item.isin} | ${item.ticker} (${cursor + 1}/${db.length})`;
-        fetchYahoo(item.ticker);
-    }
-
-    async function fetchYahoo(ticker) {
-        log(`Richiedo dati per ${ticker}...`);
-        const url = `https://corsproxy.io/?${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/'+ticker+'?range=1y&interval=1d')}`;
-        try {
-            const r = await fetch(url);
-            const d = await r.json();
-            if (d.chart && d.chart.result) {
-                const res = d.chart.result[0];
-                const p = res.timestamp.map((t, i) => ({
-                    time: t, 
-                    open: res.indicators.quote[0].open[i], high: res.indicators.quote[0].high[i],
-                    low: res.indicators.quote[0].low[i], close: res.indicators.quote[0].close[i]
-                })).filter(x => x.open != null);
-                
-                candleSeries.setData(p);
-                chart.timeScale().fitContent();
-                log(`${ticker}: Dati caricati.`);
-            } else {
-                log(`${ticker}: Ticker non trovato su Yahoo`, true);
-            }
-        } catch (e) { log(`Errore rete per ${ticker}`, true); }
-    }
-
-    function navigate(d) {
-        if(db.length === 0) return;
-        cursor = (cursor + d + db.length) % db.length;
-        updateUI();
-    }
-
-    function performSearch() {
-        const isinVal = document.getElementById('searchIsin').value.trim().toUpperCase();
-        const tickVal = document.getElementById('searchTick').value.trim().toUpperCase();
+    async function aggiornaTitolo() {
+        if (stockData.length === 0) return;
+        const s = stockData[idx];
+        document.getElementById('assetName').innerText = s.name;
+        document.getElementById('isinTicker').innerText = `${s.isin} | ${s.ticker} (${idx + 1}/${stockData.length})`;
         
-        let foundIndex = -1;
+        // Scarica candele da Yahoo
+        const proxy = "https://corsproxy.io/?";
+        const yahoo = encodeURIComponent(`https://query1.finance.yahoo.com/v8/finance/chart/${s.ticker}?range=1y&interval=1d`);
+        
+        try {
+            const r = await fetch(proxy + yahoo);
+            const d = await r.json();
+            const quotes = d.chart.result[0];
+            const candles = quotes.timestamp.map((t, i) => ({
+                time: t,
+                open: quotes.indicators.quote[0].open[i],
+                high: quotes.indicators.quote[0].high[i],
+                low: quotes.indicators.quote[0].low[i],
+                close: quotes.indicators.quote[0].close[i]
+            })).filter(c => c.open != null);
 
-        if (isinVal) {
-            foundIndex = db.findIndex(i => i.isin.toUpperCase() === isinVal);
-        } else if (tickVal) {
-            foundIndex = db.findIndex(i => i.ticker.toUpperCase().startsWith(tickVal));
-        }
-
-        if (foundIndex !== -1) {
-            cursor = foundIndex;
-            updateUI();
-            log("Titolo trovato!");
-            document.getElementById('searchIsin').value = "";
-            document.getElementById('searchTick').value = "";
-        } else {
-            log("Nessun risultato per la ricerca.", true);
+            series.setData(candles);
+            chart.timeScale().fitContent();
+        } catch (err) {
+            document.getElementById('status').innerText = "Errore dati per: " + s.ticker;
         }
     }
 
-    initChart();
-    loadData();
+    function naviga(dir) {
+        idx = (idx + dir + stockData.length) % stockData.length;
+        aggiornaTitolo();
+    }
+
+    function cerca() {
+        const val = document.getElementById('searchInput').value.trim().toUpperCase();
+        if (!val) return;
+        const found = stockData.findIndex(s => s.isin.toUpperCase() === val || s.ticker.toUpperCase() === val);
+        if (found !== -1) {
+            idx = found;
+            aggiornaTitolo();
+        } else {
+            alert("Titolo non trovato");
+        }
+    }
+
+    setupChart();
+    loadCSV();
 </script>
 </body>
 </html>
