@@ -3,168 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PAC Terminal v3.5.2</title>
+    <title>Trading Terminal v3.5.2</title>
     <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #000; color: #fff; margin: 0; padding: 10px; }
-        .container { max-width: 600px; margin: auto; }
-        .card { background: #111; border: 1px solid #333; border-radius: 12px; padding: 15px; margin-bottom: 10px; }
-        .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
-        .title-area { flex-grow: 1; }
-        #assetName { font-size: 1.2em; font-weight: bold; color: #4dadff; margin: 0; }
-        #isinTicker { font-size: 0.85em; color: #888; margin-top: 4px; }
-        .status-banner { padding: 10px; border-radius: 8px; text-align: center; font-weight: bold; font-size: 0.9em; margin-bottom: 15px; border: 1px solid transparent; }
-        .status-attivo { background: rgba(27, 94, 32, 0.2); color: #81c784; border-color: #1b5e20; }
-        .status-bloccato { background: rgba(183, 28, 28, 0.2); color: #e57373; border-color: #b71c1c; }
-        #chart { width: 100%; height: 320px; background: #000; border-radius: 8px; }
-        .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        button { background: #2962ff; color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; font-size: 1em; cursor: pointer; }
-        button:active { background: #1565c0; }
-        .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 15px; font-size: 0.8em; }
-        .detail-item { background: #1a1a1a; padding: 10px; border-radius: 6px; border: 1px solid #222; }
-        .detail-label { color: #666; display: block; margin-bottom: 2px; }
+        body { font-family: -apple-system, system-ui, sans-serif; background: #0b0e11; color: #eaecef; margin: 0; padding: 10px; display: flex; justify-content: center; }
+        .app-container { width: 100%; max-width: 450px; }
+        .card { background: #181a20; border-radius: 16px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); border: 1px solid #2b3139; }
+        .info-header { margin-bottom: 15px; }
+        #assetName { font-size: 1.3em; font-weight: bold; color: #f0b90b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        #isinTicker { color: #848e9c; font-size: 0.9em; margin-top: 5px; }
+        #chart { width: 100%; height: 350px; margin: 15px 0; border-radius: 8px; background: #0b0e11; }
+        .nav-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        button { background: #2b3139; color: white; border: none; padding: 16px; border-radius: 12px; font-weight: bold; font-size: 1em; cursor: pointer; }
+        button:active { background: #3b424c; transform: scale(0.98); }
+        .counter { text-align: center; color: #5e6673; font-size: 0.8em; margin-top: 15px; }
+        .error-msg { color: #f6465d; background: rgba(246, 70, 93, 0.1); padding: 10px; border-radius: 8px; text-align: center; display: none; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
-<div class="container">
+<div class="app-container">
     <div class="card">
-        <div class="header">
-            <div class="title-area">
-                <p id="assetName">Caricamento...</p>
-                <div id="isinTicker">--- | ---</div>
-            </div>
-            <div id="indexPos" style="font-size: 0.8em; color: #666;">0/0</div>
+        <div id="errorBox" class="error-msg">File 'tr_isin_tickers.csv' non trovato nel repository</div>
+        
+        <div class="info-header">
+            <p id="assetName">Caricamento dati...</p>
+            <div id="isinTicker">--- | ---</div>
         </div>
-
-        <div id="statusBanner" class="status-banner">Inizializzazione database...</div>
-
+        
         <div id="chart"></div>
 
-        <div class="details-grid">
-            <div class="detail-item"><span class="detail-label">Prezzo Attuale</span><span id="valPrice">-</span></div>
-            <div class="detail-item"><span class="detail-label">Borsa</span><span id="valExch">-</span></div>
-        </div>
-
-        <div class="nav-grid">
+        <div class="nav-buttons">
             <button onclick="navigate(-1)">⬅ PRECEDENTE</button>
             <button onclick="navigate(1)">SUCCESSIVO ➡</button>
         </div>
+        
+        <div id="posCounter" class="counter">0 / 0</div>
     </div>
 </div>
 
 <script>
-    let db = [];
+    let stockList = [];
     let currentIndex = 0;
     let chart, candleSeries;
 
-    // Inizializzazione Grafico
     function initChart() {
-        const chartElement = document.getElementById('chart');
-        chart = LightweightCharts.createChart(chartElement, {
-            layout: { backgroundColor: '#000', textColor: '#d1d4dc' },
-            grid: { vertLines: { color: '#111' }, horzLines: { color: '#111' } },
-            crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
-            timeScale: { borderColor: '#333' }
+        chart = LightweightCharts.createChart(document.getElementById('chart'), {
+            layout: { backgroundColor: '#181a20', textColor: '#d1d4dc' },
+            grid: { vertLines: { color: '#2b3139' }, horzLines: { color: '#2b3139' } },
+            timeScale: { borderColor: '#48515d' },
         });
         candleSeries = chart.addCandlestickSeries({
-            upColor: '#26a69a', downColor: '#ef5350', borderVisible: false,
-            wickUpColor: '#26a69a', wickDownColor: '#ef5350'
+            upColor: '#0ecb81', downColor: '#f6465d',
+            borderVisible: false, wickUpColor: '#0ecb81', wickDownColor: '#f6465d'
         });
     }
 
-    // Caricamento Dati dal file database_pac.csv (Nome esatto dal tuo Colab)
-    async function loadDatabase() {
+    async function loadData() {
         try {
-            const response = await fetch('database_pac.csv');
-            const data = await response.text();
-            const rows = data.split('\n').filter(r => r.trim().length > 0);
-            const headers = rows[0].split(',').map(h => h.trim().toLowerCase());
+            // Utilizzo del nome esatto confermato: tr_isin_tickers.csv
+            const response = await fetch('tr_isin_tickers.csv');
+            if (!response.ok) throw new Error();
+            
+            const text = await response.text();
+            const lines = text.split('\n').filter(l => l.trim().length > 0);
+            const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
 
-            db = rows.slice(1).map(row => {
-                const cols = row.split(',');
+            stockList = lines.slice(1).map(line => {
+                const cols = line.split(',');
                 return {
                     isin: cols[headers.indexOf('isin')],
                     ticker: cols[headers.indexOf('ticker')],
-                    nome: cols[headers.indexOf('nome')] || "N/A",
-                    stato: cols[headers.indexOf('stato')] || "Attivo",
-                    note: cols[headers.indexOf('note')] || ""
+                    name: cols[headers.indexOf('name')] || cols[headers.indexOf('ticker')]
                 };
-            }).filter(item => item.isin && item.ticker);
+            }).filter(s => s.ticker && s.ticker !== "NaN");
 
-            if (db.length > 0) {
-                updateUI();
-            } else {
-                document.getElementById('statusBanner').innerText = "Database vuoto o errato";
+            if (stockList.length > 0) {
+                renderStock();
             }
         } catch (e) {
-            document.getElementById('statusBanner').innerText = "File database_pac.csv non trovato";
-            document.getElementById('statusBanner').className = "status-banner status-bloccato";
+            document.getElementById('errorBox').style.display = 'block';
+            document.getElementById('assetName').innerText = "Errore Database";
         }
     }
 
-    async function updateUI() {
-        const item = db[currentIndex];
-        
-        // Testi di base
-        document.getElementById('assetName').innerText = item.nome;
-        document.getElementById('isinTicker').innerText = `${item.isin} | ${item.ticker}`;
-        document.getElementById('indexPos').innerText = `${currentIndex + 1}/${db.length}`;
+    async function renderStock() {
+        const stock = stockList[currentIndex];
+        document.getElementById('assetName').innerText = stock.name;
+        document.getElementById('isinTicker').innerText = `${stock.isin} | ${stock.ticker}`;
+        document.getElementById('posCounter').innerText = `${currentIndex + 1} / ${stockList.length}`;
 
-        // Banner di Stato (Congelato, Delisted, ecc.)
-        const banner = document.getElementById('statusBanner');
-        if (item.stato.toLowerCase() === 'attivo') {
-            banner.innerText = "✅ TITOLO ATTIVO";
-            banner.className = "status-banner status-attivo";
-        } else {
-            banner.innerText = `⚠️ ${item.stato.toUpperCase()}: ${item.note}`;
-            banner.className = "status-banner status-bloccato";
-        }
-
-        // Caricamento Dati Yahoo
-        fetchStockData(item.ticker);
+        fetchYahooData(stock.ticker);
     }
 
-    async function fetchStockData(ticker) {
+    async function fetchYahooData(ticker) {
         const proxy = "https://corsproxy.io/?";
-        const url = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=6mo&interval=1d`;
+        const url = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=1y&interval=1d`;
         
         try {
-            const response = await fetch(proxy + encodeURIComponent(url));
-            const data = await response.json();
-            const res = data.chart.result[0];
-            
-            // Aggiorna prezzi e borsa
-            document.getElementById('valPrice').innerText = `${res.meta.regularMarketPrice} ${res.meta.currency}`;
-            document.getElementById('valExch').innerText = res.meta.exchangeName;
-
-            // Prepara candele
-            const candles = res.timestamp.map((t, i) => ({
+            const r = await fetch(proxy + encodeURIComponent(url));
+            const d = await r.json();
+            const result = d.chart.result[0];
+            const prices = result.timestamp.map((t, i) => ({
                 time: t,
-                open: res.indicators.quote[0].open[i],
-                high: res.indicators.quote[0].high[i],
-                low: res.indicators.quote[0].low[i],
-                close: res.indicators.quote[0].close[i]
-            })).filter(c => c.open != null);
+                open: result.indicators.quote[0].open[i],
+                high: result.indicators.quote[0].high[i],
+                low: result.indicators.quote[0].low[i],
+                close: result.indicators.quote[0].close[i]
+            })).filter(p => p.open != null);
 
-            candleSeries.setData(candles);
+            candleSeries.setData(prices);
             chart.timeScale().fitContent();
-        } catch (e) {
-            console.error("Errore Yahoo Finance");
+        } catch (err) {
+            console.error("Errore Yahoo per:", ticker);
         }
     }
 
-    function navigate(direction) {
-        currentIndex += direction;
+    function navigate(step) {
+        currentIndex += step;
         if (currentIndex < 0) currentIndex = 0;
-        if (currentIndex >= db.length) currentIndex = db.length - 1;
-        updateUI();
+        if (currentIndex >= stockList.length) currentIndex = stockList.length - 1;
+        renderStock();
     }
 
-    // Start
     initChart();
-    loadDatabase();
+    loadData();
 </script>
-
 </body>
 </html>
