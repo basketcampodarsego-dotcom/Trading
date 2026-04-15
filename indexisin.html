@@ -3,42 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trading Terminal v3.5.2</title>
+    <title>Trading PAC v3.5.2</title>
     <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
     <style>
-        body { font-family: -apple-system, system-ui, sans-serif; background: #0b0e11; color: #eaecef; margin: 0; padding: 10px; display: flex; justify-content: center; }
-        .app-container { width: 100%; max-width: 450px; }
-        .card { background: #181a20; border-radius: 16px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); border: 1px solid #2b3139; }
-        #assetName { font-size: 1.3em; font-weight: bold; color: #f0b90b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        #isinTicker { color: #848e9c; font-size: 0.9em; margin-top: 5px; }
-        #chart { width: 100%; height: 350px; margin: 15px 0; border-radius: 8px; background: #0b0e11; }
-        .nav-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        button { background: #2b3139; color: white; border: none; padding: 16px; border-radius: 12px; font-weight: bold; font-size: 1em; cursor: pointer; }
-        button:active { background: #3b424c; transform: scale(0.98); }
-        .counter { text-align: center; color: #5e6673; font-size: 0.8em; margin-top: 15px; }
-        .error-msg { color: #f6465d; background: rgba(246, 70, 93, 0.1); padding: 10px; border-radius: 8px; text-align: center; display: none; margin-bottom: 10px; }
+        body { font-family: sans-serif; background: #0b0e11; color: #eaecef; margin: 0; padding: 10px; text-align: center; }
+        .card { background: #181a20; border-radius: 16px; padding: 20px; max-width: 400px; margin: auto; border: 1px solid #2b3139; }
+        #assetName { font-size: 1.2em; font-weight: bold; color: #f0b90b; margin: 0; }
+        #isinTicker { color: #848e9c; font-size: 0.85em; margin-bottom: 10px; }
+        #chart { width: 100%; height: 300px; background: #000; border-radius: 8px; margin: 10px 0; }
+        .nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 15px; }
+        button { flex: 1; background: #2b3139; color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer; }
+        #statusLog { font-size: 0.7em; color: #5e6673; margin-top: 10px; background: #000; padding: 5px; border-radius: 4px; }
     </style>
 </head>
 <body>
 
-<div class="app-container">
-    <div class="card">
-        <div id="errorBox" class="error-msg">Cercando 'tr_isin_tickers.csv'...</div>
-        
-        <div class="info-header">
-            <p id="assetName">Caricamento...</p>
-            <div id="isinTicker">--- | ---</div>
-        </div>
-        
-        <div id="chart"></div>
+<div class="card">
+    <p id="assetName">Inizializzazione...</p>
+    <div id="isinTicker">--- | ---</div>
+    
+    <div id="chart"></div>
 
-        <div class="nav-buttons">
-            <button onclick="navigate(-1)">⬅ PREC</button>
-            <button onclick="navigate(1)">SUCC ➡</button>
-        </div>
-        
-        <div id="posCounter" class="counter">0 / 0</div>
+    <div class="nav">
+        <button onclick="navigate(-1)">⬅ PREC</button>
+        <button onclick="navigate(1)">SUCC ➡</button>
     </div>
+    
+    <div id="statusLog">Verifica file CSV in corso...</div>
 </div>
 
 <script>
@@ -46,29 +37,28 @@
     let currentIndex = 0;
     let chart, candleSeries;
 
+    function log(msg) { document.getElementById('statusLog').innerText = msg; }
+
     function initChart() {
-        const chartContainer = document.getElementById('chart');
-        chart = LightweightCharts.createChart(chartContainer, {
-            layout: { backgroundColor: '#181a20', textColor: '#d1d4dc' },
-            grid: { vertLines: { color: '#2b3139' }, horzLines: { color: '#2b3139' } },
-            timeScale: { borderColor: '#48515d' },
+        chart = LightweightCharts.createChart(document.getElementById('chart'), {
+            layout: { backgroundColor: '#000', textColor: '#d1d4dc' },
+            grid: { vertLines: { color: '#111' }, horzLines: { color: '#111' } },
         });
-        candleSeries = chart.addCandlestickSeries({
-            upColor: '#0ecb81', downColor: '#f6465d',
-            borderVisible: false, wickUpColor: '#0ecb81', wickDownColor: '#f6465d'
-        });
+        candleSeries = chart.addCandlestickSeries({ upColor: '#0ecb81', downColor: '#f6465d' });
     }
 
     async function loadData() {
         try {
-            // Cerchiamo il file esatto che vedo nel tuo screenshot
+            log("Scarico tr_isin_tickers.csv...");
             const response = await fetch('tr_isin_tickers.csv');
-            if (!response.ok) throw new Error("File non trovato");
             
+            if (!response.ok) {
+                log("ERRORE: File tr_isin_tickers.csv non trovato nel repo!");
+                return;
+            }
+
             const text = await response.text();
             const lines = text.split('\n').filter(l => l.trim().length > 0);
-            
-            // Togliamo gli spazi dai nomi delle colonne
             const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
 
             stockList = lines.slice(1).map(line => {
@@ -80,49 +70,37 @@
                 };
             }).filter(s => s.ticker && s.ticker !== "NaN");
 
-            if (stockList.length > 0) {
-                renderStock();
-            } else {
-                throw new Error("Dati mancanti");
-            }
+            log("Caricati " + stockList.length + " titoli.");
+            renderStock();
         } catch (e) {
-            document.getElementById('errorBox').style.display = 'block';
-            document.getElementById('errorBox').innerText = "Errore: " + e.message;
-            document.getElementById('assetName').innerText = "Controlla file CSV";
+            log("Errore tecnico: " + e.message);
         }
     }
 
-    async function renderStock() {
-        const stock = stockList[currentIndex];
-        document.getElementById('assetName').innerText = stock.name;
-        document.getElementById('isinTicker').innerText = `${stock.isin} | ${stock.ticker}`;
-        document.getElementById('posCounter').innerText = `${currentIndex + 1} / ${stockList.length}`;
-        fetchYahooData(stock.ticker);
+    function renderStock() {
+        const s = stockList[currentIndex];
+        document.getElementById('assetName').innerText = s.name;
+        document.getElementById('isinTicker').innerText = s.isin + " | " + s.ticker;
+        fetchYahoo(s.ticker);
     }
 
-    async function fetchYahooData(ticker) {
-        const proxy = "https://corsproxy.io/?";
-        const url = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=1y&interval=1d`;
+    async function fetchYahoo(ticker) {
+        const url = `https://corsproxy.io/?${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/'+ticker+'?range=1y&interval=1d')}`;
         try {
-            const r = await fetch(proxy + encodeURIComponent(url));
+            const r = await fetch(url);
             const d = await r.json();
-            const result = d.chart.result[0];
-            const prices = result.timestamp.map((t, i) => ({
-                time: t,
-                open: result.indicators.quote[0].open[i],
-                high: result.indicators.quote[0].high[i],
-                low: result.indicators.quote[0].low[i],
-                close: result.indicators.quote[0].close[i]
-            })).filter(p => p.open != null);
-            candleSeries.setData(prices);
+            const res = d.chart.result[0];
+            const p = res.timestamp.map((t, i) => ({
+                time: t, open: res.indicators.quote[0].open[i], high: res.indicators.quote[0].high[i],
+                low: res.indicators.quote[0].low[i], close: res.indicators.quote[0].close[i]
+            })).filter(x => x.open != null);
+            candleSeries.setData(p);
             chart.timeScale().fitContent();
-        } catch (err) { console.error("Errore Yahoo"); }
+        } catch (e) { log("Errore grafico per " + ticker); }
     }
 
-    function navigate(step) {
-        currentIndex += step;
-        if (currentIndex < 0) currentIndex = 0;
-        if (currentIndex >= stockList.length) currentIndex = stockList.length - 1;
+    function navigate(d) {
+        currentIndex = (currentIndex + d + stockList.length) % stockList.length;
         renderStock();
     }
 
