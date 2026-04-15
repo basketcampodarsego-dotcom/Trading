@@ -3,30 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trading PAC Pro</title>
+    <title>Trading PAC Terminal v3.5.3</title>
     <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
     <style>
-        body { font-family: -apple-system, sans-serif; background: #0b0e11; color: #eaecef; margin: 0; padding: 10px; display: flex; justify-content: center; }
-        .card { background: #181a20; border-radius: 16px; padding: 20px; width: 100%; max-width: 400px; border: 1px solid #2b3139; }
+        body { font-family: -apple-system, system-ui, sans-serif; background: #0b0e11; color: #eaecef; margin: 0; padding: 10px; display: flex; justify-content: center; }
+        .card { background: #181a20; border-radius: 16px; padding: 20px; width: 100%; max-width: 420px; border: 1px solid #2b3139; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+        .version { font-size: 10px; color: #5e6673; text-align: right; margin-bottom: 5px; }
+        
         #assetName { font-size: 1.2em; font-weight: bold; color: #f0b90b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        #isinTicker { color: #848e9c; font-size: 0.85em; margin-bottom: 10px; }
-        #chart { width: 100%; height: 320px; background: #000; border-radius: 8px; margin: 10px 0; }
+        #isinTicker { color: #848e9c; font-size: 0.85em; margin-bottom: 15px; }
+        
+        /* Sezione Ricerca */
+        .search-container { display: grid; grid-template-columns: 1fr 1fr auto; gap: 8px; margin-bottom: 15px; }
+        input { background: #2b3139; border: 1px solid #48515d; color: white; padding: 8px; border-radius: 6px; font-size: 12px; outline: none; }
+        input:focus { border-color: #f0b90b; }
+        .btn-search { background: #f0b90b; color: #000; border: none; padding: 8px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 12px; }
+
+        #chart { width: 100%; height: 320px; background: #000; border-radius: 8px; margin: 10px 0; border: 1px solid #2b3139; }
+        
         .nav { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        button { background: #2b3139; color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer; }
-        button:active { background: #3b424c; }
-        #debug { font-family: monospace; font-size: 10px; color: #0c0; background: #000; padding: 8px; margin-top: 10px; border-radius: 4px; height: 60px; overflow: hidden; }
+        .btn-nav { background: #2b3139; color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 1em; }
+        .btn-nav:active { background: #3b424c; }
+        
+        #debug { font-family: monospace; font-size: 10px; color: #0c0; background: #000; padding: 10px; margin-top: 15px; border-radius: 6px; height: 50px; overflow-y: auto; border: 1px solid #222; }
+        .err { color: #f6465d; }
     </style>
 </head>
 <body>
 <div class="card">
-    <p id="assetName">Caricamento...</p>
-    <div id="isinTicker">--- | ---</div>
-    <div id="chart"></div>
-    <div class="nav">
-        <button onclick="navigate(-1)">⬅ PREC</button>
-        <button onclick="navigate(1)">SUCC ➡</button>
+    <div class="version">v3.5.3</div>
+    
+    <div class="search-container">
+        <input type="text" id="searchIsin" placeholder="Cerca ISIN...">
+        <input type="text" id="searchTick" placeholder="Ticker...">
+        <button class="btn-search" onclick="performSearch()">VAI</button>
     </div>
-    <div id="debug">Inizializzazione...</div>
+
+    <p id="assetName">Inizializzazione...</p>
+    <div id="isinTicker">--- | ---</div>
+    
+    <div id="chart"></div>
+
+    <div class="nav">
+        <button class="btn-nav" onclick="navigate(-1)">⬅ PREC</button>
+        <button class="btn-nav" onclick="navigate(1)">SUCC ➡</button>
+    </div>
+    
+    <div id="debug">System Ready.</div>
 </div>
 
 <script>
@@ -34,7 +57,10 @@
     let cursor = 0;
     let chart, candleSeries;
 
-    function log(m) { document.getElementById('debug').innerHTML = m; }
+    function log(m, isErr = false) { 
+        const d = document.getElementById('debug');
+        d.innerHTML = isErr ? `<span class="err">${m}</span>` : m;
+    }
 
     function initChart() {
         chart = LightweightCharts.createChart(document.getElementById('chart'), {
@@ -47,35 +73,42 @@
 
     async function loadData() {
         try {
+            log("Caricamento database...");
             const r = await fetch('tr_isin_ticker.csv');
+            if(!r.ok) throw new Error("File CSV non trovato");
             const t = await r.text();
             const rows = t.split('\n').filter(l => l.trim().length > 0);
             const h = rows[0].split(',').map(x => x.trim().toLowerCase());
             
             db = rows.slice(1).map(row => {
                 const c = row.split(',').map(v => v.trim());
-                return { isin: c[h.indexOf('isin')], ticker: c[h.indexOf('ticker')], name: c[h.indexOf('name')] || c[h.indexOf('ticker')] };
+                return { 
+                    isin: c[h.indexOf('isin')] || "", 
+                    ticker: c[h.indexOf('ticker')] || "", 
+                    name: c[h.indexOf('name')] || c[h.indexOf('ticker')] || "Unknown"
+                };
             }).filter(i => i.ticker && i.ticker !== "NaN");
 
-            log(`DB Pronto: ${db.length} titoli.`);
+            log(`Database caricato: ${db.length} titoli.`);
             updateUI();
-        } catch (e) { log("Errore CSV: " + e.message); }
+        } catch (e) { log("Errore: " + e.message, true); }
     }
 
     function updateUI() {
+        if(db.length === 0) return;
         const item = db[cursor];
         document.getElementById('assetName').innerText = item.name;
-        document.getElementById('isinTicker').innerText = `${item.isin} | ${item.ticker}`;
+        document.getElementById('isinTicker').innerText = `${item.isin} | ${item.ticker} (${cursor + 1}/${db.length})`;
         fetchYahoo(item.ticker);
     }
 
     async function fetchYahoo(ticker) {
-        log(`Richiedo ${ticker}...`);
+        log(`Richiedo dati per ${ticker}...`);
         const url = `https://corsproxy.io/?${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/'+ticker+'?range=1y&interval=1d')}`;
         try {
             const r = await fetch(url);
             const d = await r.json();
-            if (d.chart.result) {
+            if (d.chart && d.chart.result) {
                 const res = d.chart.result[0];
                 const p = res.timestamp.map((t, i) => ({
                     time: t, 
@@ -85,16 +118,40 @@
                 
                 candleSeries.setData(p);
                 chart.timeScale().fitContent();
-                log(`${ticker}: OK (${p.length} candele)`);
+                log(`${ticker}: Dati caricati.`);
             } else {
-                log(`${ticker}: Nessun dato da Yahoo`);
+                log(`${ticker}: Ticker non trovato su Yahoo`, true);
             }
-        } catch (e) { log(`${ticker}: Errore caricamento`); }
+        } catch (e) { log(`Errore rete per ${ticker}`, true); }
     }
 
     function navigate(d) {
+        if(db.length === 0) return;
         cursor = (cursor + d + db.length) % db.length;
         updateUI();
+    }
+
+    function performSearch() {
+        const isinVal = document.getElementById('searchIsin').value.trim().toUpperCase();
+        const tickVal = document.getElementById('searchTick').value.trim().toUpperCase();
+        
+        let foundIndex = -1;
+
+        if (isinVal) {
+            foundIndex = db.findIndex(i => i.isin.toUpperCase() === isinVal);
+        } else if (tickVal) {
+            foundIndex = db.findIndex(i => i.ticker.toUpperCase().startsWith(tickVal));
+        }
+
+        if (foundIndex !== -1) {
+            cursor = foundIndex;
+            updateUI();
+            log("Titolo trovato!");
+            document.getElementById('searchIsin').value = "";
+            document.getElementById('searchTick').value = "";
+        } else {
+            log("Nessun risultato per la ricerca.", true);
+        }
     }
 
     initChart();
