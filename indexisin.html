@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trading PAC v3.5.6</title>
-    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+    <title>Trading PAC v3.5.7</title>
+    <script src="https://unpkg.com/lightweight-charts@4.1.1/dist/lightweight-charts.standalone.production.js"></script>
     <style>
         body { font-family: sans-serif; background: #0b0e11; color: #eaecef; margin: 0; padding: 10px; display: flex; justify-content: center; }
         .card { background: #181a20; border-radius: 16px; padding: 20px; width: 100%; max-width: 420px; border: 1px solid #2b3139; }
@@ -22,19 +22,19 @@
 </head>
 <body>
 <div class="card">
-    <div class="version">v3.5.6</div>
+    <div class="version">v3.5.7</div>
     <div class="search-box">
         <input type="text" id="searchInput" placeholder="ISIN o Ticker...">
         <button class="btn-vai" onclick="cerca()">VAI</button>
     </div>
-    <p id="assetName">Caricamento...</p>
+    <p id="assetName">Inizializzazione...</p>
     <div id="isinTicker">--- | ---</div>
     <div id="chart"></div>
     <div class="nav">
         <button class="btn-nav" onclick="naviga(-1)">⬅ PREC</button>
         <button class="btn-nav" onclick="naviga(1)">SUCC ➡</button>
     </div>
-    <div id="status">Avvio in corso...</div>
+    <div id="status">Verifica libreria...</div>
 </div>
 
 <script>
@@ -42,28 +42,36 @@
     let idx = 0;
     let chart, series;
 
-    // Funzione di log immediata
     function log(msg, err = false) {
         const s = document.getElementById('status');
         s.innerText = msg;
         s.style.color = err ? '#f6465d' : '#0c0';
-        console.log(msg);
     }
 
-    // Inizializzazione Manuale
     async function start() {
-        log("1. Inizializzo Grafico...");
+        // Controllo se la libreria è stata caricata
+        if (typeof LightweightCharts === 'undefined') {
+            log("ERRORE: Libreria Grafici non caricata. Controlla la connessione internet.", true);
+            return;
+        }
+
+        log("1. Creazione grafico...");
         try {
             const chartEl = document.getElementById('chart');
             chart = LightweightCharts.createChart(chartEl, {
-                layout: { backgroundColor: '#000', textColor: '#d1d4dc' },
+                layout: { background: { color: '#000' }, textColor: '#d1d4dc' },
                 grid: { vertLines: { color: '#111' }, horzLines: { color: '#111' } },
                 timeScale: { borderColor: '#333' }
             });
-            series = chart.addCandlestickSeries({ upColor: '#0ecb81', downColor: '#f6465d' });
-            log("2. Grafico OK. Carico CSV...");
             
-            const res = await fetch('tr_isin_ticker.csv?nocache=' + Date.now());
+            // Metodo compatibile con v4.x
+            series = chart.addCandlestickSeries({
+                upColor: '#0ecb81', downColor: '#f6465d',
+                borderVisible: false, wickUpColor: '#0ecb81', wickDownColor: '#f6465d'
+            });
+
+            log("2. Caricamento database CSV...");
+            const res = await fetch('tr_isin_ticker.csv?cache=' + Date.now());
             if (!res.ok) throw new Error("File CSV non trovato");
             
             const text = await res.text();
@@ -79,7 +87,7 @@
                 };
             }).filter(s => s.ticker && s.ticker !== "NaN");
 
-            log(`3. Database Pronto: ${stockData.length} titoli`);
+            log(`3. Pronto: ${stockData.length} titoli.`);
             aggiornaTitolo();
         } catch (e) {
             log("ERRORE: " + e.message, true);
@@ -94,7 +102,8 @@
         
         log(`Yahoo: ${s.ticker}...`);
         try {
-            const r = await fetch(`https://corsproxy.io/?${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/'+s.ticker+'?range=1y&interval=1d')}`);
+            const url = `https://corsproxy.io/?${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/'+s.ticker+'?range=1y&interval=1d')}`;
+            const r = await fetch(url);
             const d = await r.json();
             const q = d.chart.result[0];
             const candles = q.timestamp.map((t, i) => ({
@@ -107,9 +116,9 @@
 
             series.setData(candles);
             chart.timeScale().fitContent();
-            log("Dati caricati.");
+            log("OK.");
         } catch (err) {
-            log("Errore Yahoo per " + s.ticker, true);
+            log("Dati non trovati per " + s.ticker, true);
         }
     }
 
@@ -125,7 +134,6 @@
         if (f !== -1) { idx = f; aggiornaTitolo(); } else { alert("Non trovato"); }
     }
 
-    // Partenza forzata
     window.onload = start;
 </script>
 </body>
