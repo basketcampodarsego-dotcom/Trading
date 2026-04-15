@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PAC Terminal v3.5.2</title>
+    <title>Trading PAC v3.5.2</title>
     <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
     <style>
         body { font-family: sans-serif; background: #0b0e11; color: #eaecef; margin: 0; padding: 10px; display: flex; justify-content: center; }
-        .card { background: #181a20; border-radius: 16px; padding: 20px; width: 100%; max-width: 400px; border: 1px solid #2b3139; }
+        .card { background: #181a20; border-radius: 16px; padding: 20px; width: 100%; max-width: 400px; border: 1px solid #2b3139; text-align: center; }
         #assetName { font-size: 1.2em; font-weight: bold; color: #f0b90b; margin: 0; }
         #isinTicker { color: #848e9c; font-size: 0.85em; margin-bottom: 10px; }
         #chart { width: 100%; height: 320px; background: #000; border-radius: 8px; margin: 10px 0; }
         .nav { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
         button { background: #2b3139; color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer; }
-        #status { font-size: 0.7em; color: #555; text-align: center; margin-top: 10px; }
+        #status { font-size: 0.7em; color: #555; margin-top: 10px; }
     </style>
 </head>
 <body>
 <div class="card">
-    <p id="assetName">Verifica file...</p>
+    <p id="assetName">Caricamento...</p>
     <div id="isinTicker">--- | ---</div>
     <div id="chart"></div>
     <div class="nav">
         <button onclick="navigate(-1)">⬅ PREC</button>
         <button onclick="navigate(1)">SUCC ➡</button>
     </div>
-    <div id="status">In attesa di tr_isin_ticker.csv</div>
+    <div id="status">Verifica database...</div>
 </div>
 
 <script>
@@ -43,14 +43,13 @@
 
     async function loadData() {
         try {
-            // Cerco il file nel tuo repository Trading
+            // CORREZIONE: Uso il nome esatto dal tuo screenshot (senza la S finale)
             const response = await fetch('tr_isin_ticker.csv');
-            if (!response.ok) throw new Error("File CSV non trovato");
+            if (!response.ok) throw new Error("File 'tr_isin_ticker.csv' non trovato");
             
             const text = await response.text();
             const rows = text.split('\n').map(r => r.trim()).filter(r => r.length > 0);
             
-            // Gestione automatica intestazioni (maiuscole/minuscole)
             const headers = rows[0].split(',').map(h => h.trim().toLowerCase());
             const iIsin = headers.indexOf('isin');
             const iTick = headers.indexOf('ticker');
@@ -65,7 +64,7 @@
                 };
             }).filter(item => item.ticker && item.ticker !== "NaN");
 
-            if (db.length === 0) throw new Error("CSV vuoto");
+            if (db.length === 0) throw new Error("File CSV vuoto o malformato");
             
             updateUI();
         } catch (e) {
@@ -94,10 +93,11 @@
             })).filter(x => x.open != null);
             candleSeries.setData(p);
             chart.timeScale().fitContent();
-        } catch (e) { console.error("Yahoo Error"); }
+        } catch (e) { console.error("Errore Yahoo per " + ticker); }
     }
 
     function navigate(d) {
+        if (db.length === 0) return;
         cursor = (cursor + d + db.length) % db.length;
         updateUI();
     }
