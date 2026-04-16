@@ -101,7 +101,7 @@ async function getData(ticker){
   high:q.indicators.quote[0].high[i],
   low:q.indicators.quote[0].low[i],
   close:q.indicators.quote[0].close[i]
- })).filter(x=>x.open);
+ })).filter(x=>x.open!=null);
 
  cache[ticker]=candles;
  return candles;
