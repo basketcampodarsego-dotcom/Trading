@@ -1,11 +1,8 @@
-body {font-family: sans-serif;background:#0b0e11;color:#eaecef;display:flex;justify-content:center;padding:10px;}
-.card {background:#181a20;border-radius:16px;padding:20px;width:100%;max-width:420px;}
-.version {font-size:10px;text-align:right;color:#777;}
-.search-box {display:flex;gap:5px;margin:10px 0;}
-input {flex:1;padding:10px;background:#2b3139;border:1px solid #444;color:white;}
-.btn-vai {background:#f0b90b;border:none;padding:0 15px;font-weight:bold;}
-#chart {height:320px;margin-top:10px;}
-.nav {display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
-#status {font-size:10px;margin-top:10px;}
-.ema-legend {font-size:10px;display:grid;grid-template-columns:repeat(3,1fr);}
-.e10{color:#00ff00}.e25{color:#ffff00}.e50{color:#ff0000}.e100{color:#fff}.e200{color:#bf00ff}
+body{margin:0;background:#0b0e11;color:#fff;font-family:sans-serif;display:flex;justify-content:center}
+.card{width:100%;max-width:420px;background:#181a20;padding:15px;border-radius:12px}
+.topbar{display:flex;gap:5px}
+input,select{flex:1;background:#2b3139;color:#fff;border:0;padding:8px}
+button{background:#f0b90b;border:0;padding:8px;font-weight:bold}
+#chart{height:320px;margin-top:10px}
+#signal{margin:10px 0;font-weight:bold}
+#metrics{font-size:12px;color:#aaa}

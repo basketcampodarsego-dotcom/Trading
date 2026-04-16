@@ -3,33 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trading PAC v4.0</title>
+<title>Trading PAC v6</title>
 <link rel="stylesheet" href="style.css">
 <script src="https://unpkg.com/lightweight-charts@4.1.1/dist/lightweight-charts.standalone.production.js"></script>
 </head>
 <body>
+
 <div class="card">
-<div class="version">v4.0</div>
-<div class="search-box">
-<input type="text" id="searchInput" placeholder="ISIN o Ticker...">
-<button class="btn-vai" onclick="cerca()">VAI</button>
+<div class="version">v6 - PRO</div>
+
+<div class="topbar">
+<input id="searchInput" placeholder="Ticker..." />
+<button onclick="cerca()">GO</button>
+
+<select id="timeframe" onchange="loadAsset()">
+<option value="1d">1D</option>
+<option value="1h">1H</option>
+</select>
 </div>
-<p id="assetName">Caricamento...</p>
-<div id="isinTicker">---</div>
-<div class="ema-legend">
-<span class="e10">● EMA 10</span>
-<span class="e25">● EMA 25</span>
-<span class="e50">● EMA 50</span>
-<span class="e100">● EMA 100</span>
-<span class="e200">● EMA 200</span>
-</div>
+
+<div id="assetName">Loading...</div>
+<div id="isinTicker"></div>
+
+<div id="signal"></div>
+<div id="metrics"></div>
+
 <div id="chart"></div>
+
 <div class="nav">
-<button onclick="naviga(-1)">⬅ PREC</button>
-<button onclick="naviga(1)">SUCC ➡</button>
+<button onclick="nav(-1)">⬅</button>
+<button onclick="nav(1)">➡</button>
 </div>
+
 <div id="status">Ready</div>
 </div>
+
 <script src="app.js"></script>
 </body>
 </html>
