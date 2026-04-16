@@ -60,6 +60,11 @@ async function init(){
  });
 
  const res=await fetch('tr_isin_ticker.csv');
+
+ if (!res.ok) {
+    log("CSV non trovato", true);
+    return;
+}
  const text=await res.text();
 
  const rows=text.split('
