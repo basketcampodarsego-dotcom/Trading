@@ -84,6 +84,10 @@ async function getData(ticker){
  const r=await fetch(url);
  const d=await r.json();
 
+
+ if (!d.chart || !d.chart.result || !d.chart.result[0]) {
+    throw new Error("Errore Yahoo");
+ }
  const q=d.chart.result[0];
 
  const candles=q.timestamp.map((t,i)=>({
