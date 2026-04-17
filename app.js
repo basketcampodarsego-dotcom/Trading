@@ -67,7 +67,7 @@ async function loadCSV() {
     };
   });
 
-  log("Asset caricati: " + dataList.length);
+  log("OK assets: " + dataList.length);
 }
 
 // ================= DATA =================
@@ -78,8 +78,8 @@ async function getData(ticker) {
     "https://corsproxy.io/?" +
     encodeURIComponent(
       "https://query1.finance.yahoo.com/v8/finance/chart/" +
-      ticker +
-      "?range=1y&interval=1d"
+        ticker +
+        "?range=1y&interval=1d"
     );
 
   const r = await fetch(url);
@@ -99,12 +99,13 @@ async function getData(ticker) {
   return candles;
 }
 
-// ================= STATE MACHINE SIGNALS =================
-// SOLO cambio stato → niente spam
+// ================= SIGNAL ENGINE + LAST SIGNAL =================
 function generateSignals(candles, e10, e50) {
 
   let markers = [];
   let state = "NONE";
+
+  let lastSignal = null;
 
   for (let i = 50; i < candles.length; i++) {
 
@@ -119,6 +120,7 @@ function generateSignals(candles, e10, e50) {
     const bear = ema10 < ema50;
 
     if (bull && state !== "LONG") {
+
       markers.push({
         time,
         position: "belowBar",
@@ -126,10 +128,17 @@ function generateSignals(candles, e10, e50) {
         shape: "arrowUp",
         text: "BUY"
       });
+
+      lastSignal = {
+        type: "BUY",
+        time
+      };
+
       state = "LONG";
     }
 
     if (bear && state !== "SHORT") {
+
       markers.push({
         time,
         position: "aboveBar",
@@ -137,14 +146,20 @@ function generateSignals(candles, e10, e50) {
         shape: "arrowDown",
         text: "SELL"
       });
+
+      lastSignal = {
+        type: "SELL",
+        time
+      };
+
       state = "SHORT";
     }
   }
 
-  return markers;
+  return { markers, lastSignal };
 }
 
-// ================= LOAD ASSET =================
+// ================= LOAD =================
 async function loadAsset() {
 
   const s = dataList[idx];
@@ -163,8 +178,22 @@ async function loadAsset() {
   ema10Series.setData(e10);
   ema50Series.setData(e50);
 
-  const signals = generateSignals(candles, e10, e50);
-  candleSeries.setMarkers(signals);
+  const result = generateSignals(candles, e10, e50);
+
+  candleSeries.setMarkers(result.markers);
+
+  // ================= NUOVO: ULTIMO SEGNALE =================
+  const last = result.lastSignal;
+
+  if (last) {
+    const date = new Date(last.time * 1000).toLocaleDateString("it-IT");
+
+    document.getElementById("lastSignal").innerText =
+      `Ultimo segnale: ${last.type} | Data: ${date}`;
+  } else {
+    document.getElementById("lastSignal").innerText =
+      "Nessun segnale disponibile";
+  }
 
   chart.timeScale().fitContent();
 
