@@ -66,11 +66,17 @@ async function init() {
     });
 
     candleSeries = chart.addCandlestickSeries();
-
-    [10, 50].forEach(p => {
-      emaLines[p] = chart.addLineSeries();
+  
+    emaLines[10] = chart.addLineSeries({
+      color: '#00ff00',   // verde
+      lineWidth: 1
     });
 
+    emaLines[50] = chart.addLineSeries({
+      color: '#ff0000',   // rosso
+      lineWidth: 1
+    });
+    
     const res = await fetch('./tr_isin_ticker.csv?v=' + Date.now());
 
     if (!res.ok) {
