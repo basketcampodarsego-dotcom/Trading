@@ -1,45 +1,32 @@
-se<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>Trading Dashboard</title>
+<title>PRO C+ Trading Engine</title>
 
 <link rel="stylesheet" href="style.css">
 
-<!-- LIGHTWEIGHT CHARTS -->
 <script src="https://unpkg.com/lightweight-charts@4.1.1/dist/lightweight-charts.standalone.production.js"></script>
 </head>
 
 <body>
 
 <div class="nav">
-  <a href="index.html">Dashboard</a>
-  <a href="portfolio.html">Portfolio</a>
-  <a href="backtest.html">Backtest</a>
-  <a href="report.html">Report</a>
+  <button onclick="nav(-1)">⬅ Prev</button>
+  <button onclick="nav(1)">Next ➡</button>
 </div>
 
 <div class="card">
-
   <h2 id="assetName">Loading...</h2>
   <div id="ticker"></div>
 
-  <div style="margin:10px 0;">
-    <button onclick="nav(-1)">⬅ Prev</button>
-    <button onclick="nav(1)">Next ➡</button>
-    <button onclick="buy()">BUY</button>
-    <button onclick="sell()">SELL</button>
-  </div>
-
   <div id="status"></div>
 
-  <div id="chart" style="height:400px; margin-top:10px;"></div>
-
+  <div id="chart"></div>
 </div>
 
 <script src="app.js"></script>
-
 </body>
 </html>
