@@ -201,4 +201,58 @@ function generateMarkers(candles, ema10, ema50, rsi) {
     if (bull && state !== "BULL") {
       markers.push({
         time,
-        position
+        position: 'belowBar',
+        color: '#00c853',
+        shape: 'arrowUp',
+        text: 'BUY'
+      });
+      state = "BULL";
+    }
+
+    if (bear && state !== "BEAR") {
+      markers.push({
+        time,
+        position: 'aboveBar',
+        color: '#ff5252',
+        shape: 'arrowDown',
+        text: 'SELL'
+      });
+      state = "BEAR";
+    }
+  }
+
+  return markers;
+}
+
+// ================= LOAD =================
+async function loadAsset() {
+
+  const s = dataList[idx];
+  if (!s) return;
+
+  document.getElementById('assetName').innerText = s.name;
+  document.getElementById('isinTicker').innerText = s.ticker;
+
+  const c = await getData(s.ticker);
+
+  candleSeries.setData(c);
+
+  const e10 = EMA(c, 10);
+  const e50 = EMA(c, 50);
+  const e200 = EMA(c, 200);
+  const rsi = RSI(c);
+
+  emaLines[10].setData(e10);
+  emaLines[50].setData(e50);
+  emaLines[200].setData(e200);
+
+  const markers = generateMarkers(c, e10, e50, rsi);
+  candleSeries.setMarkers(markers);
+
+  chart.timeScale().fitContent();
+
+  log("OK");
+}
+
+// ================= START =================
+window.onload = init;
