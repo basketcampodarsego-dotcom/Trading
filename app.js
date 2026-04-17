@@ -268,5 +268,30 @@ function drawSignals(candles, ema10, ema50) {
 
   candleSeries.setMarkers(markers);
 }
+function updateStrategy(price, e10, e50, e200, rsi) {
+  let text = "";
 
+  if (e50 > e200 && price > e200) {
+    text += "📈 Trend rialzista\n";
+
+    if (price < e10) {
+      text += "⏳ Attendi pullback su EMA10\n";
+    } else if (rsi < 50) {
+      text += "⏳ Attendi forza (RSI > 50)\n";
+    } else {
+      text += "🟢 Possibile ingresso BUY\n";
+      text += "🎯 Target: +3-5%\n";
+      text += "🛑 Stop: sotto EMA20\n";
+    }
+
+  } else if (e50 < e200) {
+    text += "📉 Trend ribassista\n";
+    text += "⚠️ Evitare long\n";
+  } else {
+    text += "⚪ Laterale\n";
+    text += "⛔ Nessuna operazione\n";
+  }
+
+  document.getElementById('strategyBox').innerText = text;
+}
 window.onload = init;
