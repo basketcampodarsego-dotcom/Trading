@@ -273,6 +273,8 @@ function drawSignals(candles, ema10, ema50, ema200, rsi) {
   }
 
   candleSeries.setMarkers(markers);
+  drawSignals(c, e10, e50, e200, rsi);
+  
 }
 function updateStrategy(price, e10, e50, e200, rsi) {
   let text = "";
