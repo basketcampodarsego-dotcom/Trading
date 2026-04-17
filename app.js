@@ -266,17 +266,35 @@ function buyAsset() {
     return;
   }
 
+  const qty = prompt("Quantità da comprare:", "1");
+  if (qty === null) return;
+
+  const quantity = parseFloat(qty);
+  if (isNaN(quantity) || quantity <= 0) {
+    log("Quantità non valida", true);
+    return;
+  }
+
+  const entryPriceInput = prompt(
+    "Prezzo di ingresso (ENTER = prezzo mercato):",
+    price.toFixed(2)
+  );
+
+  let entryPrice = parseFloat(entryPriceInput);
+  if (isNaN(entryPrice) || entryPrice <= 0) {
+    entryPrice = price;
+  }
+
   portfolio.push({
     ticker: s.ticker,
     name: s.name,
-    entryPrice: price,
-    qty: 1000 / price
+    entryPrice,
+    qty: quantity
   });
 
   renderPortfolio();
-  log("BUY OK");
+  log("BUY registrato");
 }
-
 // ================= PORTFOLIO =================
 function renderPortfolio() {
 
