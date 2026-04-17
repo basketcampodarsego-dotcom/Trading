@@ -1,227 +1,255 @@
-let dataList = [], idx = 0;
+let dataList=[], idx=0;
+let chart,candleSeries,ema10,ema50,ema200;
+let cache={};
 
-let chart;
-let candleSeries;
-let ema10Series;
-let ema50Series;
-
-let cache = {};
-
-// ================= PORTFOLIO =================
-let portfolio = JSON.parse(localStorage.getItem("portfolio") || "[]");
-let cash = parseFloat(localStorage.getItem("cash") || "10000");
+let portfolio=JSON.parse(localStorage.getItem("portfolio")||"[]");
 
 // ================= NAV =================
-function goPage(p) {
-  window.location.href = p;
-}
-
-// ================= LOG =================
-function log(m) {
-  const el = document.getElementById("status");
-  if (el) el.innerText = m;
-}
+function goPage(p){window.location.href=p;}
 
 // ================= EMA =================
-function EMA(data, period) {
-  if (data.length < period) return [];
+function EMA(data,p){
+ if(data.length<p)return[];
+ let k=2/(p+1),out=[],prev=0;
+ for(let i=0;i<p;i++)prev+=data[i].close;
+ prev/=p;
+ for(let i=p;i<data.length;i++){
+  prev=data[i].close*k+prev*(1-k);
+  out.push({time:data[i].time,value:prev});
+ }
+ return out;
+}
 
-  const k = 2 / (period + 1);
-  let out = [];
-
-  let prev = 0;
-  for (let i = 0; i < period; i++) prev += data[i].close;
-  prev /= period;
-
-  for (let i = period; i < data.length; i++) {
-    prev = data[i].close * k + prev * (1 - k);
-    out.push({ time: data[i].time, value: prev });
+// ================= RSI =================
+function RSI(data,p=14){
+ if(data.length<p+1)return[];
+ let g=0,l=0;
+ for(let i=1;i<=p;i++){
+  let d=data[i].close-data[i-1].close;
+  d>=0?g+=d:l-=d;
+ }
+ let avgG=g/p,avgL=l/p,out=[];
+ for(let i=p+1;i<data.length;i++){
+  let d=data[i].close-data[i-1].close;
+  if(d>=0){
+   avgG=(avgG*(p-1)+d)/p;
+   avgL=(avgL*(p-1))/p;
+  }else{
+   avgL=(avgL*(p-1)-d)/p;
+   avgG=(avgG*(p-1))/p;
   }
-
-  return out;
+  let rs=avgL===0?100:avgG/avgL;
+  out.push({time:data[i].time,value:100-(100/(1+rs))});
+ }
+ return out;
 }
 
-// ================= CHART =================
-function initChart() {
-  chart = LightweightCharts.createChart(document.getElementById("chart"), {
-    layout: { background: { color: "#000" }, textColor: "#fff" },
-    timeScale: { timeVisible: true }
-  });
+// ================= INIT =================
+async function init(){
 
-  candleSeries = chart.addCandlestickSeries();
-  ema10Series = chart.addLineSeries({ color: "#00ff00" });
-  ema50Series = chart.addLineSeries({ color: "#ff0000" });
-}
+ chart=LightweightCharts.createChart(document.getElementById("chart"),{
+  layout:{background:{color:"#000"},textColor:"#fff"}
+ });
 
-// ================= CSV =================
-async function loadCSV() {
-  const r = await fetch("./tr_isin_ticker.csv");
-  const t = await r.text();
+ candleSeries=chart.addCandlestickSeries();
+ ema10=chart.addLineSeries({color:"#0f0"});
+ ema50=chart.addLineSeries({color:"#f00"});
+ ema200=chart.addLineSeries({color:"#0af"});
 
-  const rows = t.replace(/\r/g, "").split("\n").filter(Boolean);
-  const header = rows[0].toLowerCase().split(/[,;]/);
+ const res=await fetch('./tr_isin_ticker.csv');
+ const text=await res.text();
 
-  const iTicker = header.indexOf("ticker");
-  const iName = header.indexOf("name");
+ const rows=text.split('\n').filter(x=>x);
+ const h=rows[0].toLowerCase().split(/[,;]/);
 
-  dataList = rows.slice(1).map(r => {
-    const c = r.split(/[,;]/);
-    return {
-      ticker: c[iTicker],
-      name: c[iName]
-    };
-  });
+ let iT=h.indexOf('ticker'), iN=h.indexOf('name');
+
+ dataList=rows.slice(1).map(r=>{
+  let c=r.split(/[,;]/);
+  return {ticker:c[iT],name:c[iN]};
+ });
+
+ loadAsset();
 }
 
 // ================= DATA =================
-async function getData(ticker) {
-  if (cache[ticker]) return cache[ticker];
+async function getData(t){
 
-  const url =
-    "https://corsproxy.io/?" +
-    encodeURIComponent(
-      "https://query1.finance.yahoo.com/v8/finance/chart/" +
-        ticker +
-        "?range=1y&interval=1d"
-    );
+ if(cache[t]) return cache[t];
 
-  const r = await fetch(url);
-  const d = await r.json();
+ const url="https://corsproxy.io/?"+encodeURIComponent(
+  "https://query1.finance.yahoo.com/v8/finance/chart/"+t+"?range=1y&interval=1d"
+ );
 
-  const q = d.chart.result[0];
+ const r=await fetch(url);
+ const d=await r.json();
+ const q=d.chart.result[0];
 
-  const candles = q.timestamp.map((t, i) => ({
-    time: t,
-    open: q.indicators.quote[0].open[i],
-    high: q.indicators.quote[0].high[i],
-    low: q.indicators.quote[0].low[i],
-    close: q.indicators.quote[0].close[i]
-  })).filter(x => x.open != null);
+ const c=q.timestamp.map((t,i)=>({
+  time:t,
+  open:q.indicators.quote[0].open[i],
+  high:q.indicators.quote[0].high[i],
+  low:q.indicators.quote[0].low[i],
+  close:q.indicators.quote[0].close[i]
+ })).filter(x=>x.open!=null);
 
-  cache[ticker] = candles;
-  return candles;
+ cache[t]=c;
+ return c;
+}
+
+// ================= SIGNAL =================
+function calcSignal(e10,e50,e200,rsi){
+
+ let a=e10.at(-1)?.value;
+ let b=e50.at(-1)?.value;
+ let c=e200.at(-1)?.value;
+ let r=rsi.at(-1)?.value;
+
+ if(!a||!b||!c||!r) return "WAIT";
+
+ if(a>b && b>c && r>55) return "BUY";
+ if(a<b && r<45) return "SELL";
+ return "WAIT";
+}
+
+// ================= MARKERS =================
+function markers(c,e10,e50,rsi){
+
+ let m=[],state="";
+ for(let i=50;i<c.length;i++){
+
+  let t=c[i].time;
+  let a=e10.find(x=>x.time===t)?.value;
+  let b=e50.find(x=>x.time===t)?.value;
+  let r=rsi.find(x=>x.time===t)?.value;
+
+  if(!a||!b||!r) continue;
+
+  let bull=a>b && r>50;
+  let bear=a<b && r<50;
+
+  if(bull && state!=="B"){
+   m.push({time:t,position:'belowBar',color:'#0f0',shape:'arrowUp',text:'BUY'});
+   state="B";
+  }
+
+  if(bear && state!=="S"){
+   m.push({time:t,position:'aboveBar',color:'#f00',shape:'arrowDown',text:'SELL'});
+   state="S";
+  }
+ }
+
+ return m;
 }
 
 // ================= LOAD =================
-async function loadAsset() {
+async function loadAsset(){
 
-  const s = dataList[idx];
-  if (!s) return;
+ let s=dataList[idx];
+ if(!s) return;
 
-  document.getElementById("assetName").innerText = s.name;
-  document.getElementById("ticker").innerText = s.ticker;
+ document.getElementById("assetName").innerText=s.name;
+ document.getElementById("ticker").innerText=s.ticker;
 
-  const candles = await getData(s.ticker);
+ let c=await getData(s.ticker);
 
-  candleSeries.setData(candles);
+ candleSeries.setData(c);
 
-  const e10 = EMA(candles, 10);
-  const e50 = EMA(candles, 50);
+ let e10=EMA(c,10);
+ let e50=EMA(c,50);
+ let e200=EMA(c,200);
+ let r=RSI(c);
 
-  ema10Series.setData(e10);
-  ema50Series.setData(e50);
+ ema10.setData(e10);
+ ema50.setData(e50);
+ ema200.setData(e200);
 
-  chart.timeScale().fitContent();
+ candleSeries.setMarkers(markers(c,e10,e50,r));
 
-  log("OK");
+ let sig=calcSignal(e10,e50,e200,r);
+
+ document.getElementById("signalBox").innerText="Segnale: "+sig;
+
+ chart.timeScale().fitContent();
+}
+
+// ================= SEARCH =================
+function liveSearch(){
+
+ let v=document.getElementById("searchInput").value.toLowerCase();
+ let box=document.getElementById("searchResults");
+
+ if(!v){box.innerHTML="";return;}
+
+ let res=dataList.filter(x=>
+  x.ticker.toLowerCase().includes(v) ||
+  x.name.toLowerCase().includes(v)
+ ).slice(0,5);
+
+ box.innerHTML=res.map(r=>
+ `<div onclick="selectAsset('${r.ticker}')">${r.ticker} - ${r.name}</div>`
+ ).join("");
+}
+
+function selectAsset(t){
+ idx=dataList.findIndex(x=>x.ticker===t);
+ document.getElementById("searchResults").innerHTML="";
+ loadAsset();
 }
 
 // ================= NAV =================
-function nav(d) {
-  idx = (idx + d + dataList.length) % dataList.length;
-  loadAsset();
+function nav(d){
+ idx=(idx+d+dataList.length)%dataList.length;
+ loadAsset();
 }
 
-// ================= PRICE =================
-function lastPrice(ticker) {
-  const c = cache[ticker];
-  if (!c || !c.length) return 0;
-  return c[c.length - 1].close;
+// ================= PORTFOLIO =================
+function addManual(){
+
+ let t=document.getElementById("manualTicker").value;
+ let p=parseFloat(document.getElementById("manualPrice").value);
+ let pl=parseFloat(document.getElementById("manualPL").value);
+
+ portfolio.push({ticker:t,entry:p,pl});
+ localStorage.setItem("portfolio",JSON.stringify(portfolio));
+ renderPortfolio();
 }
 
-// ================= BUY =================
-function buy() {
+async function renderPortfolio(){
 
-  const s = dataList[idx];
-  const price = lastPrice(s.ticker);
-  if (!price) return;
+ let box=document.getElementById("portfolioBox");
+ if(!box) return;
 
-  const qty = cash / 10 / price;
-  const cost = qty * price;
+ let html="";
 
-  cash -= cost;
+ for(let p of portfolio){
 
-  portfolio.push({
-    ticker: s.ticker,
-    name: s.name,
-    entry: price,
-    qty
-  });
+  let c=await getData(p.ticker);
+  let e10=EMA(c,10);
+  let e50=EMA(c,50);
+  let e200=EMA(c,200);
+  let r=RSI(c);
 
-  save();
-  log("BUY " + s.ticker);
-}
+  let sig=calcSignal(e10,e50,e200,r);
+  let trend=e50.at(-1)?.value>e200.at(-1)?.value?"UP":"DOWN";
+  let rsiVal=r.at(-1)?.value?.toFixed(1);
 
-// ================= SELL (ALL POSITIONS SIMPLE) =================
-function sell() {
+  let perc=p.entry? (p.pl/p.entry*100):0;
 
-  const s = dataList[idx];
-  const price = lastPrice(s.ticker);
+  html+=`
+  <div>
+    <b>${p.ticker}</b><br>
+    P/L: €${p.pl} (${perc.toFixed(2)}%)<br>
+    Segnale: ${sig}<br>
+    Trend: ${trend}<br>
+    RSI: ${rsiVal}
+  </div>
+  <hr>
+  `;
+ }
 
-  portfolio = portfolio.filter(p => {
-    if (p.ticker === s.ticker) {
-      cash += p.qty * price;
-      return false;
-    }
-    return true;
-  });
-
-  save();
-  log("SELL " + s.ticker);
-}
-
-// ================= SAVE =================
-function save() {
-  localStorage.setItem("portfolio", JSON.stringify(portfolio));
-  localStorage.setItem("cash", cash);
-}
-
-// ================= PORTFOLIO PAGE =================
-function renderPortfolioPage() {
-
-  const box = document.getElementById("portfolioBox");
-  const cashBox = document.getElementById("cashBox");
-  const totalBox = document.getElementById("totalBox");
-
-  if (!box) return;
-
-  let total = cash;
-
-  cashBox.innerHTML = `<h3>Cash: €${cash.toFixed(2)}</h3>`;
-
-  box.innerHTML = portfolio.map(p => {
-
-    const price = lastPrice(p.ticker) || p.entry;
-    const pl = (price - p.entry) * p.qty;
-
-    total += pl;
-
-    return `
-      <div>
-        <b>${p.ticker}</b><br>
-        Qty: ${p.qty.toFixed(4)}<br>
-        P/L: €${pl.toFixed(2)}
-      </div>
-      <hr>
-    `;
-  }).join("");
-
-  totalBox.innerHTML = `<h3>Total Equity: €${total.toFixed(2)}</h3>`;
+ box.innerHTML=html;
 }
 
 // ================= START =================
-window.onload = async () => {
-  initChart();
-  await loadCSV();
-  await loadAsset();
-};
+window.onload=init;
