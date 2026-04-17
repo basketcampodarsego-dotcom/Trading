@@ -1,122 +1,164 @@
 
-let dataList=[], idx=0;
-let cache={};
+let dataList = [], idx = 0;
 
-let cash=10000;
-let positions=[];
-let trades=[];
-let equityHistory=[];
+let chart;
+let candleSeries;
+let ema10Series;
+let ema50Series;
 
-function save(){localStorage.setItem('proB',JSON.stringify({cash,positions,trades,equityHistory,idx}));}
-function load(){
- const s=localStorage.getItem('proB');
- if(!s) return;
- const d=JSON.parse(s);
- cash=d.cash||10000;
- positions=d.positions||[];
- trades=d.trades||[];
- equityHistory=d.equityHistory||[];
- idx=d.idx||0;
+let cache = {};
+
+// ================= LOG =================
+function log(m, e = false) {
+  const el = document.getElementById("status");
+  if (!el) return;
+  el.innerText = m;
+  el.style.color = e ? "red" : "lime";
 }
 
-function log(m){const e=document.getElementById('status');if(e)e.innerText=m;}
+// ================= EMA =================
+function EMA(data, period) {
+  if (data.length < period) return [];
 
-async function loadCSV(){
- const r=await fetch('tr_isin_ticker.csv');
- const t=await r.text();
- const rows=t.trim().split('\n');
- const h=rows[0].toLowerCase().split(/[,;]/);
- const ti=h.indexOf('ticker');
- const na=h.indexOf('name');
- dataList=rows.slice(1).map(r=>{
-  const c=r.split(/[,;]/);
-  return {ticker:c[ti],name:c[na]};
- });
+  const k = 2 / (period + 1);
+  let out = [];
+
+  let prev = 0;
+  for (let i = 0; i < period; i++) prev += data[i].close;
+  prev /= period;
+
+  for (let i = period; i < data.length; i++) {
+    prev = data[i].close * k + prev * (1 - k);
+    out.push({
+      time: data[i].time,
+      value: prev
+    });
+  }
+
+  return out;
 }
 
-async function getPrice(t){
- if(cache[t]) return cache[t];
- const url='https://corsproxy.io/?'+encodeURIComponent(
- 'https://query1.finance.yahoo.com/v8/finance/chart/'+t+'?range=1y&interval=1d'
- );
- const r=await fetch(url); const d=await r.json();
- const q=d.chart.result[0];
- const c=q.timestamp.map((x,i)=>({time:x,close:q.indicators.quote[0].close[i]}));
- cache[t]=c;
- return c;
+// ================= INIT CHART =================
+function initChart() {
+  const el = document.getElementById("chart");
+
+  chart = LightweightCharts.createChart(el, {
+    layout: {
+      background: { color: "#000" },
+      textColor: "#fff"
+    },
+    timeScale: {
+      timeVisible: true
+    }
+  });
+
+  candleSeries = chart.addCandlestickSeries();
+
+  ema10Series = chart.addLineSeries({
+    color: "#00ff00",
+    lineWidth: 1
+  });
+
+  ema50Series = chart.addLineSeries({
+    color: "#ff0000",
+    lineWidth: 1
+  });
 }
 
-function lastPrice(t){const c=cache[t];return c?c[c.length-1].close:0;}
+// ================= CSV =================
+async function loadCSV() {
+  const r = await fetch("./tr_isin_ticker.csv");
+  const t = await r.text();
 
-function equity(){
- let a=0;
- for(let p of positions){
-  a+=p.qty*lastPrice(p.ticker);
- }
- return cash+a;
+  const rows = t.replace(/\r/g, "").split("\n").filter(Boolean);
+  const header = rows[0].toLowerCase().split(/[,;]/);
+
+  const iTicker = header.indexOf("ticker");
+  const iName = header.indexOf("name");
+
+  dataList = rows.slice(1).map(r => {
+    const c = r.split(/[,;]/);
+    return {
+      ticker: c[iTicker],
+      name: c[iName]
+    };
+  });
+
+  log("CSV OK: " + dataList.length);
 }
 
-function updateEquity(){
- equityHistory.push({time:Date.now(),value:equity()});
- save();
+// ================= DATA =================
+async function getData(ticker) {
+  if (cache[ticker]) return cache[ticker];
+
+  const url =
+    "https://corsproxy.io/?" +
+    encodeURIComponent(
+      "https://query1.finance.yahoo.com/v8/finance/chart/" +
+        ticker +
+        "?range=1y&interval=1d"
+    );
+
+  const r = await fetch(url);
+  const d = await r.json();
+
+  const q = d.chart.result[0];
+
+  const candles = q.timestamp
+    .map((t, i) => ({
+      time: t,
+      open: q.indicators.quote[0].open[i],
+      high: q.indicators.quote[0].high[i],
+      low: q.indicators.quote[0].low[i],
+      close: q.indicators.quote[0].close[i]
+    }))
+    .filter(x => x.open != null);
+
+  cache[ticker] = candles;
+  return candles;
 }
 
-function buy(){
- const s=dataList[idx]; if(!s) return;
- const p=lastPrice(s.ticker);
- const q=parseFloat(prompt('Qty',1));
- if(!q) return;
- const cost=q*p;
- if(cost>cash) return log('NO CASH');
- cash-=cost;
- let pos=positions.find(x=>x.ticker===s.ticker);
- if(pos){pos.qty+=q; pos.avg=(pos.avg+p)/2;}
- else positions.push({ticker:s.ticker,name:s.name,qty:q,avg:p});
- updateEquity(); save(); render();
+// ================= LOAD ASSET =================
+async function loadAsset() {
+  const s = dataList[idx];
+  if (!s) return;
+
+  document.getElementById("assetName").innerText = s.name;
+  document.getElementById("ticker").innerText = s.ticker;
+
+  const candles = await getData(s.ticker);
+
+  candleSeries.setData(candles);
+
+  const e10 = EMA(candles, 10);
+  const e50 = EMA(candles, 50);
+
+  ema10Series.setData(e10);
+  ema50Series.setData(e50);
+
+  chart.timeScale().fitContent();
+
+  log("OK");
 }
 
-function sell(){
- const s=dataList[idx];
- let pos=positions.find(x=>x.ticker===s.ticker);
- if(!pos) return;
- const p=lastPrice(s.ticker);
- const q=parseFloat(prompt('Qty',pos.qty));
- if(!q) return;
- cash+=q*p;
- pos.qty-=q;
- trades.push({ticker:s.ticker,pl:(p-pos.avg)*q});
- if(pos.qty<=0) positions=positions.filter(x=>x!==pos);
- updateEquity(); save(); render();
+// ================= NAV =================
+function nav(d) {
+  idx = (idx + d + dataList.length) % dataList.length;
+  loadAsset();
 }
 
-function render(){
- const el=document.getElementById('portfolio');
- if(!el) return;
- let html='<h3>PORTFOLIO</h3>';
- for(let p of positions){
-  const v=p.qty*lastPrice(p.ticker);
-  html+=`${p.ticker} qty:${p.qty} value:${v.toFixed(2)}<br>`;
- }
- html+=`<hr>CASH:${cash.toFixed(2)}<br>TOTAL:${equity().toFixed(2)}`;
- el.innerHTML=html;
+// ================= MOCK BUY/SELL =================
+function buy() {
+  log("BUY simulato");
 }
 
-function nav(d){idx=(idx+d+dataList.length)%dataList.length; loadAsset();}
-
-async function loadAsset(){
- const s=dataList[idx]; if(!s) return;
- document.getElementById('assetName').innerText=s.name;
- document.getElementById('ticker').innerText=s.ticker;
- await getPrice(s.ticker);
- render();
+function sell() {
+  log("SELL simulato");
 }
 
-window.buy=buy;
-window.sell=sell;
-window.nav=nav;
-
-window.onload=async()=>{
- load();
- await loadCSV();
- await loadAsset();
-};
+// ================= START =================
+window.onload = async () => {
+  initChart();
+  await loadCSV();
+  await loadAsset();
+}; 
