@@ -212,26 +212,34 @@ function buyAsset() {
   const s = dataList[idx];
   if (!s) return;
 
-  const price = getLastPrice(s.ticker);
-  if (!price) return;
+  if (openPosition) {
+    log("Posizione già aperta", true);
+    return;
+  }
+
+  const marketPrice = getLastPrice(s.ticker);
 
   const qty = parseFloat(prompt("Quantità:", "1"));
   if (!qty || qty <= 0) return;
 
-  if (openPosition) {
-    log("Hai già una posizione aperta", true);
-    return;
-  }
+  const priceInput = prompt(
+    "Prezzo di ingresso:",
+    marketPrice.toFixed(2)
+  );
+
+  let entryPrice = parseFloat(priceInput);
+  if (!entryPrice || entryPrice <= 0) entryPrice = marketPrice;
 
   openPosition = {
     ticker: s.ticker,
-    entryPrice: price,
+    entryPrice,
     qty
   };
 
+  renderPortfolio();
+
   log("BUY aperto");
 }
-
 // 🔴 CLOSE POSITION (SELL)
 function sellAsset() {
 
@@ -252,7 +260,7 @@ function sellAsset() {
 
   openPosition = null;
 
-  renderTrades();
+  renderPortfolio();
 
   log("SELL chiuso: " + pl.toFixed(2));
 }
@@ -280,7 +288,51 @@ function renderTrades() {
   const t = document.getElementById("portfolioTotal");
   if (t) t.innerHTML = `<b>Total: €${total.toFixed(2)}</b>`;
 }
+function renderPortfolio() {
 
+  const el = document.getElementById("portfolio");
+  if (!el) return;
+
+  let html = "";
+  let total = 0;
+
+  // 🔵 posizione aperta
+  if (openPosition) {
+
+    const price = getLastPrice(openPosition.ticker);
+    const pl = (price - openPosition.entryPrice) * openPosition.qty;
+
+    total += pl;
+
+    html += `
+      <div style="background:#102010;padding:6px;">
+        <b>OPEN: ${openPosition.ticker}</b><br>
+        Entry: ${openPosition.entryPrice}<br>
+        P/L: €${pl.toFixed(2)}
+      </div>
+      <hr>
+    `;
+  }
+
+  // ⚪ storico trade
+  trades.forEach(t => {
+
+    total += t.pl;
+
+    html += `
+      <div>
+        ${t.ticker} (closed)<br>
+        P/L: €${t.pl.toFixed(2)}
+      </div>
+      <hr>
+    `;
+  });
+
+  el.innerHTML = html;
+
+  const t = document.getElementById("portfolioTotal");
+  if (t) t.innerHTML = `<b>Total: €${total.toFixed(2)}</b>`;
+}
 // ================= GLOBAL =================
 window.buyAsset = buyAsset;
 window.sellAsset = sellAsset;
