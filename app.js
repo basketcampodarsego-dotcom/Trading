@@ -4,11 +4,12 @@ let chart, candleSeries, emaLines = {}, cache = {};
 let trades = [];
 let position = null;
 let equity = 10000;
-let equityCurve = [];
 
 // ================= LOG =================
 function log(m, e = false) {
   const el = document.getElementById('status');
+  if (!el) return;
+
   el.innerText = m;
   el.style.color = e ? 'red' : 'lime';
 }
@@ -19,10 +20,10 @@ function EMA(data, p) {
 
   const k = 2 / (p + 1);
   let out = [];
-  let sum = 0;
+  let prev = 0;
 
-  for (let i = 0; i < p; i++) sum += data[i].close;
-  let prev = sum / p;
+  for (let i = 0; i < p; i++) prev += data[i].close;
+  prev /= p;
 
   for (let i = p; i < data.length; i++) {
     prev = data[i].close * k + prev * (1 - k);
@@ -97,7 +98,6 @@ async function init() {
     const text = await res.text();
 
     const rows = text.replace(/\r/g, '').split('\n').filter(r => r.trim());
-
     const header = rows[0].toLowerCase().split(/[,;]/);
 
     const iIsin = header.indexOf('isin');
@@ -114,7 +114,7 @@ async function init() {
       };
     }).filter(x => x.ticker);
 
-    log("Titoli caricati: " + dataList.length);
+    log("Titoli: " + dataList.length);
 
     loadAsset();
 
@@ -176,7 +176,6 @@ function backtest(candles, e10, e50, e200, rsi) {
   trades = [];
   position = null;
   equity = 10000;
-  equityCurve = [];
 
   for (let i = 200; i < candles.length; i++) {
 
@@ -194,9 +193,7 @@ function backtest(candles, e10, e50, e200, rsi) {
         a > b &&
         r > 55) {
 
-      position = {
-        entry: price
-      };
+      position = { entry: price };
     }
 
     if (position && (a < b || r < 45)) {
@@ -205,14 +202,8 @@ function backtest(candles, e10, e50, e200, rsi) {
       equity += pnl;
 
       trades.push({ pnl });
-
       position = null;
     }
-
-    equityCurve.push({
-      time: candles[i].time,
-      value: equity
-    });
   }
 
   updateStats();
@@ -226,7 +217,85 @@ function updateStats() {
   const totalPnL = trades.reduce((a, b) => a + b.pnl, 0);
 
   document.getElementById("metrics").innerText =
-    `Trades: ${trades.length}
+`Trades: ${trades.length}
 Winrate: ${winrate.toFixed(1)}%
 PnL: ${totalPnL.toFixed(2)}$
-Equity: ${equ
+Equity: ${equity.toFixed(2)}`;
+}
+
+// ================= STRATEGY =================
+function updateStrategy(price, e10, e50, e200, rsi) {
+  let text = "";
+
+  if (e50 > e200 && price > e200) {
+    text += "📈 Trend rialzista\n";
+
+    if (price < e10) text += "⏳ Pullback EMA10\n";
+    else if (rsi < 50) text += "⏳ RSI debole\n";
+    else text += "🟢 BUY possibile\n";
+
+  } else if (e50 < e200) {
+    text += "📉 Trend ribassista\n";
+  } else {
+    text += "⚪ Laterale\n";
+  }
+
+  document.getElementById('strategyBox').innerText = text;
+}
+
+// ================= LOAD =================
+async function loadAsset() {
+  const s = dataList[idx];
+
+  document.getElementById('assetName').innerText = s.name;
+  document.getElementById('isinTicker').innerText = s.ticker;
+
+  const c = await getData(s.ticker);
+  if (!c.length) return;
+
+  candleSeries.setData(c);
+
+  const e10 = EMA(c, 10);
+  const e50 = EMA(c, 50);
+  const e200 = EMA(c, 200);
+  const rsi = RSI(c);
+
+  emaLines[10].setData(e10);
+  emaLines[50].setData(e50);
+  emaLines[200].setData(e200);
+
+  const last = c.at(-1).close;
+
+  document.getElementById('signal').innerText =
+    signal(e10, e50, rsi);
+
+  updateStrategy(last,
+    e10.at(-1)?.value,
+    e50.at(-1)?.value,
+    e200.at(-1)?.value,
+    rsi.at(-1)?.value
+  );
+
+  backtest(c, e10, e50, e200, rsi);
+
+  chart.timeScale().fitContent();
+
+  log("OK");
+}
+
+// ================= NAV =================
+function nav(d) {
+  idx = (idx + d + dataList.length) % dataList.length;
+  loadAsset();
+}
+
+function cerca() {
+  const v = document.getElementById('searchInput').value.toUpperCase();
+  const f = dataList.findIndex(x => x.ticker === v);
+  if (f !== -1) {
+    idx = f;
+    loadAsset();
+  }
+}
+
+window.onload = init;
