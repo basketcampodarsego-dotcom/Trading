@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>PRO C+ Trading Engine</title>
+<title>PRO D Trading Engine</title>
 
 <link rel="stylesheet" href="style.css">
 <script src="https://unpkg.com/lightweight-charts@4.1.1/dist/lightweight-charts.standalone.production.js"></script>
@@ -12,12 +13,9 @@
 
 <body>
 
-<!-- 🔥 MENU RIPRISTINATO -->
 <div class="nav">
   <button onclick="goPage('index.html')">Dashboard</button>
   <button onclick="goPage('portfolio.html')">Portfolio</button>
-  <button onclick="goPage('backtest.html')">Backtest</button>
-  <button onclick="goPage('report.html')">Report</button>
 </div>
 
 <div class="card">
@@ -25,9 +23,16 @@
   <h2 id="assetName">Loading...</h2>
   <div id="ticker"></div>
 
+  <div class="controls">
+    <button onclick="nav(-1)">⬅ Prev</button>
+    <button onclick="nav(1)">Next ➡</button>
+    <button onclick="buy()">BUY</button>
+    <button onclick="sell()">SELL</button>
+  </div>
+
   <div id="status"></div>
 
-  <div id="lastSignal" style="margin-top:10px;font-size:14px;color:#0ff;"></div>
+  <div id="lastSignal" style="margin-top:10px;color:#0ff;"></div>
 
   <div id="chart"></div>
 
