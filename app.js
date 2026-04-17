@@ -256,7 +256,14 @@ async function loadAsset() {
 function buyAsset() {
 
   const s = dataList[idx];
+  if (!s) return;
+
   const price = getLastPrice(s.ticker);
+
+  if (!price) {
+    log("Prezzo non disponibile", true);
+    return;
+  }
 
   portfolio.push({
     ticker: s.ticker,
@@ -266,14 +273,37 @@ function buyAsset() {
     pl: 0
   });
 
-  updatePortfolio();
   renderPortfolio();
-}
 
-  updatePortfolio();
   log("BUY aggiunto al portafoglio");
 }
 
+function renderPortfolio() {
+
+  const el = document.getElementById("portfolio");
+  if (!el) return;
+
+  let total = 0;
+
+  el.innerHTML = portfolio.map(p => {
+
+    const price = getLastPrice(p.ticker);
+    const pl = (price - p.entryPrice) * p.qty;
+
+    total += pl;
+
+    return `
+      <div>
+        <b>${p.ticker}</b><br>
+        P/L: €${pl.toFixed(2)}
+      </div>
+      <hr>
+    `;
+  }).join("");
+
+  const t = document.getElementById("portfolioTotal");
+  if (t) t.innerHTML = `<b>Total: €${total.toFixed(2)}</b>`;
+}
 function getLastPrice(ticker) {
   const c = cache[ticker];
   if (!c || !c.length) return 0;
