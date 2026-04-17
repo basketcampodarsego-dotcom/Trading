@@ -1,22 +1,34 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
 <title>Portfolio</title>
+
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
 <div class="nav">
-<a href="index.html">Dashboard</a>
-<a href="portfolio.html">Portfolio</a>
-<a href="backtest.html">Backtest</a>
-<a href="report.html">Report</a>
+  <button onclick="goPage('index.html')">Dashboard</button>
+  <button onclick="goPage('portfolio.html')">Portfolio</button>
 </div>
 
 <div class="card">
-<div id="portfolio"></div>
+
+  <h2>PORTFOLIO</h2>
+
+  <div id="cashBox"></div>
+  <div id="portfolioBox"></div>
+
+  <div id="totalBox"></div>
+
 </div>
 
 <script src="app.js"></script>
+<script>renderPortfolioPage()</script>
+
 </body>
 </html>
