@@ -1,7 +1,6 @@
 let dataList = [], idx = 0;
 let chart, candleSeries, emaLines = {}, cache = {};
 let priceCache = {};
-
 let portfolio = [];
 
 // ================= LOG =================
@@ -70,10 +69,46 @@ function RSI(data, p = 14) {
   return out;
 }
 
+// ================= SEARCH FIX =================
+function liveSearchInput() {
+
+  const v = document.getElementById("searchInput")
+    .value.toLowerCase().trim();
+
+  if (!v) {
+    document.getElementById("searchResults").innerHTML = "";
+    return;
+  }
+
+  const results = dataList
+    .map((x, i) => ({ ...x, i }))
+    .filter(x =>
+      x.ticker?.toLowerCase().includes(v) ||
+      x.name?.toLowerCase().includes(v)
+    )
+    .slice(0, 6);
+
+  const box = document.getElementById("searchResults");
+  box.innerHTML = "";
+
+  results.forEach(r => {
+    box.innerHTML += `
+      <div onclick="selectSearch(${r.i})"
+           style="cursor:pointer;padding:6px;background:#111;margin:2px;">
+        <b>${r.ticker}</b> - ${r.name}
+      </div>
+    `;
+  });
+}
+
+function selectSearch(i) {
+  idx = i;
+  document.getElementById("searchResults").innerHTML = "";
+  loadAsset();
+}
+
 // ================= INIT =================
 async function init() {
-
-  log("Loading...");
 
   chart = LightweightCharts.createChart(
     document.getElementById('chart'),
@@ -132,79 +167,46 @@ async function getData(ticker) {
   })).filter(x => x.open != null);
 
   cache[ticker] = candles;
-
   return candles;
 }
 
-// ================= CURRENT PRICE =================
-async function getCurrentPrice(ticker) {
+// ================= MARKERS FIX (IMPORTANTISSIMO) =================
+function generateMarkers(candles, ema10, ema50, rsi) {
 
-  if (priceCache[ticker]) return priceCache[ticker];
+  let markers = [];
 
-  const data = await getData(ticker);
-  const price = data.at(-1)?.close || null;
+  for (let i = 50; i < candles.length; i++) {
 
-  priceCache[ticker] = price;
+    const price = candles[i].close;
 
-  return price;
-}
+    const e10 = ema10.find(x => x.time === candles[i].time)?.value;
+    const e50 = ema50.find(x => x.time === candles[i].time)?.value;
+    const r = rsi.find(x => x.time === candles[i].time)?.value;
 
-// ================= SEARCH =================
-function liveSearchInput() {
+    if (!e10 || !e50 || !r) continue;
 
-  const v = document.getElementById("searchInput")
-    .value
-    .toLowerCase()
-    .trim();
+    if (e10 > e50 && r < 70) {
+      markers.push({
+        time: candles[i].time,
+        position: 'belowBar',
+        color: '#00c853',
+        shape: 'arrowUp',
+        text: 'BUY'
+      });
+    }
 
-  if (!v) {
-    document.getElementById("searchResults").innerHTML = "";
-    return;
+    if (e10 < e50 && r > 30) {
+      markers.push({
+        time: candles[i].time,
+        position: 'aboveBar',
+        color: '#ff5252',
+        shape: 'arrowDown',
+        text: 'SELL'
+      });
+    }
   }
 
-  const results = dataList
-    .map((x, i) => ({ ...x, i }))
-    .filter(x =>
-      (x.ticker && x.ticker.toLowerCase().includes(v)) ||
-      (x.name && x.name.toLowerCase().includes(v))
-    )
-    .slice(0, 6);
-
-  const box = document.getElementById("searchResults");
-
-  box.innerHTML = "";
-
-  results.forEach(r => {
-    box.innerHTML += `
-      <div onclick="selectSearch(${r.i})"
-           style="cursor:pointer;padding:6px;background:#111;margin:2px;">
-        <b>${r.ticker}</b> - ${r.name}
-      </div>
-    `;
-  });
-}
-function selectSearch(index) {
-  idx = index;
-  document.getElementById("searchResults").innerHTML = "";
-  loadAsset();
-}
-
-// fallback GO button
-function cerca() {
-
-  const v = document.getElementById('searchInput').value.toLowerCase();
-
-  const f = dataList.findIndex(x =>
-    x.ticker?.toLowerCase().includes(v) ||
-    x.name?.toLowerCase().includes(v)
-  );
-
-  if (f !== -1) {
-    idx = f;
-    loadAsset();
-  } else {
-    log("Non trovato", true);
-  }
+  return markers;
 }
 
 // ================= LOAD =================
@@ -222,92 +224,20 @@ async function loadAsset() {
   const e10 = EMA(c, 10);
   const e50 = EMA(c, 50);
   const e200 = EMA(c, 200);
+  const rsi = RSI(c);
 
   emaLines[10].setData(e10);
   emaLines[50].setData(e50);
   emaLines[200].setData(e200);
 
+  // 🔥 QUESTO È IL FIX CHE TI MANCAVA
+  const markers = generateMarkers(c, e10, e50, rsi);
+  candleSeries.setMarkers(markers);
+
   chart.timeScale().fitContent();
 
   log("OK");
 }
-
-// ================= PORTFOLIO =================
-function buyAsset() {
-
-  const s = dataList[idx];
-
-  portfolio.push({
-    ticker: s.ticker,
-    name: s.name,
-    capital: 1000,
-    qty: null,
-    entryPrice: null,
-    currentPrice: null,
-    pl: 0
-  });
-
-  renderPortfolio();
-}
-
-async function updatePortfolio() {
-
-  for (let p of portfolio) {
-
-    const price = await getCurrentPrice(p.ticker);
-
-    if (!price) continue;
-
-    p.currentPrice = price;
-
-    if (!p.entryPrice) {
-      p.entryPrice = price;
-      p.qty = p.capital / price;
-    }
-
-    p.pl = (p.currentPrice - p.entryPrice) * p.qty;
-  }
-
-  renderPortfolio();
-}
-
-function renderPortfolio() {
-
-  const box = document.getElementById("portfolio");
-
-  let total = 0;
-
-  box.innerHTML = "";
-
-  portfolio.forEach(p => {
-
-    const pct = (p.pl / p.capital) * 100;
-    total += p.pl;
-
-    box.innerHTML += `
-      <div>
-        <b>${p.ticker}</b><br>
-        P/L: €${p.pl.toFixed(2)} (${pct.toFixed(2)}%)
-      </div>
-      <hr>
-    `;
-  });
-
-  document.getElementById("portfolioTotal").innerHTML =
-    `<b>Total P/L: €${total.toFixed(2)}</b>`;
-}
-
-// ================= NAV =================
-function nav(d) {
-  idx = (idx + d + dataList.length) % dataList.length;
-  loadAsset();
-}
-
-// ================= AUTO REFRESH =================
-setInterval(() => {
-  priceCache = {};
-  updatePortfolio();
-}, 30000);
 
 // ================= START =================
 window.onload = init;
