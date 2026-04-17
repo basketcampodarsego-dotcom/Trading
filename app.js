@@ -1,6 +1,5 @@
 let dataList = [], idx = 0;
 let chart, candleSeries, emaLines = {}, cache = {};
-let priceCache = {};
 let portfolio = [];
 
 // ================= LOG =================
@@ -69,7 +68,7 @@ function RSI(data, p = 14) {
   return out;
 }
 
-// ================= SEARCH (SAFE + SIMPLE) =================
+// ================= SEARCH =================
 function liveSearchInput() {
 
   const v = document.getElementById("searchInput").value.toLowerCase().trim();
@@ -80,7 +79,7 @@ function liveSearchInput() {
     return;
   }
 
-  let results = [];
+  const results = [];
 
   for (let i = 0; i < dataList.length; i++) {
 
@@ -110,7 +109,7 @@ function selectSearch(i) {
   loadAsset();
 }
 
-// ================= NAV (FIXED) =================
+// ================= NAV =================
 function nav(d) {
   idx = (idx + d + dataList.length) % dataList.length;
   loadAsset();
@@ -179,7 +178,7 @@ async function getData(ticker) {
   return candles;
 }
 
-// ================= MARKERS (STATE CHANGE ONLY) =================
+// ================= MARKERS =================
 function generateMarkers(candles, ema10, ema50, rsi) {
 
   let markers = [];
@@ -253,6 +252,8 @@ async function loadAsset() {
 
   log("OK");
 }
+
+// ================= BUY =================
 function buyAsset() {
 
   const s = dataList[idx];
@@ -269,15 +270,14 @@ function buyAsset() {
     ticker: s.ticker,
     name: s.name,
     entryPrice: price,
-    qty: 1000 / price,
-    pl: 0
+    qty: 1000 / price
   });
 
   renderPortfolio();
-
-  log("BUY aggiunto al portafoglio");
+  log("BUY OK");
 }
 
+// ================= PORTFOLIO =================
 function renderPortfolio() {
 
   const el = document.getElementById("portfolio");
@@ -288,7 +288,7 @@ function renderPortfolio() {
   el.innerHTML = portfolio.map(p => {
 
     const price = getLastPrice(p.ticker);
-    const pl = (price - p.entryPrice) * p.qty;
+    const pl = price ? (price - p.entryPrice) * p.qty : 0;
 
     total += pl;
 
@@ -304,10 +304,19 @@ function renderPortfolio() {
   const t = document.getElementById("portfolioTotal");
   if (t) t.innerHTML = `<b>Total: €${total.toFixed(2)}</b>`;
 }
+
+// ================= PRICE =================
 function getLastPrice(ticker) {
   const c = cache[ticker];
   if (!c || !c.length) return 0;
   return c[c.length - 1].close;
 }
+
+// ================= GLOBAL EXPORT (IMPORTANTISSIMO PER GITHUB) =================
+window.buyAsset = buyAsset;
+window.liveSearchInput = liveSearchInput;
+window.selectSearch = selectSearch;
+window.nav = nav;
+
 // ================= START =================
 window.onload = init;
