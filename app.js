@@ -253,6 +253,29 @@ async function loadAsset() {
 
   log("OK");
 }
+function buyAsset() {
 
+  const s = dataList[idx];
+  if (!s) return;
+
+  const price = getLastPrice(s.ticker);
+
+  portfolio.push({
+    ticker: s.ticker,
+    name: s.name,
+    entryPrice: price,
+    qty: 1,
+    pl: 0
+  });
+
+  updatePortfolio();
+  log("BUY aggiunto al portafoglio");
+}
+
+function getLastPrice(ticker) {
+  const c = cache[ticker];
+  if (!c || !c.length) return 0;
+  return c[c.length - 1].close;
+}
 // ================= START =================
 window.onload = init;
