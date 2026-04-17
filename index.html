@@ -19,10 +19,16 @@
   <div class="version">PRO MAX</div>
 
   <div class="topbar">
-    <input id="searchInput" placeholder="Ticker..." />
-    <button onclick="cerca()">GO</button>
 
+    <input id="searchInput"
+           placeholder="Cerca titolo o ticker..."
+           oninput="liveSearchInput()" />
+
+    <div id="searchResults"></div>
+
+    <button onclick="cerca()">GO</button>
     <button onclick="buyAsset()">BUY</button>
+
   </div>
 
   <div id="status"></div>
