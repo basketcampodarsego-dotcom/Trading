@@ -3,43 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trading PAC v6</title>
+<title>Trading PAC v6 PRO</title>
+
 <link rel="stylesheet" href="style.css">
+
 <script src="https://unpkg.com/lightweight-charts@4.1.1/dist/lightweight-charts.standalone.production.js"></script>
+<script defer src="app.js"></script>
 </head>
+
 <body>
 
 <div class="card">
-<div class="version">v6 - PRO</div>
+  <div class="version">v6 - PRO</div>
 
-<div class="topbar">
-<input id="searchInput" placeholder="Ticker..." />
-<button onclick="cerca()">GO</button>
+  <div class="topbar">
+    <input id="searchInput" placeholder="Ticker..." />
+    <button onclick="cerca()">GO</button>
 
-<select id="timeframe" onchange="loadAsset()">
-<option value="1d">1D</option>
-<option value="1h">1H</option>
-</select>
+    <select id="timeframe" onchange="loadAsset()">
+      <option value="1d">1D</option>
+      <option value="1h">1H</option>
+    </select>
+  </div>
+
+  <div id="status"></div>
+
+  <div id="assetName">Loading...</div>
+  <div id="isinTicker"></div>
+
+  <div id="signal"></div>
+  <div id="metrics"></div>
+
+  <div id="strategyBox" style="margin-top:10px;font-size:12px;"></div>
+
+  <div id="chart" style="height:400px;"></div>
+
+  <div class="nav">
+    <button onclick="nav(-1)">⬅</button>
+    <button onclick="nav(1)">➡</button>
+  </div>
 </div>
 
-<div id="assetName">Loading...</div>
-<div id="isinTicker"></div>
-
-<div id="signal"></div>
-<div id="metrics"></div>
-
-<div id="strategyBox" style="margin-top:10px;font-size:12px;"></div>
-
-<div id="chart"></div>
-
-<div class="nav">
-<button onclick="nav(-1)">⬅</button>
-<button onclick="nav(1)">➡</button>
-</div>
-
-<div id="status">Ready</div>
-</div>
-
-<script src="app.js"></script>
 </body>
 </html>
