@@ -174,41 +174,52 @@ async function getData(ticker) {
 function generateMarkers(candles, ema10, ema50, rsi) {
 
   let markers = [];
+  let state = "NONE";
 
   for (let i = 50; i < candles.length; i++) {
 
-    const price = candles[i].close;
+    const time = candles[i].time;
 
-    const e10 = ema10.find(x => x.time === candles[i].time)?.value;
-    const e50 = ema50.find(x => x.time === candles[i].time)?.value;
-    const r = rsi.find(x => x.time === candles[i].time)?.value;
+    const e10 = ema10.find(x => x.time === time)?.value;
+    const e50 = ema50.find(x => x.time === time)?.value;
+    const r = rsi.find(x => x.time === time)?.value;
 
     if (!e10 || !e50 || !r) continue;
 
-    if (e10 > e50 && r < 70) {
+    // ================= TREND CONDITIONS =================
+    const isBull = e10 > e50 && r > 55;
+    const isBear = e10 < e50 && r < 45;
+
+    // ================= CAMBIO STATO =================
+    if (isBull && state !== "BULL") {
+
       markers.push({
-        time: candles[i].time,
+        time,
         position: 'belowBar',
         color: '#00c853',
         shape: 'arrowUp',
         text: 'BUY'
       });
+
+      state = "BULL";
     }
 
-    if (e10 < e50 && r > 30) {
+    if (isBear && state !== "BEAR") {
+
       markers.push({
-        time: candles[i].time,
+        time,
         position: 'aboveBar',
         color: '#ff5252',
         shape: 'arrowDown',
         text: 'SELL'
       });
+
+      state = "BEAR";
     }
   }
 
   return markers;
 }
-
 // ================= LOAD =================
 async function loadAsset() {
 
