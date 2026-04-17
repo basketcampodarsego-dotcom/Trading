@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trading PAC v6 PRO</title>
+
+<title>Trading PAC PRO MAX</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -14,34 +15,40 @@
 <body>
 
 <div class="card">
-  <div class="version">v6 - PRO</div>
+
+  <div class="version">PRO MAX</div>
 
   <div class="topbar">
     <input id="searchInput" placeholder="Ticker..." />
     <button onclick="cerca()">GO</button>
 
-    <select id="timeframe" onchange="loadAsset()">
-      <option value="1d">1D</option>
-      <option value="1h">1H</option>
-    </select>
+    <button onclick="buyAsset()">BUY</button>
   </div>
 
   <div id="status"></div>
 
-  <div id="assetName">Loading...</div>
+  <div id="assetName"></div>
   <div id="isinTicker"></div>
 
   <div id="signal"></div>
   <div id="metrics"></div>
 
-  <div id="strategyBox" style="margin-top:10px;font-size:12px;"></div>
+  <div id="strategyBox"></div>
 
   <div id="chart" style="height:400px;"></div>
+
+  <hr>
+
+  <h3>💼 PORTAFOGLIO</h3>
+
+  <div id="portfolio"></div>
+  <div id="portfolioTotal"></div>
 
   <div class="nav">
     <button onclick="nav(-1)">⬅</button>
     <button onclick="nav(1)">➡</button>
   </div>
+
 </div>
 
 </body>
