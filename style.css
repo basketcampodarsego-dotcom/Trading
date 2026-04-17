@@ -8,12 +8,20 @@ body {
 .nav {
   padding: 10px;
   background: #111;
+  display: flex;
+  gap: 10px;
 }
 
 button {
-  margin-right: 5px;
   padding: 6px 10px;
   cursor: pointer;
+  background: #222;
+  color: #fff;
+  border: 1px solid #333;
+}
+
+button:hover {
+  background: #333;
 }
 
 .card {
