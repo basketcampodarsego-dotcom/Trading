@@ -7,6 +7,15 @@ let ema50Series;
 
 let cache = {};
 
+// ================= PORTFOLIO =================
+let portfolio = JSON.parse(localStorage.getItem("portfolio") || "[]");
+let cash = parseFloat(localStorage.getItem("cash") || "10000");
+
+// ================= NAV =================
+function goPage(p) {
+  window.location.href = p;
+}
+
 // ================= LOG =================
 function log(m) {
   const el = document.getElementById("status");
@@ -26,16 +35,13 @@ function EMA(data, period) {
 
   for (let i = period; i < data.length; i++) {
     prev = data[i].close * k + prev * (1 - k);
-    out.push({
-      time: data[i].time,
-      value: prev
-    });
+    out.push({ time: data[i].time, value: prev });
   }
 
   return out;
 }
 
-// ================= INIT CHART =================
+// ================= CHART =================
 function initChart() {
   chart = LightweightCharts.createChart(document.getElementById("chart"), {
     layout: { background: { color: "#000" }, textColor: "#fff" },
@@ -43,7 +49,6 @@ function initChart() {
   });
 
   candleSeries = chart.addCandlestickSeries();
-
   ema10Series = chart.addLineSeries({ color: "#00ff00" });
   ema50Series = chart.addLineSeries({ color: "#ff0000" });
 }
@@ -66,8 +71,6 @@ async function loadCSV() {
       name: c[iName]
     };
   });
-
-  log("OK assets: " + dataList.length);
 }
 
 // ================= DATA =================
@@ -99,66 +102,6 @@ async function getData(ticker) {
   return candles;
 }
 
-// ================= SIGNAL ENGINE + LAST SIGNAL =================
-function generateSignals(candles, e10, e50) {
-
-  let markers = [];
-  let state = "NONE";
-
-  let lastSignal = null;
-
-  for (let i = 50; i < candles.length; i++) {
-
-    const time = candles[i].time;
-
-    const ema10 = e10.find(x => x.time === time)?.value;
-    const ema50 = e50.find(x => x.time === time)?.value;
-
-    if (!ema10 || !ema50) continue;
-
-    const bull = ema10 > ema50;
-    const bear = ema10 < ema50;
-
-    if (bull && state !== "LONG") {
-
-      markers.push({
-        time,
-        position: "belowBar",
-        color: "#00c853",
-        shape: "arrowUp",
-        text: "BUY"
-      });
-
-      lastSignal = {
-        type: "BUY",
-        time
-      };
-
-      state = "LONG";
-    }
-
-    if (bear && state !== "SHORT") {
-
-      markers.push({
-        time,
-        position: "aboveBar",
-        color: "#ff5252",
-        shape: "arrowDown",
-        text: "SELL"
-      });
-
-      lastSignal = {
-        type: "SELL",
-        time
-      };
-
-      state = "SHORT";
-    }
-  }
-
-  return { markers, lastSignal };
-}
-
 // ================= LOAD =================
 async function loadAsset() {
 
@@ -178,26 +121,9 @@ async function loadAsset() {
   ema10Series.setData(e10);
   ema50Series.setData(e50);
 
-  const result = generateSignals(candles, e10, e50);
-
-  candleSeries.setMarkers(result.markers);
-
-  // ================= NUOVO: ULTIMO SEGNALE =================
-  const last = result.lastSignal;
-
-  if (last) {
-    const date = new Date(last.time * 1000).toLocaleDateString("it-IT");
-
-    document.getElementById("lastSignal").innerText =
-      `Ultimo segnale: ${last.type} | Data: ${date}`;
-  } else {
-    document.getElementById("lastSignal").innerText =
-      "Nessun segnale disponibile";
-  }
-
   chart.timeScale().fitContent();
 
-  log("OK PRO C+");
+  log("OK");
 }
 
 // ================= NAV =================
@@ -205,10 +131,94 @@ function nav(d) {
   idx = (idx + d + dataList.length) % dataList.length;
   loadAsset();
 }
-// ================= gopage =================
-function goPage(page) {
-  window.location.href = page;
+
+// ================= PRICE =================
+function lastPrice(ticker) {
+  const c = cache[ticker];
+  if (!c || !c.length) return 0;
+  return c[c.length - 1].close;
 }
+
+// ================= BUY =================
+function buy() {
+
+  const s = dataList[idx];
+  const price = lastPrice(s.ticker);
+  if (!price) return;
+
+  const qty = cash / 10 / price;
+  const cost = qty * price;
+
+  cash -= cost;
+
+  portfolio.push({
+    ticker: s.ticker,
+    name: s.name,
+    entry: price,
+    qty
+  });
+
+  save();
+  log("BUY " + s.ticker);
+}
+
+// ================= SELL (ALL POSITIONS SIMPLE) =================
+function sell() {
+
+  const s = dataList[idx];
+  const price = lastPrice(s.ticker);
+
+  portfolio = portfolio.filter(p => {
+    if (p.ticker === s.ticker) {
+      cash += p.qty * price;
+      return false;
+    }
+    return true;
+  });
+
+  save();
+  log("SELL " + s.ticker);
+}
+
+// ================= SAVE =================
+function save() {
+  localStorage.setItem("portfolio", JSON.stringify(portfolio));
+  localStorage.setItem("cash", cash);
+}
+
+// ================= PORTFOLIO PAGE =================
+function renderPortfolioPage() {
+
+  const box = document.getElementById("portfolioBox");
+  const cashBox = document.getElementById("cashBox");
+  const totalBox = document.getElementById("totalBox");
+
+  if (!box) return;
+
+  let total = cash;
+
+  cashBox.innerHTML = `<h3>Cash: €${cash.toFixed(2)}</h3>`;
+
+  box.innerHTML = portfolio.map(p => {
+
+    const price = lastPrice(p.ticker) || p.entry;
+    const pl = (price - p.entry) * p.qty;
+
+    total += pl;
+
+    return `
+      <div>
+        <b>${p.ticker}</b><br>
+        Qty: ${p.qty.toFixed(4)}<br>
+        P/L: €${pl.toFixed(2)}
+      </div>
+      <hr>
+    `;
+  }).join("");
+
+  totalBox.innerHTML = `<h3>Total Equity: €${total.toFixed(2)}</h3>`;
+}
+
 // ================= START =================
 window.onload = async () => {
   initChart();
