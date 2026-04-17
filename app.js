@@ -256,17 +256,19 @@ async function loadAsset() {
 function buyAsset() {
 
   const s = dataList[idx];
-  if (!s) return;
-
   const price = getLastPrice(s.ticker);
 
   portfolio.push({
     ticker: s.ticker,
     name: s.name,
     entryPrice: price,
-    qty: 1,
+    qty: 1000 / price,
     pl: 0
   });
+
+  updatePortfolio();
+  renderPortfolio();
+}
 
   updatePortfolio();
   log("BUY aggiunto al portafoglio");
