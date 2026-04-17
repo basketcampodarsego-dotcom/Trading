@@ -69,41 +69,50 @@ function RSI(data, p = 14) {
   return out;
 }
 
-// ================= SEARCH FIX =================
+// ================= SEARCH (SAFE + SIMPLE) =================
 function liveSearchInput() {
 
-  const v = document.getElementById("searchInput")
-    .value.toLowerCase().trim();
+  const v = document.getElementById("searchInput").value.toLowerCase().trim();
+  const box = document.getElementById("searchResults");
 
   if (!v) {
-    document.getElementById("searchResults").innerHTML = "";
+    box.innerHTML = "";
     return;
   }
 
-  const results = dataList
-    .map((x, i) => ({ ...x, i }))
-    .filter(x =>
+  let results = [];
+
+  for (let i = 0; i < dataList.length; i++) {
+
+    const x = dataList[i];
+
+    if (
       x.ticker?.toLowerCase().includes(v) ||
       x.name?.toLowerCase().includes(v)
-    )
-    .slice(0, 6);
+    ) {
+      results.push({ ...x, i });
+    }
 
-  const box = document.getElementById("searchResults");
-  box.innerHTML = "";
+    if (results.length >= 6) break;
+  }
 
-  results.forEach(r => {
-    box.innerHTML += `
-      <div onclick="selectSearch(${r.i})"
-           style="cursor:pointer;padding:6px;background:#111;margin:2px;">
-        <b>${r.ticker}</b> - ${r.name}
-      </div>
-    `;
-  });
+  box.innerHTML = results.map(r => `
+    <div onclick="selectSearch(${r.i})"
+         style="cursor:pointer;padding:6px;background:#111;margin:2px;">
+      <b>${r.ticker}</b> - ${r.name}
+    </div>
+  `).join("");
 }
 
 function selectSearch(i) {
   idx = i;
   document.getElementById("searchResults").innerHTML = "";
+  loadAsset();
+}
+
+// ================= NAV (FIXED) =================
+function nav(d) {
+  idx = (idx + d + dataList.length) % dataList.length;
   loadAsset();
 }
 
@@ -170,7 +179,7 @@ async function getData(ticker) {
   return candles;
 }
 
-// ================= MARKERS FIX (IMPORTANTISSIMO) =================
+// ================= MARKERS (STATE CHANGE ONLY) =================
 function generateMarkers(candles, ema10, ema50, rsi) {
 
   let markers = [];
@@ -186,69 +195,10 @@ function generateMarkers(candles, ema10, ema50, rsi) {
 
     if (!e10 || !e50 || !r) continue;
 
-    // ================= TREND CONDITIONS =================
-    const isBull = e10 > e50 && r > 55;
-    const isBear = e10 < e50 && r < 45;
+    const bull = e10 > e50 && r > 50;
+    const bear = e10 < e50 && r < 50;
 
-    // ================= CAMBIO STATO =================
-    if (isBull && state !== "BULL") {
-
+    if (bull && state !== "BULL") {
       markers.push({
         time,
-        position: 'belowBar',
-        color: '#00c853',
-        shape: 'arrowUp',
-        text: 'BUY'
-      });
-
-      state = "BULL";
-    }
-
-    if (isBear && state !== "BEAR") {
-
-      markers.push({
-        time,
-        position: 'aboveBar',
-        color: '#ff5252',
-        shape: 'arrowDown',
-        text: 'SELL'
-      });
-
-      state = "BEAR";
-    }
-  }
-
-  return markers;
-}
-// ================= LOAD =================
-async function loadAsset() {
-
-  const s = dataList[idx];
-
-  document.getElementById('assetName').innerText = s.name;
-  document.getElementById('isinTicker').innerText = s.ticker;
-
-  const c = await getData(s.ticker);
-
-  candleSeries.setData(c);
-
-  const e10 = EMA(c, 10);
-  const e50 = EMA(c, 50);
-  const e200 = EMA(c, 200);
-  const rsi = RSI(c);
-
-  emaLines[10].setData(e10);
-  emaLines[50].setData(e50);
-  emaLines[200].setData(e200);
-
-  // 🔥 QUESTO È IL FIX CHE TI MANCAVA
-  const markers = generateMarkers(c, e10, e50, rsi);
-  candleSeries.setMarkers(markers);
-
-  chart.timeScale().fitContent();
-
-  log("OK");
-}
-
-// ================= START =================
-window.onload = init;
+        position
