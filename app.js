@@ -234,4 +234,39 @@ function cerca() {
   }
 }
 
+function drawSignals(candles, ema10, ema50) {
+  let markers = [];
+
+  for (let i = 1; i < ema10.length; i++) {
+    let prev10 = ema10[i - 1].value;
+    let prev50 = ema50[i - 1].value;
+    let curr10 = ema10[i].value;
+    let curr50 = ema50[i].value;
+
+    // CROSS UP = BUY
+    if (prev10 < prev50 && curr10 > curr50) {
+      markers.push({
+        time: ema10[i].time,
+        position: 'belowBar',
+        color: '#00ff00',
+        shape: 'arrowUp',
+        text: 'BUY'
+      });
+    }
+
+    // CROSS DOWN = SELL
+    if (prev10 > prev50 && curr10 < curr50) {
+      markers.push({
+        time: ema10[i].time,
+        position: 'aboveBar',
+        color: '#ff0000',
+        shape: 'arrowDown',
+        text: 'SELL'
+      });
+    }
+  }
+
+  candleSeries.setMarkers(markers);
+}
+
 window.onload = init;
