@@ -69,11 +69,16 @@ async function init(){
 
  const rows=text.split('
 ').filter(r=>r.trim());
- dataList=rows.slice(1).map(r=>{
-  let c=r.split(',');
-  return {isin:c[0],ticker:c[1],name:c[2]};
- });
 
+ dataList = rows.slice(1).map(r=>{
+   let c = r.split(/[,;]/);
+   return {
+      isin: c[0],
+      name: c[1],
+      ticker: c[2]
+   };
+});
+  
  loadAsset();
 }
 
