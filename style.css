@@ -1,7 +1,31 @@
+body {
+  margin: 0;
+  background: #000;
+  color: #fff;
+  font-family: Arial;
+}
 
-body { background:#000; color:#fff; font-family:Arial; margin:0; padding:0; }
-.nav { padding:10px; background:#111; }
-.nav a { color:#0af; margin-right:10px; text-decoration:none; }
-.card { padding:10px; }
-button { margin:5px; padding:6px; }
-#chart, #equityChart { height:300px; }
+.nav {
+  padding: 10px;
+  background: #111;
+}
+
+button {
+  margin-right: 5px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.card {
+  padding: 10px;
+}
+
+#chart {
+  height: 500px;
+  margin-top: 10px;
+}
+
+#status {
+  margin: 5px 0;
+  color: lime;
+}
