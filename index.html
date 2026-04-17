@@ -1,11 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-<title>PRO D Trading Engine</title>
+<title>Trading Engine PRO D FINAL</title>
 
 <link rel="stylesheet" href="style.css">
 <script src="https://unpkg.com/lightweight-charts@4.1.1/dist/lightweight-charts.standalone.production.js"></script>
@@ -20,21 +18,20 @@
 
 <div class="card">
 
-  <h2 id="assetName">Loading...</h2>
-  <div id="ticker"></div>
+<h2 id="assetName">Loading...</h2>
+<div id="ticker"></div>
 
-  <div class="controls">
-    <button onclick="nav(-1)">⬅ Prev</button>
-    <button onclick="nav(1)">Next ➡</button>
-    <button onclick="buy()">BUY</button>
-    <button onclick="sell()">SELL</button>
-  </div>
+<input id="searchInput" placeholder="Cerca (ticker o nome)" oninput="liveSearch()">
+<div id="searchResults"></div>
 
-  <div id="status"></div>
+<div class="controls">
+  <button onclick="nav(-1)">⬅</button>
+  <button onclick="nav(1)">➡</button>
+</div>
 
-  <div id="lastSignal" style="margin-top:10px;color:#0ff;"></div>
+<div id="signalBox"></div>
 
-  <div id="chart"></div>
+<div id="chart"></div>
 
 </div>
 
