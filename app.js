@@ -152,29 +152,37 @@ async function getCurrentPrice(ticker) {
 // ================= SEARCH =================
 function liveSearchInput() {
 
-  const v = document.getElementById("searchInput").value.toLowerCase();
+  const v = document.getElementById("searchInput")
+    .value
+    .toLowerCase()
+    .trim();
+
+  if (!v) {
+    document.getElementById("searchResults").innerHTML = "";
+    return;
+  }
 
   const results = dataList
+    .map((x, i) => ({ ...x, i }))
     .filter(x =>
-      x.ticker?.toLowerCase().includes(v) ||
-      x.name?.toLowerCase().includes(v)
+      (x.ticker && x.ticker.toLowerCase().includes(v)) ||
+      (x.name && x.name.toLowerCase().includes(v))
     )
-    .slice(0, 5);
+    .slice(0, 6);
 
   const box = document.getElementById("searchResults");
 
   box.innerHTML = "";
 
-  results.forEach((r, i) => {
+  results.forEach(r => {
     box.innerHTML += `
-      <div onclick="selectSearch(${dataList.indexOf(r)})"
-           style="cursor:pointer;padding:4px;background:#111;margin:2px;">
+      <div onclick="selectSearch(${r.i})"
+           style="cursor:pointer;padding:6px;background:#111;margin:2px;">
         <b>${r.ticker}</b> - ${r.name}
       </div>
     `;
   });
 }
-
 function selectSearch(index) {
   idx = index;
   document.getElementById("searchResults").innerHTML = "";
