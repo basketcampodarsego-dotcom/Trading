@@ -77,7 +77,7 @@ async function init(){
       name: c[1],
       ticker: c[2]
    };
-});
+ });
   
  loadAsset();
 }
