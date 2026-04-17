@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
 <title>Portfolio</title>
-
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -18,17 +16,19 @@
 
 <div class="card">
 
-  <h2>PORTFOLIO</h2>
+<h2>PORTAFOGLIO REALE</h2>
 
-  <div id="cashBox"></div>
-  <div id="portfolioBox"></div>
+<input id="manualTicker" placeholder="Ticker">
+<input id="manualPrice" placeholder="Prezzo ingresso">
+<input id="manualPL" placeholder="P/L €">
+<button onclick="addManual()">Aggiungi</button>
 
-  <div id="totalBox"></div>
+<div id="portfolioBox"></div>
 
 </div>
 
 <script src="app.js"></script>
-<script>renderPortfolioPage()</script>
+<script>renderPortfolio()</script>
 
 </body>
 </html>
