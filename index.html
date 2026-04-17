@@ -7,7 +7,6 @@
 <title>PRO C+ Trading Engine</title>
 
 <link rel="stylesheet" href="style.css">
-
 <script src="https://unpkg.com/lightweight-charts@4.1.1/dist/lightweight-charts.standalone.production.js"></script>
 </head>
 
@@ -19,12 +18,17 @@
 </div>
 
 <div class="card">
+
   <h2 id="assetName">Loading...</h2>
   <div id="ticker"></div>
 
   <div id="status"></div>
 
+  <!-- 🔥 NUOVO BLOCCO ULTIMO SEGNALE -->
+  <div id="lastSignal" style="margin-top:10px;font-size:14px;color:#0ff;"></div>
+
   <div id="chart"></div>
+
 </div>
 
 <script src="app.js"></script>
