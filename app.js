@@ -234,32 +234,38 @@ function cerca() {
   }
 }
 
-function drawSignals(candles, ema10, ema50) {
+function drawSignals(candles, ema10, ema50, ema200, rsi) {
   let markers = [];
 
-  for (let i = 1; i < ema10.length; i++) {
-    let prev10 = ema10[i - 1].value;
-    let prev50 = ema50[i - 1].value;
-    let curr10 = ema10[i].value;
-    let curr50 = ema50[i].value;
+  for (let i = 50; i < candles.length; i++) {
 
-    // CROSS UP = BUY
-    if (prev10 < prev50 && curr10 > curr50) {
+    let price = candles[i].close;
+
+    let e10 = ema10[i - 10]?.value;
+    let e50 = ema50[i - 50]?.value;
+    let e200 = ema200[i - 200]?.value;
+
+    let r = rsi[i - 14]?.value;
+
+    if (!e10 || !e50 || !e200 || !r) continue;
+
+    // ================= BUY =================
+    if (e50 > e200 && e10 > e50 && r > 55 && price > e10) {
       markers.push({
-        time: ema10[i].time,
+        time: candles[i].time,
         position: 'belowBar',
-        color: '#00ff00',
+        color: '#00c853',
         shape: 'arrowUp',
         text: 'BUY'
       });
     }
 
-    // CROSS DOWN = SELL
-    if (prev10 > prev50 && curr10 < curr50) {
+    // ================= SELL =================
+    if (e10 < e50 || r < 45 || price < e10) {
       markers.push({
-        time: ema10[i].time,
+        time: candles[i].time,
         position: 'aboveBar',
-        color: '#ff0000',
+        color: '#ff5252',
         shape: 'arrowDown',
         text: 'SELL'
       });
