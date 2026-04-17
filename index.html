@@ -12,9 +12,12 @@
 
 <body>
 
+<!-- 🔥 MENU RIPRISTINATO -->
 <div class="nav">
-  <button onclick="nav(-1)">⬅ Prev</button>
-  <button onclick="nav(1)">Next ➡</button>
+  <button onclick="goPage('index.html')">Dashboard</button>
+  <button onclick="goPage('portfolio.html')">Portfolio</button>
+  <button onclick="goPage('backtest.html')">Backtest</button>
+  <button onclick="goPage('report.html')">Report</button>
 </div>
 
 <div class="card">
@@ -24,7 +27,6 @@
 
   <div id="status"></div>
 
-  <!-- 🔥 NUOVO BLOCCO ULTIMO SEGNALE -->
   <div id="lastSignal" style="margin-top:10px;font-size:14px;color:#0ff;"></div>
 
   <div id="chart"></div>
