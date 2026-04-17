@@ -205,7 +205,10 @@ function nav(d) {
   idx = (idx + d + dataList.length) % dataList.length;
   loadAsset();
 }
-
+// ================= gopage =================
+function goPage(page) {
+  window.location.href = page;
+}
 // ================= START =================
 window.onload = async () => {
   initChart();
