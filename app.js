@@ -1,4 +1,3 @@
-
 let dataList = [], idx = 0;
 
 let chart;
@@ -9,11 +8,9 @@ let ema50Series;
 let cache = {};
 
 // ================= LOG =================
-function log(m, e = false) {
+function log(m) {
   const el = document.getElementById("status");
-  if (!el) return;
-  el.innerText = m;
-  el.style.color = e ? "red" : "lime";
+  if (el) el.innerText = m;
 }
 
 // ================= EMA =================
@@ -40,29 +37,15 @@ function EMA(data, period) {
 
 // ================= INIT CHART =================
 function initChart() {
-  const el = document.getElementById("chart");
-
-  chart = LightweightCharts.createChart(el, {
-    layout: {
-      background: { color: "#000" },
-      textColor: "#fff"
-    },
-    timeScale: {
-      timeVisible: true
-    }
+  chart = LightweightCharts.createChart(document.getElementById("chart"), {
+    layout: { background: { color: "#000" }, textColor: "#fff" },
+    timeScale: { timeVisible: true }
   });
 
   candleSeries = chart.addCandlestickSeries();
 
-  ema10Series = chart.addLineSeries({
-    color: "#00ff00",
-    lineWidth: 1
-  });
-
-  ema50Series = chart.addLineSeries({
-    color: "#ff0000",
-    lineWidth: 1
-  });
+  ema10Series = chart.addLineSeries({ color: "#00ff00" });
+  ema50Series = chart.addLineSeries({ color: "#ff0000" });
 }
 
 // ================= CSV =================
@@ -84,7 +67,7 @@ async function loadCSV() {
     };
   });
 
-  log("CSV OK: " + dataList.length);
+  log("Asset caricati: " + dataList.length);
 }
 
 // ================= DATA =================
@@ -95,8 +78,8 @@ async function getData(ticker) {
     "https://corsproxy.io/?" +
     encodeURIComponent(
       "https://query1.finance.yahoo.com/v8/finance/chart/" +
-        ticker +
-        "?range=1y&interval=1d"
+      ticker +
+      "?range=1y&interval=1d"
     );
 
   const r = await fetch(url);
@@ -104,22 +87,66 @@ async function getData(ticker) {
 
   const q = d.chart.result[0];
 
-  const candles = q.timestamp
-    .map((t, i) => ({
-      time: t,
-      open: q.indicators.quote[0].open[i],
-      high: q.indicators.quote[0].high[i],
-      low: q.indicators.quote[0].low[i],
-      close: q.indicators.quote[0].close[i]
-    }))
-    .filter(x => x.open != null);
+  const candles = q.timestamp.map((t, i) => ({
+    time: t,
+    open: q.indicators.quote[0].open[i],
+    high: q.indicators.quote[0].high[i],
+    low: q.indicators.quote[0].low[i],
+    close: q.indicators.quote[0].close[i]
+  })).filter(x => x.open != null);
 
   cache[ticker] = candles;
   return candles;
 }
 
+// ================= STATE MACHINE SIGNALS =================
+// SOLO cambio stato → niente spam
+function generateSignals(candles, e10, e50) {
+
+  let markers = [];
+  let state = "NONE";
+
+  for (let i = 50; i < candles.length; i++) {
+
+    const time = candles[i].time;
+
+    const ema10 = e10.find(x => x.time === time)?.value;
+    const ema50 = e50.find(x => x.time === time)?.value;
+
+    if (!ema10 || !ema50) continue;
+
+    const bull = ema10 > ema50;
+    const bear = ema10 < ema50;
+
+    if (bull && state !== "LONG") {
+      markers.push({
+        time,
+        position: "belowBar",
+        color: "#00c853",
+        shape: "arrowUp",
+        text: "BUY"
+      });
+      state = "LONG";
+    }
+
+    if (bear && state !== "SHORT") {
+      markers.push({
+        time,
+        position: "aboveBar",
+        color: "#ff5252",
+        shape: "arrowDown",
+        text: "SELL"
+      });
+      state = "SHORT";
+    }
+  }
+
+  return markers;
+}
+
 // ================= LOAD ASSET =================
 async function loadAsset() {
+
   const s = dataList[idx];
   if (!s) return;
 
@@ -136,9 +163,12 @@ async function loadAsset() {
   ema10Series.setData(e10);
   ema50Series.setData(e50);
 
+  const signals = generateSignals(candles, e10, e50);
+  candleSeries.setMarkers(signals);
+
   chart.timeScale().fitContent();
 
-  log("OK");
+  log("OK PRO C+");
 }
 
 // ================= NAV =================
@@ -147,18 +177,9 @@ function nav(d) {
   loadAsset();
 }
 
-// ================= MOCK BUY/SELL =================
-function buy() {
-  log("BUY simulato");
-}
-
-function sell() {
-  log("SELL simulato");
-}
-
 // ================= START =================
 window.onload = async () => {
   initChart();
   await loadCSV();
   await loadAsset();
-}; 
+};
