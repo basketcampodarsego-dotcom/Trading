@@ -25,11 +25,7 @@ function EMA(data, p) {
 
   for (let i = p; i < data.length; i++) {
     prev = data[i].close * k + prev * (1 - k);
-
-    out.push({
-      time: data[i].time,
-      value: prev
-    });
+    out.push({ time: data[i].time, value: prev });
   }
 
   return out;
@@ -146,7 +142,6 @@ async function getCurrentPrice(ticker) {
   if (priceCache[ticker]) return priceCache[ticker];
 
   const data = await getData(ticker);
-
   const price = data.at(-1)?.close || null;
 
   priceCache[ticker] = price;
@@ -154,74 +149,54 @@ async function getCurrentPrice(ticker) {
   return price;
 }
 
-// ================= PORTFOLIO =================
-function buyAsset() {
+// ================= SEARCH =================
+function liveSearchInput() {
 
-  const s = dataList[idx];
+  const v = document.getElementById("searchInput").value.toLowerCase();
 
-  portfolio.push({
-    ticker: s.ticker,
-    name: s.name,
-    capital: 1000,
-    qty: null,
-    entryPrice: null,
-    currentPrice: null,
-    pl: 0
-  });
+  const results = dataList
+    .filter(x =>
+      x.ticker?.toLowerCase().includes(v) ||
+      x.name?.toLowerCase().includes(v)
+    )
+    .slice(0, 5);
 
-  renderPortfolio();
-}
-
-// ================= UPDATE PORTFOLIO =================
-async function updatePortfolio() {
-
-  for (let p of portfolio) {
-
-    const price = await getCurrentPrice(p.ticker);
-
-    if (!price) continue;
-
-    p.currentPrice = price;
-
-    if (!p.entryPrice) {
-      p.entryPrice = price;
-      p.qty = p.capital / price;
-    }
-
-    p.pl = (p.currentPrice - p.entryPrice) * p.qty;
-  }
-
-  renderPortfolio();
-}
-
-// ================= RENDER =================
-function renderPortfolio() {
-
-  const box = document.getElementById("portfolio");
-
-  let total = 0;
+  const box = document.getElementById("searchResults");
 
   box.innerHTML = "";
 
-  portfolio.forEach(p => {
-
-    const pct = (p.pl / p.capital) * 100;
-    total += p.pl;
-
+  results.forEach((r, i) => {
     box.innerHTML += `
-      <div style="margin-bottom:10px;">
-        <b>${p.ticker}</b><br>
-        Capital: €${p.capital.toFixed(2)}<br>
-        Qty: ${p.qty?.toFixed(6)}<br>
-        <span style="color:${p.pl >= 0 ? 'lime' : 'red'}">
-          P/L: €${p.pl.toFixed(2)} (${pct.toFixed(2)}%)
-        </span>
+      <div onclick="selectSearch(${dataList.indexOf(r)})"
+           style="cursor:pointer;padding:4px;background:#111;margin:2px;">
+        <b>${r.ticker}</b> - ${r.name}
       </div>
     `;
   });
+}
 
-  document.getElementById("portfolioTotal").innerHTML =
-    `<b>Total P/L: €${total.toFixed(2)}</b>`;
+function selectSearch(index) {
+  idx = index;
+  document.getElementById("searchResults").innerHTML = "";
+  loadAsset();
+}
+
+// fallback GO button
+function cerca() {
+
+  const v = document.getElementById('searchInput').value.toLowerCase();
+
+  const f = dataList.findIndex(x =>
+    x.ticker?.toLowerCase().includes(v) ||
+    x.name?.toLowerCase().includes(v)
+  );
+
+  if (f !== -1) {
+    idx = f;
+    loadAsset();
+  } else {
+    log("Non trovato", true);
+  }
 }
 
 // ================= LOAD =================
@@ -249,20 +224,75 @@ async function loadAsset() {
   log("OK");
 }
 
+// ================= PORTFOLIO =================
+function buyAsset() {
+
+  const s = dataList[idx];
+
+  portfolio.push({
+    ticker: s.ticker,
+    name: s.name,
+    capital: 1000,
+    qty: null,
+    entryPrice: null,
+    currentPrice: null,
+    pl: 0
+  });
+
+  renderPortfolio();
+}
+
+async function updatePortfolio() {
+
+  for (let p of portfolio) {
+
+    const price = await getCurrentPrice(p.ticker);
+
+    if (!price) continue;
+
+    p.currentPrice = price;
+
+    if (!p.entryPrice) {
+      p.entryPrice = price;
+      p.qty = p.capital / price;
+    }
+
+    p.pl = (p.currentPrice - p.entryPrice) * p.qty;
+  }
+
+  renderPortfolio();
+}
+
+function renderPortfolio() {
+
+  const box = document.getElementById("portfolio");
+
+  let total = 0;
+
+  box.innerHTML = "";
+
+  portfolio.forEach(p => {
+
+    const pct = (p.pl / p.capital) * 100;
+    total += p.pl;
+
+    box.innerHTML += `
+      <div>
+        <b>${p.ticker}</b><br>
+        P/L: €${p.pl.toFixed(2)} (${pct.toFixed(2)}%)
+      </div>
+      <hr>
+    `;
+  });
+
+  document.getElementById("portfolioTotal").innerHTML =
+    `<b>Total P/L: €${total.toFixed(2)}</b>`;
+}
+
 // ================= NAV =================
 function nav(d) {
   idx = (idx + d + dataList.length) % dataList.length;
   loadAsset();
-}
-
-function cerca() {
-  const v = document.getElementById('searchInput').value.toUpperCase();
-  const f = dataList.findIndex(x => x.ticker === v);
-
-  if (f !== -1) {
-    idx = f;
-    loadAsset();
-  }
 }
 
 // ================= AUTO REFRESH =================
