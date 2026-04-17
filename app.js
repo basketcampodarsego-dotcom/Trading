@@ -1,6 +1,9 @@
 let dataList = [], idx = 0;
 let chart, candleSeries, emaLines = {}, cache = {};
+
 let portfolio = [];
+let trades = [];
+let openPosition = null;
 
 // ================= LOG =================
 function log(m, e = false) {
@@ -70,25 +73,17 @@ function RSI(data, p = 14) {
 
 // ================= SEARCH =================
 function liveSearchInput() {
-
   const v = document.getElementById("searchInput").value.toLowerCase().trim();
   const box = document.getElementById("searchResults");
 
-  if (!v) {
-    box.innerHTML = "";
-    return;
-  }
+  if (!v) return box.innerHTML = "";
 
-  const results = [];
+  let results = [];
 
   for (let i = 0; i < dataList.length; i++) {
-
     const x = dataList[i];
 
-    if (
-      x.ticker?.toLowerCase().includes(v) ||
-      x.name?.toLowerCase().includes(v)
-    ) {
+    if (x.ticker?.toLowerCase().includes(v) || x.name?.toLowerCase().includes(v)) {
       results.push({ ...x, i });
     }
 
@@ -142,10 +137,7 @@ async function init() {
 
   dataList = rows.slice(1).map(r => {
     const c = r.split(/[,;]/);
-    return {
-      ticker: c[iTicker],
-      name: c[iName]
-    };
+    return { ticker: c[iTicker], name: c[iName] };
   });
 
   loadAsset();
@@ -178,51 +170,6 @@ async function getData(ticker) {
   return candles;
 }
 
-// ================= MARKERS =================
-function generateMarkers(candles, ema10, ema50, rsi) {
-
-  let markers = [];
-  let state = "NONE";
-
-  for (let i = 50; i < candles.length; i++) {
-
-    const time = candles[i].time;
-
-    const e10 = ema10.find(x => x.time === time)?.value;
-    const e50 = ema50.find(x => x.time === time)?.value;
-    const r = rsi.find(x => x.time === time)?.value;
-
-    if (!e10 || !e50 || !r) continue;
-
-    const bull = e10 > e50 && r > 50;
-    const bear = e10 < e50 && r < 50;
-
-    if (bull && state !== "BULL") {
-      markers.push({
-        time,
-        position: 'belowBar',
-        color: '#00c853',
-        shape: 'arrowUp',
-        text: 'BUY'
-      });
-      state = "BULL";
-    }
-
-    if (bear && state !== "BEAR") {
-      markers.push({
-        time,
-        position: 'aboveBar',
-        color: '#ff5252',
-        shape: 'arrowDown',
-        text: 'SELL'
-      });
-      state = "BEAR";
-    }
-  }
-
-  return markers;
-}
-
 // ================= LOAD =================
 async function loadAsset() {
 
@@ -245,82 +192,9 @@ async function loadAsset() {
   emaLines[50].setData(e50);
   emaLines[200].setData(e200);
 
-  const markers = generateMarkers(c, e10, e50, rsi);
-  candleSeries.setMarkers(markers);
-
   chart.timeScale().fitContent();
 
   log("OK");
-}
-
-// ================= BUY =================
-function buyAsset() {
-
-  const s = dataList[idx];
-  if (!s) return;
-
-  const price = getLastPrice(s.ticker);
-
-  if (!price) {
-    log("Prezzo non disponibile", true);
-    return;
-  }
-
-  const qty = prompt("Quantità da comprare:", "1");
-  if (qty === null) return;
-
-  const quantity = parseFloat(qty);
-  if (isNaN(quantity) || quantity <= 0) {
-    log("Quantità non valida", true);
-    return;
-  }
-
-  const entryPriceInput = prompt(
-    "Prezzo di ingresso (ENTER = prezzo mercato):",
-    price.toFixed(2)
-  );
-
-  let entryPrice = parseFloat(entryPriceInput);
-  if (isNaN(entryPrice) || entryPrice <= 0) {
-    entryPrice = price;
-  }
-
-  portfolio.push({
-    ticker: s.ticker,
-    name: s.name,
-    entryPrice,
-    qty: quantity
-  });
-
-  renderPortfolio();
-  log("BUY registrato");
-}
-// ================= PORTFOLIO =================
-function renderPortfolio() {
-
-  const el = document.getElementById("portfolio");
-  if (!el) return;
-
-  let total = 0;
-
-  el.innerHTML = portfolio.map(p => {
-
-    const price = getLastPrice(p.ticker);
-    const pl = price ? (price - p.entryPrice) * p.qty : 0;
-
-    total += pl;
-
-    return `
-      <div>
-        <b>${p.ticker}</b><br>
-        P/L: €${pl.toFixed(2)}
-      </div>
-      <hr>
-    `;
-  }).join("");
-
-  const t = document.getElementById("portfolioTotal");
-  if (t) t.innerHTML = `<b>Total: €${total.toFixed(2)}</b>`;
 }
 
 // ================= PRICE =================
@@ -330,8 +204,86 @@ function getLastPrice(ticker) {
   return c[c.length - 1].close;
 }
 
-// ================= GLOBAL EXPORT (IMPORTANTISSIMO PER GITHUB) =================
+// ================= TRADING ENGINE V3 =================
+
+// 🟢 OPEN POSITION (BUY)
+function buyAsset() {
+
+  const s = dataList[idx];
+  if (!s) return;
+
+  const price = getLastPrice(s.ticker);
+  if (!price) return;
+
+  const qty = parseFloat(prompt("Quantità:", "1"));
+  if (!qty || qty <= 0) return;
+
+  if (openPosition) {
+    log("Hai già una posizione aperta", true);
+    return;
+  }
+
+  openPosition = {
+    ticker: s.ticker,
+    entryPrice: price,
+    qty
+  };
+
+  log("BUY aperto");
+}
+
+// 🔴 CLOSE POSITION (SELL)
+function sellAsset() {
+
+  if (!openPosition) {
+    log("Nessuna posizione aperta", true);
+    return;
+  }
+
+  const price = getLastPrice(openPosition.ticker);
+
+  const pl = (price - openPosition.entryPrice) * openPosition.qty;
+
+  trades.push({
+    ...openPosition,
+    exitPrice: price,
+    pl
+  });
+
+  openPosition = null;
+
+  renderTrades();
+
+  log("SELL chiuso: " + pl.toFixed(2));
+}
+
+// ================= TRADES =================
+function renderTrades() {
+
+  const el = document.getElementById("portfolio");
+  if (!el) return;
+
+  let total = 0;
+
+  el.innerHTML = trades.map(t => {
+    total += t.pl;
+
+    return `
+      <div>
+        <b>${t.ticker}</b><br>
+        P/L: €${t.pl.toFixed(2)}
+      </div>
+      <hr>
+    `;
+  }).join("");
+
+  const t = document.getElementById("portfolioTotal");
+  if (t) t.innerHTML = `<b>Total: €${total.toFixed(2)}</b>`;
+}
+
+// ================= GLOBAL =================
 window.buyAsset = buyAsset;
+window.sellAsset = sellAsset;
 window.liveSearchInput = liveSearchInput;
 window.selectSearch = selectSearch;
 window.nav = nav;
