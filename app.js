@@ -115,31 +115,35 @@ function calcSignal(e10,e50,e200,rsi){
 // ================= MARKERS =================
 function markers(c,e10,e50,rsi){
 
- let m=[],state="";
- for(let i=50;i<c.length;i++){
+  let m=[],state="";
+  let lastSignal = null;
 
-  let t=c[i].time;
-  let a=e10.find(x=>x.time===t)?.value;
-  let b=e50.find(x=>x.time===t)?.value;
-  let r=rsi.find(x=>x.time===t)?.value;
+  for(let i=50;i<c.length;i++){
 
-  if(!a||!b||!r) continue;
+    let t=c[i].time;
+    let a=e10.find(x=>x.time===t)?.value;
+    let b=e50.find(x=>x.time===t)?.value;
+    let r=rsi.find(x=>x.time===t)?.value;
 
-  let bull=a>b && r>50;
-  let bear=a<b && r<50;
+    if(!a||!b||!r) continue;
 
-  if(bull && state!=="B"){
-   m.push({time:t,position:'belowBar',color:'#0f0',shape:'arrowUp',text:'BUY'});
-   state="B";
+    let bull=a>b && r>50;
+    let bear=a<b && r<50;
+
+    if(bull && state!=="B"){
+      m.push({time:t,position:'belowBar',color:'#00c853',shape:'arrowUp',text:'BUY'});
+      state="B";
+      lastSignal = {type:"BUY", time:t};
+    }
+
+    if(bear && state!=="S"){
+      m.push({time:t,position:'aboveBar',color:'#ff5252',shape:'arrowDown',text:'SELL'});
+      state="S";
+      lastSignal = {type:"SELL", time:t};
+    }
   }
 
-  if(bear && state!=="S"){
-   m.push({time:t,position:'aboveBar',color:'#f00',shape:'arrowDown',text:'SELL'});
-   state="S";
-  }
- }
-
- return m;
+  return {markers:m, last:lastSignal};
 }
 
 // ================= LOAD =================
@@ -164,11 +168,26 @@ async function loadAsset(){
  ema50.setData(e50);
  ema200.setData(e200);
 
- candleSeries.setMarkers(markers(c,e10,e50,r));
+ const mk = markers(c,e10,e50,r);
+candleSeries.setMarkers(mk.markers);
+ 
 
  let sig=calcSignal(e10,e50,e200,r);
 
- document.getElementById("signalBox").innerText="Segnale: "+sig;
+let txt = "Segnale: " + sig;
+
+if (mk.last) {
+  let d = new Date(mk.last.time * 1000);
+  let ds = d.toLocaleDateString("it-IT", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric"
+  });
+
+  txt += " (" + ds + ")";
+}
+
+document.getElementById("signalBox").innerText = txt;
 
  chart.timeScale().fitContent();
 }
