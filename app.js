@@ -48,13 +48,22 @@ function RSI(data,p=14){
 async function init(){
 
  chart=LightweightCharts.createChart(document.getElementById("chart"),{
-  layout:{background:{color:"#000"},textColor:"#fff"}
+  layout:{background:{color:"#000"},textColor:"#aaa"},
+  grid:{
+    vertLines:{color:"#111"},
+    horzLines:{color:"#111"}
+  },
+  rightPriceScale:{borderColor:"#333"},
+  timeScale:{borderColor:"#333",timeVisible:true},
+  handleScroll:{mouseWheel:true,pressedMouseMove:true,touch:true},
+  handleScale:{axisPressedMouseMove:true,pinch:true,mouseWheel:true}
  });
 
  candleSeries=chart.addCandlestickSeries();
- ema10=chart.addLineSeries({color:"#0f0"});
- ema50=chart.addLineSeries({color:"#f00"});
- ema200=chart.addLineSeries({color:"#0af"});
+
+ ema10=chart.addLineSeries({color:"#00c853",lineWidth:1});
+ ema50=chart.addLineSeries({color:"#ff5252",lineWidth:1});
+ ema200=chart.addLineSeries({color:"#00aaff",lineWidth:1});
 
  const res=await fetch('./tr_isin_ticker.csv');
  const text=await res.text();
@@ -112,38 +121,38 @@ function calcSignal(e10,e50,e200,rsi){
  return "WAIT";
 }
 
-// ================= MARKERS =================
+// ================= MARKERS + LAST SIGNAL =================
 function markers(c,e10,e50,rsi){
 
-  let m=[],state="";
-  let lastSignal = null;
+ let m=[],state="";
+ let lastSignal=null;
 
-  for(let i=50;i<c.length;i++){
+ for(let i=50;i<c.length;i++){
 
-    let t=c[i].time;
-    let a=e10.find(x=>x.time===t)?.value;
-    let b=e50.find(x=>x.time===t)?.value;
-    let r=rsi.find(x=>x.time===t)?.value;
+  let t=c[i].time;
+  let a=e10.find(x=>x.time===t)?.value;
+  let b=e50.find(x=>x.time===t)?.value;
+  let r=rsi.find(x=>x.time===t)?.value;
 
-    if(!a||!b||!r) continue;
+  if(!a||!b||!r) continue;
 
-    let bull=a>b && r>50;
-    let bear=a<b && r<50;
+  let bull=a>b && r>50;
+  let bear=a<b && r<50;
 
-    if(bull && state!=="B"){
-      m.push({time:t,position:'belowBar',color:'#00c853',shape:'arrowUp',text:'BUY'});
-      state="B";
-      lastSignal = {type:"BUY", time:t};
-    }
-
-    if(bear && state!=="S"){
-      m.push({time:t,position:'aboveBar',color:'#ff5252',shape:'arrowDown',text:'SELL'});
-      state="S";
-      lastSignal = {type:"SELL", time:t};
-    }
+  if(bull && state!=="B"){
+   m.push({time:t,position:'belowBar',color:'#00c853',shape:'arrowUp',text:'BUY'});
+   state="B";
+   lastSignal={type:"BUY",time:t};
   }
 
-  return {markers:m, last:lastSignal};
+  if(bear && state!=="S"){
+   m.push({time:t,position:'aboveBar',color:'#ff5252',shape:'arrowDown',text:'SELL'});
+   state="S";
+   lastSignal={type:"SELL",time:t};
+  }
+ }
+
+ return {markers:m,last:lastSignal};
 }
 
 // ================= LOAD =================
@@ -168,26 +177,20 @@ async function loadAsset(){
  ema50.setData(e50);
  ema200.setData(e200);
 
- const mk = markers(c,e10,e50,r);
-candleSeries.setMarkers(mk.markers);
- 
+ const mk=markers(c,e10,e50,r);
+ candleSeries.setMarkers(mk.markers);
 
  let sig=calcSignal(e10,e50,e200,r);
 
-let txt = "Segnale: " + sig;
+ let txt="Segnale: "+sig;
 
-if (mk.last) {
-  let d = new Date(mk.last.time * 1000);
-  let ds = d.toLocaleDateString("it-IT", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric"
-  });
+ if(mk.last){
+  let d=new Date(mk.last.time*1000);
+  let ds=d.toLocaleDateString("it-IT",{day:"2-digit",month:"short",year:"numeric"});
+  txt+=" ("+ds+")";
+ }
 
-  txt += " (" + ds + ")";
-}
-
-document.getElementById("signalBox").innerText = txt;
+ document.getElementById("signalBox").innerText=txt;
 
  chart.timeScale().fitContent();
 }
@@ -220,54 +223,6 @@ function selectAsset(t){
 function nav(d){
  idx=(idx+d+dataList.length)%dataList.length;
  loadAsset();
-}
-
-// ================= PORTFOLIO =================
-function addManual(){
-
- let t=document.getElementById("manualTicker").value;
- let p=parseFloat(document.getElementById("manualPrice").value);
- let pl=parseFloat(document.getElementById("manualPL").value);
-
- portfolio.push({ticker:t,entry:p,pl});
- localStorage.setItem("portfolio",JSON.stringify(portfolio));
- renderPortfolio();
-}
-
-async function renderPortfolio(){
-
- let box=document.getElementById("portfolioBox");
- if(!box) return;
-
- let html="";
-
- for(let p of portfolio){
-
-  let c=await getData(p.ticker);
-  let e10=EMA(c,10);
-  let e50=EMA(c,50);
-  let e200=EMA(c,200);
-  let r=RSI(c);
-
-  let sig=calcSignal(e10,e50,e200,r);
-  let trend=e50.at(-1)?.value>e200.at(-1)?.value?"UP":"DOWN";
-  let rsiVal=r.at(-1)?.value?.toFixed(1);
-
-  let perc=p.entry? (p.pl/p.entry*100):0;
-
-  html+=`
-  <div>
-    <b>${p.ticker}</b><br>
-    P/L: €${p.pl} (${perc.toFixed(2)}%)<br>
-    Segnale: ${sig}<br>
-    Trend: ${trend}<br>
-    RSI: ${rsiVal}
-  </div>
-  <hr>
-  `;
- }
-
- box.innerHTML=html;
 }
 
 // ================= START =================
