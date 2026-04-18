@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Trading Engine PRO D FINAL</title>
+<title>Trading Engine PRO</title>
 
 <link rel="stylesheet" href="style.css">
 <script src="https://unpkg.com/lightweight-charts@4.1.1/dist/lightweight-charts.standalone.production.js"></script>
@@ -18,23 +18,22 @@
 
 <div class="card">
 
-<h2 id="assetName">Loading...</h2>
-<div id="ticker"></div>
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <div id="assetName" class="title">Loading...</div>
+    <div id="ticker" class="sub"></div>
+  </div>
 
+  <div id="signalBox" class="signal neutral"></div>
+</div>
+
+<!-- SEARCH -->
 <input id="searchInput" placeholder="Cerca (ticker o nome)" oninput="liveSearch()">
 <div id="searchResults"></div>
 
+<!-- NAV -->
 <div class="controls">
   <button onclick="nav(-1)">⬅</button>
   <button onclick="nav(1)">➡</button>
-</div>
-
-<div id="signalBox"></div>
-
-<div id="chart"></div>
-
-</div>
-
-<script src="app.js"></script>
-</body>
-</html>
+</
