@@ -2,8 +2,6 @@ let dataList=[], idx=0;
 let chart,candleSeries,ema10,ema50,ema200;
 let cache={};
 
-let portfolio=JSON.parse(localStorage.getItem("portfolio")||"[]");
-
 // ================= NAV =================
 function goPage(p){window.location.href=p;}
 
@@ -121,7 +119,7 @@ function calcSignal(e10,e50,e200,rsi){
  return "WAIT";
 }
 
-// ================= MARKERS + LAST SIGNAL =================
+// ================= MARKERS =================
 function markers(c,e10,e50,rsi){
 
  let m=[],state="";
@@ -182,15 +180,8 @@ async function loadAsset(){
 
  let sig=calcSignal(e10,e50,e200,r);
 
- let txt="Segnale: "+sig;
-
- if(mk.last){
-  let d=new Date(mk.last.time*1000);
-  let ds=d.toLocaleDateString("it-IT",{day:"2-digit",month:"short",year:"numeric"});
-  txt+=" ("+ds+")";
- }
-
- let box = document.getElementById("signalBox");
+// ===== UI SEGNALE MODERNO =====
+let box = document.getElementById("signalBox");
 
 let txt = sig;
 
@@ -213,7 +204,6 @@ if (sig === "BUY") box.classList.add("buy");
 else if (sig === "SELL") box.classList.add("sell");
 else box.classList.add("wait");
 
- 
  chart.timeScale().fitContent();
 }
 
