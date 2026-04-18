@@ -190,8 +190,30 @@ async function loadAsset(){
   txt+=" ("+ds+")";
  }
 
- document.getElementById("signalBox").innerText=txt;
+ let box = document.getElementById("signalBox");
 
+let txt = sig;
+
+if (mk.last) {
+  let d = new Date(mk.last.time * 1000);
+  let ds = d.toLocaleDateString("it-IT", {
+    day: "2-digit",
+    month: "short"
+  });
+  txt += " • " + ds;
+}
+
+box.innerText = txt;
+
+// reset classi
+box.className = "signal";
+
+// colore dinamico
+if (sig === "BUY") box.classList.add("buy");
+else if (sig === "SELL") box.classList.add("sell");
+else box.classList.add("wait");
+
+ 
  chart.timeScale().fitContent();
 }
 
