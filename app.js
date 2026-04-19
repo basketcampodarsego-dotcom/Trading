@@ -45,40 +45,56 @@ function RSI(data,p=14){
 // ================= INIT =================
 async function init(){
 
- chart=LightweightCharts.createChart(document.getElementById("chart"),{
-  layout:{background:{color:"#000"},textColor:"#aaa"},
-  grid:{
-    vertLines:{color:"#111"},
-    horzLines:{color:"#111"}
-  },
-  rightPriceScale:{borderColor:"#333"},
-  timeScale:{borderColor:"#333",timeVisible:true},
-  handleScroll:{mouseWheel:true,pressedMouseMove:true,touch:true},
-  handleScale:{axisPressedMouseMove:true,pinch:true,mouseWheel:true}
- });
+ try {
 
- candleSeries=chart.addCandlestickSeries();
+  chart=LightweightCharts.createChart(document.getElementById("chart"),{
+    layout:{background:{color:"#000"},textColor:"#aaa"},
+    grid:{vertLines:{color:"#111"},horzLines:{color:"#111"}},
+    rightPriceScale:{borderColor:"#333"},
+    timeScale:{borderColor:"#333",timeVisible:true},
+    handleScroll:{mouseWheel:true,pressedMouseMove:true,touch:true},
+    handleScale:{axisPressedMouseMove:true,pinch:true,mouseWheel:true}
+  });
 
- ema10=chart.addLineSeries({color:"#00c853",lineWidth:1});
- ema50=chart.addLineSeries({color:"#ff5252",lineWidth:1});
- ema200=chart.addLineSeries({color:"#00aaff",lineWidth:1});
+  candleSeries=chart.addCandlestickSeries();
 
- const res=await fetch('./tr_isin_ticker.csv');
- const text=await res.text();
+  ema10=chart.addLineSeries({color:"#00c853"});
+  ema50=chart.addLineSeries({color:"#ff5252"});
+  ema200=chart.addLineSeries({color:"#00aaff"});
 
- const rows=text.split('\n').filter(x=>x);
- const h=rows[0].toLowerCase().split(/[,;]/);
+  // ===== FETCH CSV =====
+  const res=await fetch('./tr_isin_ticker.csv');
 
- let iT=h.indexOf('ticker'), iN=h.indexOf('name');
+  if(!res.ok) throw "CSV non trovato";
 
- dataList=rows.slice(1).map(r=>{
-  let c=r.split(/[,;]/);
-  return {ticker:c[iT],name:c[iN]};
- });
+  const text=await res.text();
 
- loadAsset();
+  if(!text) throw "CSV vuoto";
+
+  const rows=text.split('\n').filter(x=>x);
+
+  const header=rows[0].toLowerCase().split(/[,;]/);
+
+  const iT=header.indexOf('ticker');
+  const iN=header.indexOf('name');
+
+  if(iT===-1 || iN===-1) throw "Formato CSV errato";
+
+  dataList=rows.slice(1).map(r=>{
+    const c=r.split(/[,;]/);
+    return {ticker:c[iT],name:c[iN]};
+  });
+
+  if(!dataList.length) throw "Nessun dato";
+
+  loadAsset();
+
+ } catch(e) {
+
+  document.getElementById("assetName").innerText="Errore caricamento";
+  console.error(e);
+ }
 }
-
 // ================= DATA =================
 async function getData(t){
 
