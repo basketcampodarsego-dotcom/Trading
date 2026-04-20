@@ -96,30 +96,49 @@ async function init(){
  }
 }
 // ================= DATA =================
-async function getData(t){
 
- if(cache[t]) return cache[t];
+async function getData(ticker){
 
- const url="https://corsproxy.io/?"+encodeURIComponent(
-  "https://query1.finance.yahoo.com/v8/finance/chart/"+t+"?range=1y&interval=1d"
- );
+ try {
 
- const r=await fetch(url);
- const d=await r.json();
- const q=d.chart.result[0];
+  if (cache[ticker]) return cache[ticker];
 
- const c=q.timestamp.map((t,i)=>({
-  time:t,
-  open:q.indicators.quote[0].open[i],
-  high:q.indicators.quote[0].high[i],
-  low:q.indicators.quote[0].low[i],
-  close:q.indicators.quote[0].close[i]
- })).filter(x=>x.open!=null);
+  const url = "https://corsproxy.io/?" + encodeURIComponent(
+    "https://query1.finance.yahoo.com/v8/finance/chart/" +
+    ticker + "?range=1y&interval=1d"
+  );
 
- cache[t]=c;
- return c;
+  const r = await fetch(url);
+  const d = await r.json();
+
+  // 🔴 PROTEZIONE
+  if (!d.chart || !d.chart.result || !d.chart.result[0]) {
+    throw "Dati Yahoo non validi";
+  }
+
+  const q = d.chart.result[0];
+
+  const candles = q.timestamp.map((t, i) => ({
+    time: t,
+    open: q.indicators.quote[0].open[i],
+    high: q.indicators.quote[0].high[i],
+    low: q.indicators.quote[0].low[i],
+    close: q.indicators.quote[0].close[i]
+  })).filter(x => x.open != null);
+
+  cache[ticker] = candles;
+  return candles;
+
+ } catch(e) {
+
+  console.error("Errore dati:", ticker, e);
+
+  document.getElementById("assetName").innerText =
+    "Errore dati: " + ticker;
+
+  return [];
+ }
 }
-
 // ================= SIGNAL =================
 function calcSignal(e10,e50,e200,rsi){
 
