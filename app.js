@@ -1,73 +1,70 @@
-let chart;
-let candleSeries;
+let dataList = [];
 let idx = 0;
-let assets = ["AAPL","MSFT","TSLA"];
 
-function createChart(){
+let chart;
+let candleSeries, ema10, ema50, ema200, volumeSeries;
+
+let cache = {};
+
+// ================= INIT =================
+async function init(){
 
   chart = LightweightCharts.createChart(
     document.getElementById("chart"),
-    { layout:{background:{color:"#000"},textColor:"#fff"} }
+    {
+      layout:{ background:{color:"#000"}, textColor:"#aaa" },
+      rightPriceScale:{ scaleMargins:{ top:0.1, bottom:0.3 } }
+    }
   );
 
   candleSeries = chart.addCandlestickSeries();
+
+  ema10 = chart.addLineSeries({color:"#00ff00"});
+  ema50 = chart.addLineSeries({color:"#ff0000"});
+  ema200 = chart.addLineSeries({color:"#00aaff"});
+
+  // Volume
+  volumeSeries = chart.addHistogramSeries({
+    priceFormat:{ type:'volume' },
+    priceScaleId:''
+  });
+
+  await loadCSV();
+  loadAsset();
 }
 
-function demoData(){
-
-  let data=[], price=100;
-
-  for(let i=0;i<100;i++){
-    let open=price;
-    let close=price+(Math.random()-0.5)*5;
-    let high=Math.max(open,close)+2;
-    let low=Math.min(open,close)-2;
-
-    data.push({time:1670000000+i*86400,open,high,low,close});
-    price=close;
-  }
-
-  return data;
-}
-
-function loadChart(symbol){
-
-  document.getElementById("title").innerText = symbol;
-  document.getElementById("ticker").innerText = symbol;
-
-  document.getElementById("chart").innerHTML="";
-
-  createChart();
+// ================= CSV =================
+async function loadCSV(){
 
   try{
-    let data = demoData();
-    candleSeries.setData(data);
+    const res = await fetch('./tr_isin_ticker.csv');
+    const text = await res.text();
 
-    let last = data[data.length-1];
-    let prev = data[data.length-2];
+    const rows = text.split('\n').filter(x=>x);
+    const header = rows[0].toLowerCase().split(/[,;]/);
 
-    let signal = last.close > prev.close ? "BUY" : "SELL";
+    const iT = header.indexOf('ticker');
+    const iN = header.indexOf('name');
 
-    document.getElementById("signal").innerText =
-      signal + " - " + new Date().toLocaleDateString();
+    dataList = rows.slice(1).map(r=>{
+      const c = r.split(/[,;]/);
+      return { ticker:c[iT], name:c[iN] };
+    });
 
   }catch(e){
-    document.getElementById("signal").innerText="Errore dati";
+    dataList = [
+      {ticker:"MSFT", name:"Microsoft"},
+      {ticker:"AAPL", name:"Apple"},
+      {ticker:"TSLA", name:"Tesla"}
+    ];
   }
 }
 
-function nav(d){
-  idx = (idx + d + assets.length) % assets.length;
-  loadChart(assets[idx]);
-}
+// ================= PRICE DATA =================
+async function getData(ticker){
 
-function searchAsset(){
-  let v = document.getElementById("search").value.toUpperCase();
-  let found = assets.find(x=>x.includes(v));
-  if(found){
-    idx = assets.indexOf(found);
-    loadChart(found);
-  }
-}
+  try{
 
-loadChart(assets[idx]);
+    if(cache[ticker]) return cache[ticker];
+
+    const url = "https://corsproxy.io/?" +
