@@ -1,42 +1,46 @@
 body{
-  background:#000;
-  color:#fff;
+  background:black;
+  color:white;
   font-family:Arial;
-  margin:0;
-}
-
-.topbar{
-  display:flex;
-  gap:5px;
-  padding:10px;
-}
-
-input{
-  flex:1;
-  padding:8px;
-  background:#111;
-  border:1px solid #333;
-  color:#fff;
-}
-
-button{
-  background:#222;
-  color:#fff;
-  border:none;
-  padding:10px;
 }
 
 #chart{
-  height:60vh;
+  height:400px;
 }
 
-#searchResults div{
-  padding:6px;
-  background:#111;
-  border-bottom:1px solid #222;
-}
-
-#signalBox{
+.menu{
+  display:flex;
+  gap:10px;
   padding:10px;
+  background:#111;
+}
+
+.menu a{
+  flex:1;
+  text-align:center;
+  padding:10px;
+  background:#222;
+  color:#fff;
+  text-decoration:none;
+  border-radius:8px;
+}
+
+.nav-bottom{
+  position:fixed;
+  bottom:10px;
+  left:0;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  padding:0 20px;
+}
+
+.nav-bottom button{
+  width:45%;
+  padding:15px;
   font-size:18px;
+  background:#222;
+  color:#fff;
+  border:none;
+  border-radius:10px;
 }
