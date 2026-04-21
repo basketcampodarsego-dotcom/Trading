@@ -1,106 +1,42 @@
 body{
-margin:0;
-background:#000;
-color:#fff;
-font-family:Arial, sans-serif;
+  background:#000;
+  color:#fff;
+  font-family:Arial;
+  margin:0;
 }
 
-.nav{
-display:flex;
-gap:10px;
-padding:10px;
-background:#111;
-position:sticky;
-top:0;
-z-index:10;
+.topbar{
+  display:flex;
+  gap:5px;
+  padding:10px;
+}
+
+input{
+  flex:1;
+  padding:8px;
+  background:#111;
+  border:1px solid #333;
+  color:#fff;
 }
 
 button{
-padding:6px 10px;
-background:#222;
-color:#fff;
-border:1px solid #333;
-border-radius:6px;
+  background:#222;
+  color:#fff;
+  border:none;
+  padding:10px;
 }
 
-.card{
-padding:10px;
-}
-
-/* HEADER */
-.header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:10px;
-}
-
-.title{
-font-size:18px;
-font-weight:bold;
-}
-
-.sub{
-font-size:12px;
-color:#aaa;
-}
-
-/* SIGNAL BADGE */
-.signal{
-font-size:12px;
-padding:6px 10px;
-border-radius:8px;
-}
-
-.signal.buy{
-background:#003d1f;
-color:#00e676;
-}
-
-.signal.sell{
-background:#3d0000;
-color:#ff5252;
-}
-
-.signal.wait{
-background:#222;
-color:#aaa;
-}
-
-/* SEARCH */
-input{
-width:100%;
-padding:8px;
-margin-top:5px;
-background:#111;
-color:#fff;
-border:1px solid #333;
-border-radius:6px;
+#chart{
+  height:60vh;
 }
 
 #searchResults div{
-padding:6px;
-background:#111;
-margin:2px 0;
-cursor:pointer;
-border-radius:6px;
+  padding:6px;
+  background:#111;
+  border-bottom:1px solid #222;
 }
 
-#searchResults div:hover{
-background:#222;
-}
-
-/* NAV */
-.controls{
-margin-top:5px;
-display:flex;
-gap:10px;
-}
-
-/* CHART */
-#chart{
-height:50vh;
-min-height:260px;
-margin-top:10px;
-touch-action:none;
+#signalBox{
+  padding:10px;
+  font-size:18px;
 }
