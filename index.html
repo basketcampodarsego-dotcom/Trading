@@ -3,14 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dashboard</title>
+
+<title>Trading Dashboard</title>
 
 <link rel="stylesheet" href="style.css">
-<script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+
+<!-- ✅ VERSIONE STABILE -->
+<script src="https://unpkg.com/lightweight-charts@3.8.0/dist/lightweight-charts.standalone.production.js"></script>
+
 </head>
 
 <body>
 
+<!-- MENU -->
 <div class="menu">
   <a href="index.html">Dashboard</a>
   <a href="portfolio.html">Portfolio</a>
@@ -18,6 +23,7 @@
   <a href="report.html">Report</a>
 </div>
 
+<!-- HEADER -->
 <div class="header">
   <div>
     <h2 id="title">Loading...</h2>
@@ -26,15 +32,24 @@
   <div id="signal">--</div>
 </div>
 
-<input id="search" placeholder="Cerca..." oninput="searchAsset()">
+<!-- SEARCH -->
+<input 
+  id="search" 
+  placeholder="Cerca asset..." 
+  oninput="searchAsset()" 
+  style="width:95%; margin:10px; padding:10px;"
+>
 
+<!-- CHART -->
 <div id="chart"></div>
 
+<!-- NAV -->
 <div class="nav-bottom">
   <button onclick="nav(-1)">◀ PREV</button>
   <button onclick="nav(1)">NEXT ▶</button>
 </div>
 
+<!-- SCRIPT -->
 <script src="app.js"></script>
 
 </body>
