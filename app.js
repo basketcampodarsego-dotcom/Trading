@@ -1,260 +1,73 @@
-let dataList = [], idx = 0;
-let chart, candleSeries, ema10, ema50, ema200;
-let cache = {};
+let chart;
+let candleSeries;
+let idx = 0;
+let assets = ["AAPL","MSFT","TSLA"];
 
-// ================= INIT =================
-async function init(){
-
- try{
+function createChart(){
 
   chart = LightweightCharts.createChart(
     document.getElementById("chart"),
-    {
-      layout:{ background:{color:"#000"}, textColor:"#aaa" },
-      grid:{ vertLines:{color:"#111"}, horzLines:{color:"#111"} }
-    }
+    { layout:{background:{color:"#000"},textColor:"#fff"} }
   );
 
-  // ✅ API NUOVA
-  candleSeries = chart.addSeries(LightweightCharts.CandlestickSeries);
-
-  ema10 = chart.addSeries(LightweightCharts.LineSeries, { color:"#00ff00" });
-  ema50 = chart.addSeries(LightweightCharts.LineSeries, { color:"#ff0000" });
-  ema200 = chart.addSeries(LightweightCharts.LineSeries, { color:"#00aaff" });
-
-  const res = await fetch('./tr_isin_ticker.csv');
-  const text = await res.text();
-
-  const rows = text.split('\n').filter(x=>x);
-  const header = rows[0].toLowerCase().split(/[,;]/);
-
-  const iT = header.indexOf('ticker');
-  const iN = header.indexOf('name');
-
-  if(iT === -1 || iN === -1){
-    throw "CSV formato errato";
-  }
-
-  dataList = rows.slice(1).map(r=>{
-    const c = r.split(/[,;]/);
-    return { ticker:c[iT], name:c[iN] };
-  });
-
-  loadAsset();
-
- }catch(e){
-  document.getElementById("assetName").innerText =
-    "Errore init: " + e;
- }
+  candleSeries = chart.addCandlestickSeries();
 }
 
-// ================= DATA =================
-async function getData(ticker){
+function demoData(){
 
- try{
+  let data=[], price=100;
 
-  if(cache[ticker]) return cache[ticker];
+  for(let i=0;i<100;i++){
+    let open=price;
+    let close=price+(Math.random()-0.5)*5;
+    let high=Math.max(open,close)+2;
+    let low=Math.min(open,close)-2;
 
-  const url = "https://corsproxy.io/?" + encodeURIComponent(
-    "https://query1.finance.yahoo.com/v8/finance/chart/" +
-    ticker + "?range=1y&interval=1d"
-  );
-
-  const r = await fetch(url);
-  const d = await r.json();
-
-  if(!d.chart || !d.chart.result || !d.chart.result[0]){
-    throw "No data";
+    data.push({time:1670000000+i*86400,open,high,low,close});
+    price=close;
   }
 
-  const q = d.chart.result[0];
-
-  const candles = q.timestamp.map((t,i)=>({
-    time:t,
-    open:q.indicators.quote[0].open[i],
-    high:q.indicators.quote[0].high[i],
-    low:q.indicators.quote[0].low[i],
-    close:q.indicators.quote[0].close[i]
-  })).filter(x=>x.open != null);
-
-  cache[ticker] = candles;
-  return candles;
-
- }catch(e){
-  console.log("Ticker senza dati:", ticker);
-  return [];
- }
+  return data;
 }
 
-// ================= EMA =================
-function EMA(data,p){
- if(data.length<p) return [];
- const k=2/(p+1);
- let out=[],prev=0;
+function loadChart(symbol){
 
- for(let i=0;i<p;i++) prev+=data[i].close;
- prev/=p;
+  document.getElementById("title").innerText = symbol;
+  document.getElementById("ticker").innerText = symbol;
 
- for(let i=p;i<data.length;i++){
-  prev=data[i].close*k+prev*(1-k);
-  out.push({time:data[i].time,value:prev});
- }
- return out;
-}
+  document.getElementById("chart").innerHTML="";
 
-// ================= RSI =================
-function RSI(data,p=14){
- if(data.length<p+1) return [];
- let g=0,l=0;
+  createChart();
 
- for(let i=1;i<=p;i++){
-  let d=data[i].close-data[i-1].close;
-  if(d>=0) g+=d; else l-=d;
- }
+  try{
+    let data = demoData();
+    candleSeries.setData(data);
 
- let avgG=g/p, avgL=l/p;
- let out=[];
+    let last = data[data.length-1];
+    let prev = data[data.length-2];
 
- for(let i=p+1;i<data.length;i++){
-  let d=data[i].close-data[i-1].close;
+    let signal = last.close > prev.close ? "BUY" : "SELL";
 
-  if(d>=0){
-    avgG=(avgG*(p-1)+d)/p;
-    avgL=(avgL*(p-1))/p;
-  }else{
-    avgL=(avgL*(p-1)-d)/p;
-    avgG=(avgG*(p-1))/p;
+    document.getElementById("signal").innerText =
+      signal + " - " + new Date().toLocaleDateString();
+
+  }catch(e){
+    document.getElementById("signal").innerText="Errore dati";
   }
-
-  let rs=avgL===0?100:avgG/avgL;
-
-  out.push({time:data[i].time,value:100-(100/(1+rs))});
- }
-
- return out;
 }
 
-// ================= MARKERS =================
-function generateMarkers(c,e10,e50,rsi){
-
- let markers=[], state="NONE";
- let last="WAIT", lastTime=null;
-
- for(let i=50;i<c.length;i++){
-
-  let t=c[i].time;
-
-  let a=e10.find(x=>x.time===t)?.value;
-  let b=e50.find(x=>x.time===t)?.value;
-  let r=rsi.find(x=>x.time===t)?.value;
-
-  if(!a||!b||!r) continue;
-
-  let bull=a>b && r>50;
-  let bear=a<b && r<50;
-
-  if(bull && state!=="BULL"){
-    markers.push({time:t,position:'belowBar',color:'green',shape:'arrowUp',text:'BUY'});
-    state="BULL";
-    last="BUY"; lastTime=t;
-  }
-
-  if(bear && state!=="BEAR"){
-    markers.push({time:t,position:'aboveBar',color:'red',shape:'arrowDown',text:'SELL'});
-    state="BEAR";
-    last="SELL"; lastTime=t;
-  }
- }
-
- let txt = "Segnale: " + last;
-
- if(lastTime){
-   txt += " (" + new Date(lastTime*1000).toLocaleDateString() + ")";
- }
-
- document.getElementById("signalBox").innerText = txt;
-
- return markers;
-}
-
-// ================= LOAD =================
-async function loadAsset(){
-
- let attempts = 0;
-
- while(attempts < 10){
-
-  const s = dataList[idx];
-  if(!s) return;
-
-  document.getElementById("assetName").innerText = s.name;
-  document.getElementById("isinTicker").innerText = s.ticker;
-
-  const c = await getData(s.ticker);
-
-  if(c && c.length > 50){
-
-    candleSeries.setData(c);
-
-    const e10=EMA(c,10);
-    const e50=EMA(c,50);
-    const e200=EMA(c,200);
-    const rsi=RSI(c);
-
-    ema10.setData(e10);
-    ema50.setData(e50);
-    ema200.setData(e200);
-
-    const markers=generateMarkers(c,e10,e50,rsi);
-    candleSeries.setMarkers(markers);
-
-    chart.timeScale().fitContent();
-    return;
-  }
-
-  idx = (idx + 1) % dataList.length;
-  attempts++;
- }
-
- document.getElementById("assetName").innerText = "Nessun dato disponibile";
-}
-
-// ================= NAV =================
 function nav(d){
- idx=(idx+d+dataList.length)%dataList.length;
- loadAsset();
+  idx = (idx + d + assets.length) % assets.length;
+  loadChart(assets[idx]);
 }
 
-// ================= SEARCH =================
-function liveSearchInput(){
-
- const v=document.getElementById("searchInput").value.toLowerCase();
- const box=document.getElementById("searchResults");
-
- if(!v){ box.innerHTML=""; return; }
-
- let r=[];
-
- for(let i=0;i<dataList.length;i++){
-  let x=dataList[i];
-  if(x.ticker.toLowerCase().includes(v) || x.name.toLowerCase().includes(v)){
-    r.push({...x,i});
+function searchAsset(){
+  let v = document.getElementById("search").value.toUpperCase();
+  let found = assets.find(x=>x.includes(v));
+  if(found){
+    idx = assets.indexOf(found);
+    loadChart(found);
   }
-  if(r.length>=5) break;
- }
-
- box.innerHTML=r.map(x=>`
-  <div onclick="selectSearch(${x.i})">
-   ${x.ticker} - ${x.name}
-  </div>
- `).join("");
 }
 
-function selectSearch(i){
- idx=i;
- document.getElementById("searchResults").innerHTML="";
- loadAsset();
-}
-
-// ================= START =================
-window.onload = init;
+loadChart(assets[idx]);
