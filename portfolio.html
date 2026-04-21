@@ -1,34 +1,23 @@
 <!DOCTYPE html>
-<html lang="it">
+<html>
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
 <title>Portfolio</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="nav">
-  <button onclick="goPage('index.html')">Dashboard</button>
-  <button onclick="goPage('portfolio.html')">Portfolio</button>
+<div class="menu">
+  <a href="index.html">Dashboard</a>
+  <a href="portfolio.html">Portfolio</a>
+  <a href="backtest.html">Backtest</a>
+  <a href="report.html">Report</a>
 </div>
 
-<div class="card">
+<h2>Portfolio</h2>
 
-<h2>PORTAFOGLIO REALE</h2>
-
-<input id="manualTicker" placeholder="Ticker">
-<input id="manualPrice" placeholder="Prezzo ingresso">
-<input id="manualPL" placeholder="P/L €">
-<button onclick="addManual()">Aggiungi</button>
-
-<div id="portfolioBox"></div>
-
-</div>
-
-<script src="app.js"></script>
-<script>renderPortfolio()</script>
+<p>Funzione base attiva (tracking manuale)</p>
 
 </body>
 </html>
