@@ -3,30 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Trading Dashboard</title>
+<title>Dashboard</title>
 
-<script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
 <link rel="stylesheet" href="style.css">
+<script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
 </head>
 
 <body>
 
-<div class="topbar">
-  <button onclick="nav(-1)">◀</button>
-  <button onclick="nav(1)">▶</button>
-  <input id="searchInput" placeholder="Cerca ticker..." oninput="liveSearchInput()">
+<div class="menu">
+  <a href="index.html">Dashboard</a>
+  <a href="portfolio.html">Portfolio</a>
+  <a href="backtest.html">Backtest</a>
+  <a href="report.html">Report</a>
 </div>
 
-<div id="searchResults"></div>
+<div class="header">
+  <div>
+    <h2 id="title">Loading...</h2>
+    <small id="ticker"></small>
+  </div>
+  <div id="signal">--</div>
+</div>
 
-<h2 id="assetName">Loading...</h2>
-<div id="isinTicker"></div>
-
-<div id="signalBox"></div>
+<input id="search" placeholder="Cerca..." oninput="searchAsset()">
 
 <div id="chart"></div>
 
-<div id="status"></div>
+<div class="nav-bottom">
+  <button onclick="nav(-1)">◀ PREV</button>
+  <button onclick="nav(1)">NEXT ▶</button>
+</div>
 
 <script src="app.js"></script>
 
