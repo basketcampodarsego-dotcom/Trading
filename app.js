@@ -7,17 +7,26 @@ async function init(){
 
  try{
 
+  if(typeof LightweightCharts === "undefined"){
+    throw "Libreria grafico non caricata";
+  }
+
   chart = LightweightCharts.createChart(
     document.getElementById("chart"),
-    { layout:{ background:{color:"#000"}, textColor:"#aaa"} }
+    {
+      layout:{ background:{color:"#000"}, textColor:"#aaa" }
+    }
   );
 
   candleSeries = chart.addCandlestickSeries();
+
   ema10 = chart.addLineSeries({color:"#00ff00"});
   ema50 = chart.addLineSeries({color:"#ff0000"});
   ema200 = chart.addLineSeries({color:"#00aaff"});
 
   const res = await fetch('./tr_isin_ticker.csv');
+  if(!res.ok) throw "CSV non trovato";
+
   const text = await res.text();
 
   const rows = text.split('\n').filter(x=>x);
@@ -26,16 +35,26 @@ async function init(){
   const iT = header.indexOf('ticker');
   const iN = header.indexOf('name');
 
+  if(iT === -1 || iN === -1){
+    throw "CSV formato errato";
+  }
+
   dataList = rows.slice(1).map(r=>{
     const c = r.split(/[,;]/);
-    return {ticker:c[iT], name:c[iN]};
+    return { ticker:c[iT], name:c[iN] };
   });
 
+  if(!dataList.length) throw "Lista vuota";
+
+  // 👉 parte da primo valido (fallback automatico)
+  idx = 0;
   loadAsset();
 
  }catch(e){
+
   console.error(e);
-  document.getElementById("assetName").innerText="Errore init";
+  document.getElementById("assetName").innerText =
+    "Errore init: " + e;
  }
 }
 
@@ -54,7 +73,9 @@ async function getData(ticker){
   const r = await fetch(url);
   const d = await r.json();
 
-  if(!d.chart || !d.chart.result) throw "No data";
+  if(!d.chart || !d.chart.result || !d.chart.result[0]){
+    throw "No data";
+  }
 
   const q = d.chart.result[0];
 
@@ -64,13 +85,13 @@ async function getData(ticker){
     high:q.indicators.quote[0].high[i],
     low:q.indicators.quote[0].low[i],
     close:q.indicators.quote[0].close[i]
-  })).filter(x=>x.open);
+  })).filter(x=>x.open != null);
 
   cache[ticker] = candles;
   return candles;
 
  }catch(e){
-  console.error("Errore dati:", ticker);
+  console.log("Ticker KO:", ticker);
   return [];
  }
 }
@@ -126,7 +147,8 @@ function RSI(data,p=14){
 // ================= MARKERS =================
 function generateMarkers(c,e10,e50,rsi){
 
- let m=[], state="NONE", last="NONE", lastTime="";
+ let m=[], state="NONE";
+ let last="WAIT", lastTime=null;
 
  for(let i=50;i<c.length;i++){
 
@@ -154,8 +176,13 @@ function generateMarkers(c,e10,e50,rsi){
   }
  }
 
- document.getElementById("signalBox").innerText =
-   "Segnale: " + last + " (" + new Date(lastTime*1000).toLocaleDateString() + ")";
+ let txt = "Segnale: " + last;
+
+ if(lastTime){
+   txt += " (" + new Date(lastTime*1000).toLocaleDateString() + ")";
+ }
+
+ document.getElementById("signalBox").innerText = txt;
 
  return m;
 }
@@ -163,34 +190,46 @@ function generateMarkers(c,e10,e50,rsi){
 // ================= LOAD =================
 async function loadAsset(){
 
- const s = dataList[idx];
- if(!s) return;
+ let attempts = 0;
 
- document.getElementById("assetName").innerText=s.name;
- document.getElementById("isinTicker").innerText=s.ticker;
+ while(attempts < 10){
 
- const c = await getData(s.ticker);
+  const s = dataList[idx];
+  if(!s) return;
 
- if(!c.length){
-   document.getElementById("assetName").innerText="No data";
-   return;
+  document.getElementById("assetName").innerText = s.name;
+  document.getElementById("isinTicker").innerText = s.ticker;
+
+  const c = await getData(s.ticker);
+
+  // 👉 SKIP AUTOMATICO TICKER SENZA DATI
+  if(c && c.length > 50){
+
+    candleSeries.setData(c);
+
+    const e10=EMA(c,10);
+    const e50=EMA(c,50);
+    const e200=EMA(c,200);
+    const rsi=RSI(c);
+
+    ema10.setData(e10);
+    ema50.setData(e50);
+    ema200.setData(e200);
+
+    const markers=generateMarkers(c,e10,e50,rsi);
+    candleSeries.setMarkers(markers);
+
+    chart.timeScale().fitContent();
+
+    return;
+  }
+
+  // 👉 passa al prossimo ticker
+  idx = (idx + 1) % dataList.length;
+  attempts++;
  }
 
- candleSeries.setData(c);
-
- const e10=EMA(c,10);
- const e50=EMA(c,50);
- const e200=EMA(c,200);
- const rsi=RSI(c);
-
- ema10.setData(e10);
- ema50.setData(e50);
- ema200.setData(e200);
-
- const markers=generateMarkers(c,e10,e50,rsi);
- candleSeries.setMarkers(markers);
-
- chart.timeScale().fitContent();
+ document.getElementById("assetName").innerText = "Nessun dato disponibile";
 }
 
 // ================= NAV =================
