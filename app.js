@@ -7,26 +7,22 @@ async function init(){
 
  try{
 
-  if(typeof LightweightCharts === "undefined"){
-    throw "Libreria grafico non caricata";
-  }
-
   chart = LightweightCharts.createChart(
     document.getElementById("chart"),
     {
-      layout:{ background:{color:"#000"}, textColor:"#aaa" }
+      layout:{ background:{color:"#000"}, textColor:"#aaa" },
+      grid:{ vertLines:{color:"#111"}, horzLines:{color:"#111"} }
     }
   );
 
-  candleSeries = chart.addCandlestickSeries();
+  // ✅ API NUOVA
+  candleSeries = chart.addSeries(LightweightCharts.CandlestickSeries);
 
-  ema10 = chart.addLineSeries({color:"#00ff00"});
-  ema50 = chart.addLineSeries({color:"#ff0000"});
-  ema200 = chart.addLineSeries({color:"#00aaff"});
+  ema10 = chart.addSeries(LightweightCharts.LineSeries, { color:"#00ff00" });
+  ema50 = chart.addSeries(LightweightCharts.LineSeries, { color:"#ff0000" });
+  ema200 = chart.addSeries(LightweightCharts.LineSeries, { color:"#00aaff" });
 
   const res = await fetch('./tr_isin_ticker.csv');
-  if(!res.ok) throw "CSV non trovato";
-
   const text = await res.text();
 
   const rows = text.split('\n').filter(x=>x);
@@ -44,15 +40,9 @@ async function init(){
     return { ticker:c[iT], name:c[iN] };
   });
 
-  if(!dataList.length) throw "Lista vuota";
-
-  // 👉 parte da primo valido (fallback automatico)
-  idx = 0;
   loadAsset();
 
  }catch(e){
-
-  console.error(e);
   document.getElementById("assetName").innerText =
     "Errore init: " + e;
  }
@@ -91,7 +81,7 @@ async function getData(ticker){
   return candles;
 
  }catch(e){
-  console.log("Ticker KO:", ticker);
+  console.log("Ticker senza dati:", ticker);
   return [];
  }
 }
@@ -147,7 +137,7 @@ function RSI(data,p=14){
 // ================= MARKERS =================
 function generateMarkers(c,e10,e50,rsi){
 
- let m=[], state="NONE";
+ let markers=[], state="NONE";
  let last="WAIT", lastTime=null;
 
  for(let i=50;i<c.length;i++){
@@ -164,13 +154,13 @@ function generateMarkers(c,e10,e50,rsi){
   let bear=a<b && r<50;
 
   if(bull && state!=="BULL"){
-    m.push({time:t,position:'belowBar',color:'green',shape:'arrowUp',text:'BUY'});
+    markers.push({time:t,position:'belowBar',color:'green',shape:'arrowUp',text:'BUY'});
     state="BULL";
     last="BUY"; lastTime=t;
   }
 
   if(bear && state!=="BEAR"){
-    m.push({time:t,position:'aboveBar',color:'red',shape:'arrowDown',text:'SELL'});
+    markers.push({time:t,position:'aboveBar',color:'red',shape:'arrowDown',text:'SELL'});
     state="BEAR";
     last="SELL"; lastTime=t;
   }
@@ -184,7 +174,7 @@ function generateMarkers(c,e10,e50,rsi){
 
  document.getElementById("signalBox").innerText = txt;
 
- return m;
+ return markers;
 }
 
 // ================= LOAD =================
@@ -202,7 +192,6 @@ async function loadAsset(){
 
   const c = await getData(s.ticker);
 
-  // 👉 SKIP AUTOMATICO TICKER SENZA DATI
   if(c && c.length > 50){
 
     candleSeries.setData(c);
@@ -220,11 +209,9 @@ async function loadAsset(){
     candleSeries.setMarkers(markers);
 
     chart.timeScale().fitContent();
-
     return;
   }
 
-  // 👉 passa al prossimo ticker
   idx = (idx + 1) % dataList.length;
   attempts++;
  }
