@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,7 +8,7 @@
 
 <link rel="stylesheet" href="style.css">
 
-<!-- ✅ VERSIONE STABILE -->
+<!-- Lightweight Charts v3.8 -->
 <script src="https://unpkg.com/lightweight-charts@3.8.0/dist/lightweight-charts.standalone.production.js"></script>
 
 </head>
@@ -18,8 +18,8 @@
 <!-- MENU -->
 <div class="menu">
   <a href="index.html">Dashboard</a>
-  <a href="portfolio.html">Portfolio</a>
-  <a href="backtest.html">Backtest</a>
+  <a href="portfolio.html">Portafoglio</a>
+  <a href="backtest.html">Analisi</a>
   <a href="report.html">Report</a>
 </div>
 
@@ -29,24 +29,23 @@
     <h2 id="title">Loading...</h2>
     <small id="ticker"></small>
   </div>
+
   <div id="signal">--</div>
 </div>
 
-<!-- SEARCH -->
-<input 
-  id="search" 
-  placeholder="Cerca asset..." 
-  oninput="searchAsset()" 
-  style="width:95%; margin:10px; padding:10px;"
->
+<!-- RICERCA -->
+<input id="search" placeholder="Cerca nome, ticker o ISIN..." oninput="searchAsset()">
 
-<!-- CHART -->
+<!-- FONDAMENTALI -->
+<div id="fundamentals" style="padding:10px; font-size:14px; color:#aaa;"></div>
+
+<!-- GRAFICO -->
 <div id="chart"></div>
 
-<!-- NAV -->
+<!-- NAVIGAZIONE -->
 <div class="nav-bottom">
-  <button onclick="nav(-1)">◀ PREV</button>
-  <button onclick="nav(1)">NEXT ▶</button>
+  <button onclick="nav(-1)">◀ Precedente</button>
+  <button onclick="nav(1)">Successivo ▶</button>
 </div>
 
 <!-- SCRIPT -->
