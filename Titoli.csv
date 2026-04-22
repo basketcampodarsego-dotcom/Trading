@@ -1,0 +1,13 @@
+isin,name,ticker,source,yf_sector,yf_industry
+IE00B4ND3602,iShares Physical Gold ETC,SGLN,Yahoo Finance,Commodities,Precious Metals
+LU1407887915,Amundi US Treasury Bond 7-10Y,US7,Yahoo Finance,Fixed Income,Government Bonds
+US5949181045,Microsoft Corp.,MSFT,Yahoo Finance,Technology,Software - Infrastructure
+IE00BK5BQT80,Vanguard FTSE All-World USD (Acc),VWCE,Yahoo Finance,Global Equity,Broad Market
+US92826C8394,VISA Inc.,V,Yahoo Finance,Financial Services,Credit Services
+US30303M1027,Meta Platforms Inc.,META,Yahoo Finance,Communication Services,Internet Content & Information
+IE000NFR7C63,iShares MSCI China Tech USD (Acc),CTEC,Yahoo Finance,Equity,Thematic - Tech China
+IE00BZCQB185,iShares MSCI India USD (Acc),NDIA,Yahoo Finance,Equity,Emerging Markets - India
+KYG017191142,Alibaba Group Holding Ltd.,9988,Yahoo Finance,Consumer Cyclical,Internet Retail
+IE00BK5BCD43,L&G Artificial Intelligence USD (Acc),AIAI,Yahoo Finance,Equity,Thematic - AI
+US0378331005,Apple Inc.,AAPL,Yahoo Finance,Technology,Consumer Electronics
+JE00BN7KB557,WisdomTree Coffee,COFF,Yahoo Finance,Commodities,Agriculture
