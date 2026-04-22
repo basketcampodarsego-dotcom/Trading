@@ -147,20 +147,41 @@ function generateSignals(c,e10,e50){
     let bull=a>b;
     let bear=a<b;
 
+    // 🔵 BUY - BLU (molto visibile)
     if(bull && state!=="BULL"){
-      markers.push({time:t,position:'belowBar',color:'green',shape:'arrowUp',text:'BUY'});
+      markers.push({
+        time:t,
+        position:'belowBar',
+        color:'#00d0ff', // BLU acceso
+        shape:'arrowUp',
+        text:' BUY ',
+        size:2
+      });
+
       state="BULL";
-      last="BUY"; lastTime=t;
+      last="BUY";
+      lastTime=t;
     }
 
+    // 🟣 SELL - VIOLA (distinto dal rosso)
     if(bear && state!=="BEAR"){
-      markers.push({time:t,position:'aboveBar',color:'red',shape:'arrowDown',text:'SELL'});
+      markers.push({
+        time:t,
+        position:'aboveBar',
+        color:'#ff00ff', // VIOLA acceso
+        shape:'arrowDown',
+        text:' SELL ',
+        size:2
+      });
+
       state="BEAR";
-      last="SELL"; lastTime=t;
+      last="SELL";
+      lastTime=t;
     }
   }
 
   let txt="Segnale: "+last;
+
   if(lastTime){
     txt += " (" + new Date(lastTime*1000).toLocaleDateString() + ")";
   }
@@ -169,7 +190,6 @@ function generateSignals(c,e10,e50){
 
   return markers;
 }
-
 // ================= LOAD =================
 async function loadAsset(){
 
