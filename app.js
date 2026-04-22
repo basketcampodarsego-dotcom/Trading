@@ -233,6 +233,19 @@ async function loadAsset(){
 
   // fondamentali
   const f = await getFundamentals(s.ticker);
+
+if(document.getElementById("fundamentals")){
+
+  if(f){
+    document.getElementById("fundamentals").innerText =
+      "PE: " + formatNumber(f.pe) +
+      " | EPS: " + formatNumber(f.eps) +
+      " | MCap: " + formatNumber(f.cap);
+  }else{
+    document.getElementById("fundamentals").innerText =
+      "Dati fondamentali non disponibili";
+  }
+}
   if(f){
     document.getElementById("fundamentals").innerText =
       "PE: "+(f.pe||"-")+" | EPS: "+(f.eps||"-")+" | MCap: "+(f.cap||"-");
@@ -264,5 +277,16 @@ function searchAsset(){
   }
 }
 
+// ================= Format number =================
+function formatNumber(n){
+
+  if(!n) return "-";
+
+  if(n > 1e12) return (n/1e12).toFixed(2) + " T";
+  if(n > 1e9)  return (n/1e9).toFixed(2) + " B";
+  if(n > 1e6)  return (n/1e6).toFixed(2) + " M";
+
+  return n.toFixed(2);
+}
 // ================= START =================
 window.onload = init;
