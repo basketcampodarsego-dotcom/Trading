@@ -8,7 +8,15 @@ let cache = {};
 
 // ================= INIT =================
 async function init(){
-
+  const saved = localStorage.getItem("selectedTicker");
+  if(saved){
+    const i = dataList.findIndex(x => x.ticker === saved);
+    if(i >= 0){
+      idx = i;
+      localStorage.removeItem("selectedTicker");
+    }
+  }
+  
   chart = LightweightCharts.createChart(
     document.getElementById("chart"),
     {
