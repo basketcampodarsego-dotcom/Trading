@@ -29,12 +29,6 @@ async function init(){
   });
 
   await loadCSV();
-
-  if(!dataList.length){
-    showError("CSV vuoto");
-    return;
-  }
-
   loadAsset();
 }
 
@@ -64,10 +58,9 @@ async function loadCSV(){
 // ================= DATA =================
 async function getData(symbol){
 
+  if(cache[symbol]) return cache[symbol];
+
   try{
-
-    console.log("Carico:", symbol);
-
     const url = "https://corsproxy.io/?" + encodeURIComponent(
       "https://query1.finance.yahoo.com/v8/finance/chart/" +
       symbol + "?range=1y&interval=1d"
@@ -76,11 +69,9 @@ async function getData(symbol){
     const r = await fetch(url);
     const d = await r.json();
 
-    if(!d.chart || !d.chart.result) throw "No data";
-
     const q = d.chart.result[0];
 
-    return q.timestamp.map((t,i)=>({
+    const candles = q.timestamp.map((t,i)=>({
       time:t,
       open:q.indicators.quote[0].open[i],
       high:q.indicators.quote[0].high[i],
@@ -89,9 +80,34 @@ async function getData(symbol){
       volume:q.indicators.quote[0].volume[i]
     })).filter(x=>x.open != null);
 
-  }catch(e){
-    console.log("Errore:", symbol);
+    cache[symbol] = candles;
+    return candles;
+
+  }catch{
     return [];
+  }
+}
+
+// ================= FUNDAMENTALS =================
+async function getFundamentals(symbol){
+
+  try{
+    const url = "https://corsproxy.io/?" + encodeURIComponent(
+      "https://query1.finance.yahoo.com/v7/finance/quote?symbols=" + symbol
+    );
+
+    const r = await fetch(url);
+    const d = await r.json();
+    const q = d.quoteResponse.result[0];
+
+    return {
+      pe: q.trailingPE,
+      eps: q.epsTrailingTwelveMonths,
+      cap: q.marketCap
+    };
+
+  }catch{
+    return null;
   }
 }
 
@@ -112,10 +128,12 @@ function EMA(data,p){
 }
 
 // ================= SIGNALS =================
-function generateMarkers(c,e10,e50){
+function generateSignals(c,e10,e50){
 
-  let markers=[], state="NONE";
-  let last="WAIT", lastTime=null;
+  let markers=[];
+  let state="NONE";
+  let last="WAIT";
+  let lastTime=null;
 
   for(let i=50;i<c.length;i++){
 
@@ -155,52 +173,48 @@ function generateMarkers(c,e10,e50){
 // ================= LOAD =================
 async function loadAsset(){
 
-  let attempts=0;
+  let s = dataList[idx];
+  if(!s) return;
 
-  while(attempts < dataList.length){
+  document.getElementById("title").innerText = s.name;
+  document.getElementById("ticker").innerText = s.ticker;
 
-    const s = dataList[idx];
-    const symbol = s.ticker;
+  const c = await getData(s.ticker);
 
-    document.getElementById("title").innerText = s.name;
-    document.getElementById("ticker").innerText = symbol;
-
-    const c = await getData(symbol);
-
-    if(c.length > 50){
-
-      candleSeries.setData(c);
-
-      const e10=EMA(c,10);
-      const e50=EMA(c,50);
-      const e200=EMA(c,200);
-
-      ema10.setData(e10);
-      ema50.setData(e50);
-      ema200.setData(e200);
-
-      volumeSeries.setData(
-        c.map(x=>({
-          time:x.time,
-          value:x.volume,
-          color: x.close>x.open ? '#26a69a' : '#ef5350'
-        }))
-      );
-
-      const markers=generateMarkers(c,e10,e50);
-      candleSeries.setMarkers(markers);
-
-      chart.timeScale().fitContent();
-
-      return;
-    }
-
-    // ❌ asset non valido → passa oltre
-    idx=(idx+1)%dataList.length;
-    attempts++;
+  if(!c.length){
+    document.getElementById("signal").innerText="No data";
+    return;
   }
 
-  showError("Nessun ticker valido");
+  candleSeries.setData(c);
+
+  const e10=EMA(c,10);
+  const e50=EMA(c,50);
+  const e200=EMA(c,200);
+
+  ema10.setData(e10);
+  ema50.setData(e50);
+  ema200.setData(e200);
+
+  volumeSeries.setData(
+    c.map(x=>({
+      time:x.time,
+      value:x.volume,
+      color: x.close>x.open ? '#26a69a' : '#ef5350'
+    }))
+  );
+
+  const markers=generateSignals(c,e10,e50);
+  candleSeries.setMarkers(markers);
+
+  // fondamentali
+  const f = await getFundamentals(s.ticker);
+  if(f){
+    document.getElementById("fundamentals").innerText =
+      "PE: "+(f.pe||"-")+" | EPS: "+(f.eps||"-")+" | MCap: "+(f.cap||"-");
+  }
+
+  chart.timeScale().fitContent();
 }
 
 // ================= NAV =================
@@ -209,10 +223,22 @@ function nav(d){
   loadAsset();
 }
 
-// ================= ERROR =================
-function showError(msg){
-  document.getElementById("title").innerText = msg;
-  document.getElementById("ticker").innerText = "--";
-  document.getElementById("signal").innerText = "";
+// ================= SEARCH =================
+function searchAsset(){
+
+  let v = document.getElementById("search").value.toLowerCase();
+
+  let found = dataList.find(x =>
+    (x.ticker && x.ticker.toLowerCase().includes(v)) ||
+    (x.name && x.name.toLowerCase().includes(v)) ||
+    (x.isin && x.isin.toLowerCase().includes(v))
+  );
+
+  if(found){
+    idx = dataList.indexOf(found);
+    loadAsset();
+  }
 }
+
+// ================= START =================
 window.onload = init;
