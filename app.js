@@ -35,7 +35,7 @@ async function init(){
 // ================= CSV =================
 async function loadCSV(){
 
-  const res = await fetch('./tr_isin_ticker_clean.csv');
+  const res = await fetch('./Titoli.csv');
   const text = await res.text();
 
   const rows = text.split('\n').filter(x=>x.trim());
