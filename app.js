@@ -92,25 +92,29 @@ async function getData(symbol){
 async function getFundamentals(symbol){
 
   try{
-    const url = "https://corsproxy.io/?" + encodeURIComponent(
-      "https://query1.finance.yahoo.com/v7/finance/quote?symbols=" + symbol
-    );
+
+    const url = "https://query1.finance.yahoo.com/v7/finance/quote?symbols=" + symbol;
 
     const r = await fetch(url);
     const d = await r.json();
+
+    if(!d.quoteResponse || !d.quoteResponse.result.length){
+      throw "No fundamentals";
+    }
+
     const q = d.quoteResponse.result[0];
 
     return {
-      pe: q.trailingPE,
-      eps: q.epsTrailingTwelveMonths,
-      cap: q.marketCap
+      pe: q.trailingPE ?? null,
+      eps: q.epsTrailingTwelveMonths ?? null,
+      cap: q.marketCap ?? null
     };
 
-  }catch{
+  }catch(e){
+    console.log("Fundamentals error:", symbol);
     return null;
   }
 }
-
 // ================= EMA =================
 function EMA(data,p){
   if(data.length<p) return [];
