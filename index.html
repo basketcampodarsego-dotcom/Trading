@@ -3,52 +3,59 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <title>Trading Dashboard</title>
 
 <link rel="stylesheet" href="style.css">
 
-<!-- Lightweight Charts v3.8 -->
 <script src="https://unpkg.com/lightweight-charts@3.8.0/dist/lightweight-charts.standalone.production.js"></script>
-
 </head>
 
 <body>
 
-<!-- MENU -->
 <div class="menu">
   <a href="index.html">Dashboard</a>
   <a href="portfolio.html">Portafoglio</a>
   <a href="backtest.html">Analisi</a>
   <a href="report.html">Report</a>
+  <button onclick="toggleConfig()">⚙️</button>
 </div>
 
-<!-- HEADER -->
+<!-- CONFIG -->
+<div id="configBox" style="display:none;padding:10px;background:#111;">
+  <div>Seleziona file titoli:</div>
+
+  <select id="csvSelector" onchange="changeCSV()">
+    <option value="Titoli.csv">Titoli.csv</option>
+    <option value="Titoli2.csv">Titoli2.csv</option>
+    <option value="ETF.csv">ETF.csv</option>
+  </select>
+</div>
+
 <div class="header">
   <div>
     <h2 id="title">Loading...</h2>
     <small id="ticker"></small>
   </div>
-
-  <div id="signal">--</div>
+  <div id="signal"></div>
 </div>
 
-<!-- RICERCA -->
-<input id="search" placeholder="Cerca nome, ticker o ISIN..." oninput="searchAsset()">
+<div style="display:flex; gap:8px; padding:10px;">
+  <input id="search" placeholder="Cerca nome, ticker o ISIN..." style="flex:1;">
+  <button onclick="searchAsset()">Cerca</button>
+</div>
 
-<!-- FONDAMENTALI -->
-<div id="fundamentals" style="padding:10px; font-size:14px; color:#aaa;"></div>
+<div id="searchInfo" style="padding:5px 10px; font-size:12px;"></div>
 
-<!-- GRAFICO -->
+<div id="fundamentals" style="padding:10px;"></div>
+
 <div id="chart"></div>
 
-<!-- NAVIGAZIONE -->
+<!-- BOTTONI SOTTO GRAFICO -->
 <div class="nav-bottom">
   <button onclick="nav(-1)">◀ Precedente</button>
   <button onclick="nav(1)">Successivo ▶</button>
 </div>
 
-<!-- SCRIPT -->
 <script src="app.js"></script>
 
 </body>
