@@ -1,105 +1,57 @@
-/* RESET BASE */
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
 body{
   background:#000;
   color:#fff;
-  font-family:Arial, sans-serif;
-  font-size:16px;
+  font-family:sans-serif;
+  margin:0;
 }
 
 /* MENU */
 .menu{
   display:flex;
-  gap:8px;
+  gap:10px;
   padding:10px;
   background:#111;
 }
 
-.menu a{
-  flex:1;
-  text-align:center;
-  padding:12px;
+.menu a, .menu button{
+  padding:10px;
   background:#222;
   color:#fff;
-  text-decoration:none;
+  border:none;
   border-radius:8px;
-  font-size:14px;
+  text-decoration:none;
 }
 
 /* HEADER */
 .header{
   display:flex;
   justify-content:space-between;
-  align-items:center;
   padding:10px;
-}
-
-.header h2{
-  font-size:18px;
-}
-
-.header small{
-  font-size:12px;
-  color:#aaa;
-}
-
-#signal{
-  font-size:13px;
-  background:#222;
-  padding:6px 10px;
-  border-radius:6px;
-}
-
-/* INPUT */
-input{
-  width:95%;
-  margin:10px auto;
-  display:block;
-  padding:10px;
-  border-radius:8px;
-  border:none;
-  font-size:16px;
 }
 
 /* CHART */
 #chart{
   height:60vh;
+  width:100%;
 }
 
-/* NAV BOTTONI */
+/* 🔥 FIX DEFINITIVO BOTTONI */
 .nav-bottom{
-  position:fixed;
-  bottom:10px;
-  left:0;
-  width:100%;
+  position:relative;
+  z-index:10;
   display:flex;
   justify-content:space-between;
-  padding:0 10px;
+  gap:10px;
+  padding:15px;
+  background:#000;
 }
 
 .nav-bottom button{
-  width:48%;
+  flex:1;
   padding:15px;
   font-size:16px;
-  background:#222;
+  background:#333;
   color:#fff;
   border:none;
   border-radius:10px;
-}
-
-/* TITOLI PAGINE */
-h2{
-  padding:10px;
-  font-size:18px;
-}
-
-/* PARAGRAFI */
-p{
-  padding:10px;
-  font-size:14px;
 }
