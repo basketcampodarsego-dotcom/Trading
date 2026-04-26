@@ -23,20 +23,28 @@
 
   <!-- AGGIUNGI POSIZIONE -->
   <div class="add-form">
-    <div class="search-wrap" style="min-width:160px;flex:2">
-      <input id="p_ticker" placeholder="Ticker / Nome / ISIN" autocomplete="off">
-      <div id="p_ticker_dd"></div>
+    <!-- Riga 1: ricerca + qty + prezzo + data -->
+    <div class="add-form-row">
+      <div class="search-wrap" style="flex:3;min-width:140px">
+        <input id="p_ticker" placeholder="Ticker / Nome / ISIN" autocomplete="off">
+        <div id="p_ticker_dd"></div>
+      </div>
+      <input id="p_qty"   placeholder="Qtà"   type="number" min="0" step="any" style="flex:1;min-width:70px">
+      <input id="p_price" placeholder="Prezzo" type="number" min="0" step="any" style="flex:1;min-width:80px">
+      <input id="p_date"  placeholder="Data"   type="date"                      style="flex:1;min-width:110px">
     </div>
-    <input id="p_qty"    placeholder="Quantità"        type="number" min="0" step="any">
-    <input id="p_price"  placeholder="Prezzo acquisto"  type="number" min="0" step="any">
-    <input id="p_date"   placeholder="Data acquisto"    type="date">
-    <button class="btn-primary" onclick="addPosition()">+ Aggiungi</button>
-    <button onclick="refreshAll()" title="Aggiorna prezzi">⟳ Aggiorna</button>
-    <button onclick="exportCSV()" title="Esporta CSV">↓ CSV</button>
-    <label style="cursor:pointer;margin:0">
-      <span style="display:inline-block;padding:6px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:2px;font-family:var(--mono);font-size:12px;color:var(--text)">↑ Importa CSV</span>
-      <input type="file" accept=".csv" style="display:none" onchange="importCSV(event)">
-    </label>
+    <!-- Info titolo selezionato -->
+    <div id="p_selected_info" style="display:none;padding:4px 2px;font-family:var(--mono);font-size:11px;color:var(--accent);width:100%"></div>
+    <!-- Riga 2: bottoni -->
+    <div class="add-form-row" style="gap:6px">
+      <button class="btn-primary" onclick="addPosition()" style="flex:2">+ Aggiungi</button>
+      <button onclick="refreshAll()">⟳ Aggiorna</button>
+      <button onclick="exportCSV()">↓ CSV</button>
+      <label style="cursor:pointer;margin:0;flex:1">
+        <span class="btn-importa">↑ Importa CSV</span>
+        <input type="file" accept=".csv" style="display:none" onchange="importCSV(event)">
+      </label>
+    </div>
   </div>
 
   <!-- TABELLA -->
