@@ -22,19 +22,41 @@ function toast(msg, ms=2200){
 }
 
 // ── CSV LOADER ───────────────────────────────────────
+// Alias accettati per ogni campo standard
+const CSV_ALIASES = {
+  ticker: ['ticker','symbol','sym','codice','code','titolo'],
+  name:   ['name','nome','description','desc','denominazione','company'],
+  isin:   ['isin','codice_isin','cod_isin','isin_code','cod.isin','codiceisin'],
+};
+
+function resolveCol(header, field){
+  for(const alias of CSV_ALIASES[field]){
+    const i = header.indexOf(alias);
+    if(i !== -1) return i;
+  }
+  return -1;
+}
+
 async function loadCSV(filename){
   const res = await fetch('./' + filename);
-  if(!res.ok) throw new Error('CSV not found: ' + filename);
+  if(!res.ok) throw new Error('CSV non trovato: ' + filename);
   const text = await res.text();
   const rows = text.split('\n').filter(x=>x.trim());
-  const header = rows[0].toLowerCase().split(',').map(h=>h.trim());
+  const header = rows[0].toLowerCase().split(',').map(h=>h.trim().replace(/["\r]/g,''));
+
+  const iT = resolveCol(header, 'ticker');
+  const iN = resolveCol(header, 'name');
+  const iI = resolveCol(header, 'isin');
+
   return rows.slice(1)
     .filter(r=>r.trim())
     .map(r=>{
-      const c = r.split(',');
-      const obj = {};
-      header.forEach((h,i)=>{ obj[h]=(c[i]||'').trim(); });
-      return obj;
+      const c = r.split(',').map(x=>x.trim().replace(/["\r]/g,''));
+      return {
+        ticker: iT>=0 ? c[iT] : '',
+        name:   iN>=0 ? c[iN] : '',
+        isin:   iI>=0 ? c[iI] : '',
+      };
     })
     .filter(r=>r.ticker);
 }

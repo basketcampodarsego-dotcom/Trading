@@ -5,6 +5,7 @@
 let dataList = [];
 let idx = 0;
 let chart, candleSeries, ema10Series, ema50Series, ema200Series;
+let savedChartRange = null;  // range visibile salvato durante scorrimento titoli
 
 // ── INIT ─────────────────────────────────────────────
 async function init(){
@@ -111,6 +112,7 @@ async function loadCurrentCSV(){
 
 async function onCsvChange(){
   await loadCurrentCSV();
+  idx = 0;
   if(dataList.length) loadAsset();
 }
 
@@ -229,7 +231,14 @@ async function loadAsset(){
       `${lastSignal.type}</span>  ·  ${ds}`;
   }
 
-  chart.timeScale().fitContent();
+  // Ripristina zoom se era stato salvato (nav), altrimenti fitContent
+  if(savedChartRange){
+    try{ chart.timeScale().setVisibleRange(savedChartRange); }
+    catch{ chart.timeScale().fitContent(); }
+    savedChartRange = null;
+  } else {
+    chart.timeScale().fitContent();
+  }
 
   // Rating
   const data = ohlc.map(x=>({time:x.time, close:x.close}));
@@ -260,6 +269,8 @@ async function loadAsset(){
 // ── NAV ──────────────────────────────────────────────
 function nav(d){
   if(!dataList.length) return;
+  // Salva zoom corrente prima di cambiare titolo
+  try{ savedChartRange = chart.timeScale().getVisibleRange(); }catch{ savedChartRange=null; }
   idx = (idx+d+dataList.length) % dataList.length;
   loadAsset();
 }
