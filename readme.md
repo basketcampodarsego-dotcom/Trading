@@ -2,6 +2,40 @@
 
 ---
 
+## v1.2 — 26/04/2026
+
+### Modifiche
+
+**`core.js`**
+- Aggiunta `resolveTickerFromISIN(isin)`: risolve ISIN → ticker Yahoo via `/v1/finance/search`, con cache in memoria
+- Aggiunta `CRYPTO_MAP`: dizionario `CRYPTO_BTC→BTC-USD`, `CRYPTO_ETH→ETH-USD`, ecc.
+- Aggiunta `parsePortafoglioCSV(file)`: parser per `portafoglio_reale_input.csv` (colonne: isin, nome, valore_eur, pl_acquisto_eur, quantita, prezzo_eur). Gestisce righe `CRYPTO_*` e `SALDO_CONTANTI` separatamente
+- Aggiunta `attachSearchDropdown(inputEl, dropdownEl, getDataList, onSelect)`: funzione condivisa per dropdown ricerca con filtro ticker/nome/ISIN, navigazione tastiera ↑↓Enter, chiusura blur
+
+**`portfolio.html`**
+- Campo ticker sostituito con `search-wrap` + dropdown autocomplete
+- Aggiunto bottone "↑ Importa CSV" (file input nascosto)
+- Aggiunto `#s-saldo-wrap` nella summary bar per saldo contanti
+
+**`portfolio.js`**
+- `loadTickerList()`: carica tutti i CSV da files.json per popolare il dropdown
+- `initDropdown()`: aggancia `attachSearchDropdown` al form
+- `addPosition()`: risoluzione automatica ISIN→ticker se l'utente digita un ISIN
+- `importCSV(event)`: importa `portafoglio_reale_input.csv`, risolve ISIN, mappa crypto, mostra saldo contanti
+- Colonna nome aggiunta sotto il ticker nella tabella
+
+**`backtest.html`**
+- Campo ticker sostituito con `search-wrap` + dropdown autocomplete
+
+**`backtest.js`**
+- Init asincrono: carica lista titoli da files.json e aggancia dropdown
+- `runBacktest()`: risoluzione ISIN→ticker automatica se necessario
+
+**`style.css`**
+- Aggiunto `.dd-isin` per mostrare ISIN nella terza colonna del dropdown
+
+---
+
 ## v1.1 — 26/04/2026
 
 ### Modifiche

@@ -20,8 +20,11 @@
 
 <div class="bt-controls">
   <div>
-    <label>TICKER</label>
-    <input id="bt_ticker" placeholder="es: AAPL" style="width:130px">
+    <label>TICKER / NOME / ISIN</label>
+    <div class="search-wrap" style="width:200px">
+      <input id="bt_ticker" placeholder="es: AAPL" autocomplete="off">
+      <div id="bt_ticker_dd"></div>
+    </div>
   </div>
   <div>
     <label>PERIODO</label>

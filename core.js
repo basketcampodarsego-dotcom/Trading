@@ -259,3 +259,146 @@ function badgeRating(label){
   };
   return `<span class="${map[label]||'badge badge-na'}">${label}</span>`;
 }
+
+// ── ISIN → TICKER (Yahoo search) ─────────────────────
+const _isinCache = {};
+async function resolveTickerFromISIN(isin){
+  if(_isinCache[isin]) return _isinCache[isin];
+  try{
+    const url = `https://query1.finance.yahoo.com/v1/finance/search?q=${isin}&quotesCount=1&newsCount=0`;
+    const d   = await fetchWithProxy(url);
+    const sym = d?.quotes?.[0]?.symbol;
+    if(sym){ _isinCache[isin]=sym; return sym; }
+  }catch{}
+  return null;
+}
+
+// ── CRYPTO MAP ───────────────────────────────────────
+const CRYPTO_MAP = {
+  CRYPTO_BTC: 'BTC-USD',
+  CRYPTO_ETH: 'ETH-USD',
+  CRYPTO_XRP: 'XRP-USD',
+  CRYPTO_SOL: 'SOL-USD',
+  CRYPTO_ADA: 'ADA-USD',
+  CRYPTO_BNB: 'BNB-USD',
+  CRYPTO_DOT: 'DOT-USD',
+  CRYPTO_MATIC: 'MATIC-USD',
+};
+
+// ── PARSER portafoglio_reale_input.csv ───────────────
+// Ritorna array {ticker, name, isin, qty, buyPrice, value, pl}
+// Righe SALDO_CONTANTI escluse dalla lista posizioni (restituite separatamente)
+async function parsePortafoglioCSV(file){
+  const text = await file.text();
+  const rows = text.split('\n').filter(x=>x.trim());
+  const header = rows[0].toLowerCase().split(',').map(h=>h.trim().replace(/["\r]/g,''));
+
+  const iISIN  = header.indexOf('isin');
+  const iNome  = header.indexOf('nome');
+  const iVal   = header.indexOf('valore_eur');
+  const iPL    = header.indexOf('pl_acquisto_eur');
+  const iQty   = header.indexOf('quantita');
+  const iPrezzo= header.indexOf('prezzo_eur');
+
+  const positions = [];
+  let   saldo     = null;
+
+  for(const row of rows.slice(1)){
+    if(!row.trim()) continue;
+    const c = row.split(',').map(x=>x.trim().replace(/["\r]/g,''));
+    const isin     = iISIN  >= 0 ? c[iISIN]   : '';
+    const nome     = iNome  >= 0 ? c[iNome]   : '';
+    const valore   = iVal   >= 0 ? parseFloat(c[iVal])    : 0;
+    const pl       = iPL    >= 0 ? parseFloat(c[iPL])     : 0;
+    const qty      = iQty   >= 0 ? parseFloat(c[iQty])    : 0;
+    const prezzo   = iPrezzo>= 0 ? parseFloat(c[iPrezzo]) : 0;
+
+    if(isin === 'SALDO_CONTANTI'){
+      saldo = {name: nome, value: valore};
+      continue;
+    }
+
+    // Determina ticker
+    let ticker = null;
+    if(CRYPTO_MAP[isin]){
+      ticker = CRYPTO_MAP[isin];
+    } else {
+      // Prova a risolvere ISIN → ticker via Yahoo (asincrono)
+      ticker = isin; // placeholder, risolto dopo
+    }
+
+    const buyPrice = qty > 0 ? (valore - pl) / qty : prezzo;
+
+    positions.push({ isin, name:nome, ticker, qty, buyPrice, value:valore, pl, fromCSV:true });
+  }
+
+  return { positions, saldo };
+}
+
+// ── DROPDOWN RICERCA CONDIVISA ───────────────────────
+// inputEl    = elemento <input>
+// dropdownEl = elemento <div> dropdown
+// dataList   = array [{ticker, name, isin}]
+// onSelect   = callback(item)
+function attachSearchDropdown(inputEl, dropdownEl, getDataList, onSelect){
+  let highlight = -1;
+
+  function close(){
+    dropdownEl.innerHTML = '';
+    dropdownEl.style.display = 'none';
+    highlight = -1;
+  }
+
+  function open(matches){
+    dropdownEl.innerHTML = matches.map((m,i)=>
+      `<div class="dd-item" data-i="${i}">
+        <span class="dd-ticker">${m.ticker||m.isin||''}</span>
+        <span class="dd-name">${m.name||''}</span>
+        ${m.isin ? `<span class="dd-isin">${m.isin}</span>` : ''}
+      </div>`
+    ).join('');
+    dropdownEl.style.display = 'block';
+
+    dropdownEl.querySelectorAll('.dd-item').forEach((el,i)=>{
+      el.addEventListener('mousedown', e=>{
+        e.preventDefault();
+        onSelect(matches[i]);
+        close();
+      });
+    });
+  }
+
+  inputEl.addEventListener('input', ()=>{
+    highlight = -1;
+    const v = inputEl.value.toLowerCase().trim();
+    if(!v){ close(); return; }
+    const dl = getDataList();
+    const matches = dl.filter(x=>
+      x.ticker?.toLowerCase().includes(v) ||
+      x.name?.toLowerCase().includes(v)   ||
+      x.isin?.toLowerCase().includes(v)
+    ).slice(0,30);
+    matches.length ? open(matches) : close();
+  });
+
+  inputEl.addEventListener('keydown', e=>{
+    const items = dropdownEl.querySelectorAll('.dd-item');
+    if(!items.length) return;
+    if(e.key==='ArrowDown'){ e.preventDefault(); highlight=Math.min(highlight+1,items.length-1); }
+    else if(e.key==='ArrowUp'){ e.preventDefault(); highlight=Math.max(highlight-1,0); }
+    else if(e.key==='Escape'){ close(); return; }
+    else if(e.key==='Enter' && highlight>=0){
+      e.preventDefault();
+      const v = inputEl.value.toLowerCase().trim();
+      const dl = getDataList();
+      const matches = dl.filter(x=>
+        x.ticker?.toLowerCase().includes(v)||x.name?.toLowerCase().includes(v)||x.isin?.toLowerCase().includes(v)
+      ).slice(0,30);
+      if(matches[highlight]){ onSelect(matches[highlight]); close(); }
+      return;
+    }
+    items.forEach((el,i)=>el.classList.toggle('dd-active', i===highlight));
+  });
+
+  inputEl.addEventListener('blur', ()=>setTimeout(close, 150));
+}

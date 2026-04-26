@@ -23,13 +23,20 @@
 
   <!-- AGGIUNGI POSIZIONE -->
   <div class="add-form">
-    <input id="p_ticker" placeholder="Ticker (es: ENEL.MI)" style="text-transform:uppercase">
-    <input id="p_qty"    placeholder="Quantità"       type="number" min="0" step="any">
-    <input id="p_price"  placeholder="Prezzo acquisto" type="number" min="0" step="any">
-    <input id="p_date"   placeholder="Data acquisto"   type="date">
+    <div class="search-wrap" style="min-width:160px;flex:2">
+      <input id="p_ticker" placeholder="Ticker / Nome / ISIN" autocomplete="off">
+      <div id="p_ticker_dd"></div>
+    </div>
+    <input id="p_qty"    placeholder="Quantità"        type="number" min="0" step="any">
+    <input id="p_price"  placeholder="Prezzo acquisto"  type="number" min="0" step="any">
+    <input id="p_date"   placeholder="Data acquisto"    type="date">
     <button class="btn-primary" onclick="addPosition()">+ Aggiungi</button>
     <button onclick="refreshAll()" title="Aggiorna prezzi">⟳ Aggiorna</button>
     <button onclick="exportCSV()" title="Esporta CSV">↓ CSV</button>
+    <label style="cursor:pointer;margin:0">
+      <span style="display:inline-block;padding:6px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:2px;font-family:var(--mono);font-size:12px;color:var(--text)">↑ Importa CSV</span>
+      <input type="file" accept=".csv" style="display:none" onchange="importCSV(event)">
+    </label>
   </div>
 
   <!-- TABELLA -->
@@ -61,6 +68,7 @@
     <div><span class="s-label">P/L TOTALE €</span><span class="s-val" id="s-pl">–</span></div>
     <div><span class="s-label">P/L TOTALE %</span><span class="s-val" id="s-plpct">–</span></div>
     <div><span class="s-label">POSIZIONI</span><span class="s-val" id="s-count">–</span></div>
+    <div id="s-saldo-wrap" style="display:none"><span class="s-label">SALDO CONTANTI</span><span class="s-val td-neu" id="s-saldo">–</span></div>
   </div>
 
 </div>
