@@ -16,50 +16,41 @@
 <div class="menu">
   <a href="index.html">Dashboard</a>
   <a href="portfolio.html">Portafoglio</a>
-  <a href="backtest.html">Analisi</a>
-  <a href="report.html">Report</a>
   <button onclick="toggleConfig()">⚙️</button>
 </div>
 
 <!-- CONFIG -->
 <div id="configBox" style="display:none;padding:10px;background:#111;">
-
-  <div style="margin-bottom:10px;">Seleziona liste titoli:</div>
-
-  <!-- MULTI SELECT -->
-  <select id="csvSelector" multiple size="5" style="width:100%;padding:10px;">
-    <option value="Titoli.csv">Titoli principali</option>
-    <option value="ETF.csv">ETF</option>
-    <option value="Italia.csv">Italia</option>
-    <option value="USA.csv">USA</option>
-  </select>
-
-  <button onclick="applyCSVSelection()" style="margin-top:10px;width:100%;padding:10px;">
-    Applica selezione
-  </button>
-
+  <select id="csvSelector" multiple size="5" style="width:100%;"></select>
+  <button onclick="applyCSVSelection()" style="width:100%;margin-top:10px;">Applica</button>
 </div>
 
+<!-- HEADER STABILE -->
 <div class="header">
-  <div>
-    <h2 id="title">Loading...</h2>
-    <small id="ticker"></small>
-  </div>
-  <div id="signal"></div>
+  <h2 id="title">--</h2>
+  <div id="ticker"></div>
 </div>
 
-<div style="display:flex; gap:8px; padding:10px;">
-  <input id="search" placeholder="Cerca nome, ticker o ISIN..." style="flex:1;">
+<!-- SEARCH -->
+<div class="searchBox">
+  <input id="search" placeholder="Cerca..." />
   <button onclick="searchAsset()">Cerca</button>
 </div>
 
-<div id="searchInfo" style="padding:5px 10px;"></div>
-
+<!-- GRAFICO -->
 <div id="chart"></div>
 
+<!-- NAV -->
 <div class="nav-bottom">
-  <button onclick="nav(-1)">◀ Precedente</button>
-  <button onclick="nav(1)">Successivo ▶</button>
+  <button onclick="nav(-1)">◀</button>
+  <button onclick="nav(1)">▶</button>
+</div>
+
+<!-- INFO PANEL (NUOVO) -->
+<div id="infoPanel">
+  <div id="signal"></div>
+  <div id="tech"></div>
+  <div id="fund"></div>
 </div>
 
 <script src="app.js"></script>
