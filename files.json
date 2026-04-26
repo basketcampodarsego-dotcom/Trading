@@ -1,7 +1,8 @@
 [
   "Titoli.csv",
+  "portafoglio_reale_input.csv",
+  "tr_isin_ticker_clean.csv",
   "ETF.csv",
   "Italia.csv",
-  "USA.csv",
-  "portafoglio_reale_input.csv"
+  "USA.csv"
 ]
