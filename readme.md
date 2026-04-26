@@ -2,6 +2,33 @@
 
 ---
 
+## v1.3 — 26/04/2026
+
+### Modifiche
+
+**`portfolio.html`**
+- Form ristrutturato su due righe (`add-form-row`) per mobile: riga 1 ricerca+campi numerici, riga 2 bottoni
+- Bottone "↑ Importa CSV" sempre visibile su riga separata
+- Aggiunto `#p_selected_info`: riga di conferma titolo selezionato (ticker · nome · ISIN)
+
+**`backtest.html`**
+- Aggiunto `#bt_selected_info` sotto il campo ticker per conferma visiva del titolo selezionato
+
+**`style.css`**
+- `.add-form` riscritto: layout `flex-direction:column` con righe interne `.add-form-row`
+- Aggiunto `.btn-importa` per stile uniforme del label-bottone importa CSV
+
+**`core.js`**
+- `attachSearchDropdown` aggiornato: dropdown mostra sempre ticker + nome + ISIN su tre colonne; logica `getMatches()` centralizzata; delay blur aumentato a 180ms
+
+**`portfolio.js`**
+- `initDropdown`: dopo selezione mostra `ticker · nome · ISIN` in `#p_selected_info`; reset info se utente modifica campo manualmente
+
+**`backtest.js`**
+- Init dropdown: dopo selezione mostra `ticker · nome · ISIN` in `#bt_selected_info`; reset se campo modificato manualmente
+
+---
+
 ## v1.2 — 26/04/2026
 
 ### Modifiche

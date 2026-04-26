@@ -20,18 +20,30 @@ async function loadTickerList(){
 
 // ── ATTACH DROPDOWN AL FORM ──────────────────────────
 function initDropdown(){
-  const input = document.getElementById('p_ticker');
-  const dd    = document.getElementById('p_ticker_dd');
+  const input   = document.getElementById('p_ticker');
+  const dd      = document.getElementById('p_ticker_dd');
+  const infoEl  = document.getElementById('p_selected_info');
+
   attachSearchDropdown(
     input, dd,
     ()=> tickerList,
     item => {
-      input.value = item.ticker || item.isin || '';
+      input.value          = item.ticker || item.isin || '';
       input.dataset.isin   = item.isin   || '';
       input.dataset.name   = item.name   || '';
       input.dataset.ticker = item.ticker || '';
+      // Mostra conferma visiva
+      const parts = [item.ticker, item.name, item.isin].filter(Boolean);
+      infoEl.textContent   = parts.join('  ·  ');
+      infoEl.style.display = 'block';
     }
   );
+
+  // Reset info se l'utente modifica manualmente
+  input.addEventListener('input', ()=>{
+    infoEl.style.display = 'none';
+    input.dataset.ticker = '';
+  });
 }
 
 // ── PERSIST ──────────────────────────────────────────

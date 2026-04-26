@@ -336,10 +336,6 @@ async function parsePortafoglioCSV(file){
 }
 
 // ── DROPDOWN RICERCA CONDIVISA ───────────────────────
-// inputEl    = elemento <input>
-// dropdownEl = elemento <div> dropdown
-// dataList   = array [{ticker, name, isin}]
-// onSelect   = callback(item)
 function attachSearchDropdown(inputEl, dropdownEl, getDataList, onSelect){
   let highlight = -1;
 
@@ -350,9 +346,9 @@ function attachSearchDropdown(inputEl, dropdownEl, getDataList, onSelect){
   }
 
   function open(matches){
-    dropdownEl.innerHTML = matches.map((m,i)=>
-      `<div class="dd-item" data-i="${i}">
-        <span class="dd-ticker">${m.ticker||m.isin||''}</span>
+    dropdownEl.innerHTML = matches.map((m,i)=>`
+      <div class="dd-item" data-i="${i}">
+        <span class="dd-ticker">${m.ticker||'–'}</span>
         <span class="dd-name">${m.name||''}</span>
         ${m.isin ? `<span class="dd-isin">${m.isin}</span>` : ''}
       </div>`
@@ -368,37 +364,35 @@ function attachSearchDropdown(inputEl, dropdownEl, getDataList, onSelect){
     });
   }
 
-  inputEl.addEventListener('input', ()=>{
-    highlight = -1;
-    const v = inputEl.value.toLowerCase().trim();
-    if(!v){ close(); return; }
-    const dl = getDataList();
-    const matches = dl.filter(x=>
+  function getMatches(){
+    const v  = inputEl.value.toLowerCase().trim();
+    if(!v) return [];
+    return getDataList().filter(x=>
       x.ticker?.toLowerCase().includes(v) ||
       x.name?.toLowerCase().includes(v)   ||
       x.isin?.toLowerCase().includes(v)
     ).slice(0,30);
-    matches.length ? open(matches) : close();
+  }
+
+  inputEl.addEventListener('input', ()=>{
+    highlight = -1;
+    const m = getMatches();
+    m.length ? open(m) : close();
   });
 
   inputEl.addEventListener('keydown', e=>{
     const items = dropdownEl.querySelectorAll('.dd-item');
-    if(!items.length) return;
-    if(e.key==='ArrowDown'){ e.preventDefault(); highlight=Math.min(highlight+1,items.length-1); }
+    if(e.key==='ArrowDown'){ e.preventDefault(); highlight=Math.min(highlight+1,(items.length||1)-1); }
     else if(e.key==='ArrowUp'){ e.preventDefault(); highlight=Math.max(highlight-1,0); }
     else if(e.key==='Escape'){ close(); return; }
     else if(e.key==='Enter' && highlight>=0){
       e.preventDefault();
-      const v = inputEl.value.toLowerCase().trim();
-      const dl = getDataList();
-      const matches = dl.filter(x=>
-        x.ticker?.toLowerCase().includes(v)||x.name?.toLowerCase().includes(v)||x.isin?.toLowerCase().includes(v)
-      ).slice(0,30);
-      if(matches[highlight]){ onSelect(matches[highlight]); close(); }
+      const m = getMatches();
+      if(m[highlight]){ onSelect(m[highlight]); close(); }
       return;
     }
     items.forEach((el,i)=>el.classList.toggle('dd-active', i===highlight));
   });
 
-  inputEl.addEventListener('blur', ()=>setTimeout(close, 150));
+  inputEl.addEventListener('blur', ()=>setTimeout(close, 180));
 }

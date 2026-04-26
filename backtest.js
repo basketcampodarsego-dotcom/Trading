@@ -14,13 +14,25 @@ let btTickerList = [];
     btTickerList = lists.flatMap(r=>r.status==='fulfilled'?r.value:[]);
   }catch{ btTickerList=[]; }
 
-  const input = document.getElementById('bt_ticker');
-  const dd    = document.getElementById('bt_ticker_dd');
+  const input   = document.getElementById('bt_ticker');
+  const dd      = document.getElementById('bt_ticker_dd');
+  const infoEl  = document.getElementById('bt_selected_info');
+
   attachSearchDropdown(
     input, dd,
     ()=> btTickerList,
-    item => { input.value = item.ticker || item.isin || ''; input.dataset.ticker = item.ticker||''; }
+    item => {
+      input.value          = item.ticker || item.isin || '';
+      input.dataset.ticker = item.ticker || '';
+      const parts = [item.ticker, item.name, item.isin].filter(Boolean);
+      infoEl.textContent   = parts.join('  ·  ');
+    }
   );
+
+  input.addEventListener('input', ()=>{
+    infoEl.textContent   = '';
+    input.dataset.ticker = '';
+  });
 })();
 
 async function runBacktest(){
