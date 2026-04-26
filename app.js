@@ -4,14 +4,12 @@ let idx = 0;
 let chart;
 let candleSeries;
 
-// ===== INIT =====
+// ================= INIT =================
 async function init(){
 
   chart = LightweightCharts.createChart(
     document.getElementById("chart"),
-    {
-      layout:{ background:{color:"#000"}, textColor:"#aaa" }
-    }
+    { layout:{ background:{color:"#000"}, textColor:"#aaa" } }
   );
 
   candleSeries = chart.addCandlestickSeries();
@@ -25,7 +23,7 @@ async function init(){
     });
 }
 
-// ===== CSV =====
+// ================= CSV =================
 async function loadCSV(){
 
   const res = await fetch('./Titoli.csv');
@@ -48,7 +46,7 @@ async function loadCSV(){
   });
 }
 
-// ===== DATA =====
+// ================= DATA =================
 async function getData(symbol){
 
   const url = "https://corsproxy.io/?" + encodeURIComponent(
@@ -64,11 +62,13 @@ async function getData(symbol){
   return q.timestamp.map((t,i)=>({
     time:t,
     close:q.indicators.quote[0].close[i]
-  }));
+  })).filter(x=>x.close);
 }
 
-// ===== RSI =====
+// ================= RSI =================
 function calcRSI(data, period=14){
+
+  if(data.length < period+1) return null;
 
   let gains=0, losses=0;
 
@@ -78,12 +78,15 @@ function calcRSI(data, period=14){
     else losses-=diff;
   }
 
-  let rs = gains / losses;
+  let rs = gains / (losses || 1);
   return 100 - (100/(1+rs));
 }
 
-// ===== EMA =====
-function EMA(data,p){
+// ================= EMA =================
+function calcEMA(data,p){
+
+  if(data.length < p) return null;
+
   let k=2/(p+1);
   let prev=data[0].close;
 
@@ -94,7 +97,7 @@ function EMA(data,p){
   return prev;
 }
 
-// ===== FUNDAMENTALS =====
+// ================= FUNDAMENTALS =================
 async function getFund(symbol){
 
   try{
@@ -105,7 +108,8 @@ async function getFund(symbol){
     return {
       pe:q.trailingPE,
       eps:q.epsTrailingTwelveMonths,
-      cap:q.marketCap
+      cap:q.marketCap,
+      div:q.dividendYield
     };
 
   }catch{
@@ -113,7 +117,94 @@ async function getFund(symbol){
   }
 }
 
-// ===== LOAD =====
+// ================= FORMAT =================
+function formatCap(n){
+  if(!n) return "-";
+  if(n>1e9) return (n/1e9).toFixed(1)+"B";
+  if(n>1e6) return (n/1e6).toFixed(1)+"M";
+  return n;
+}
+
+// ================= RATING PRO =================
+function calculateRating(data, rsi, ema50, ema200, ema10, fund){
+
+  let score = 0;
+  let log = [];
+
+  const last = data[data.length-1].close;
+
+  // TREND LUNGO
+  if(ema200){
+    if(last > ema200){
+      score += 2;
+      log.push("Trend lungo positivo (sopra EMA200) +2");
+    }else{
+      score -= 2;
+      log.push("Trend lungo negativo (sotto EMA200) -2");
+    }
+  }
+
+  // TREND MEDIO
+  if(ema50){
+    if(last > ema50){
+      score += 1;
+      log.push("Trend medio positivo (sopra EMA50) +1");
+    }else{
+      score -= 1;
+      log.push("Trend medio negativo (sotto EMA50) -1");
+    }
+  }
+
+  // MOMENTUM
+  if(ema10 && ema50){
+    if(ema10 > ema50){
+      score += 1;
+      log.push("Momentum positivo (EMA10 > EMA50) +1");
+    }else{
+      score -= 1;
+      log.push("Momentum negativo (EMA10 < EMA50) -1");
+    }
+  }
+
+  // RSI
+  if(rsi){
+    if(rsi < 30){
+      score += 1;
+      log.push("RSI ipervenduto +1");
+    }else if(rsi > 70){
+      score -= 1;
+      log.push("RSI ipercomprato -1");
+    }
+  }
+
+  // FUNDAMENTALI
+  if(fund){
+    if(fund.pe && fund.pe < 15){
+      score += 1;
+      log.push("P/E basso +1");
+    }else if(fund.pe && fund.pe > 30){
+      score -= 1;
+      log.push("P/E alto -1");
+    }
+
+    if(fund.div && fund.div > 0.03){
+      score += 1;
+      log.push("Dividendo interessante +1");
+    }
+  }
+
+  // CLASSIFICAZIONE
+  let label = "NEUTRO";
+
+  if(score >= 4) label = "BUY FORTE";
+  else if(score >= 2) label = "BUY";
+  else if(score <= -4) label = "SELL FORTE";
+  else if(score <= -2) label = "SELL";
+
+  return { score, label, log };
+}
+
+// ================= LOAD =================
 async function loadAsset(){
 
   let s = dataList[idx];
@@ -133,44 +224,43 @@ async function loadAsset(){
     close:x.close
   })));
 
-  // ===== TECH =====
   const rsi = calcRSI(data);
-  const ema50 = EMA(data,50);
-  const last = data[data.length-1].close;
+  const ema50 = calcEMA(data,50);
+  const ema200 = calcEMA(data,200);
+  const ema10 = calcEMA(data,10);
 
-  const dist = ((last-ema50)/ema50*100).toFixed(2);
-
-  document.getElementById("tech").innerText =
-    "RSI: " + rsi.toFixed(1) +
-    " | Dist EMA50: " + dist + "%";
-
-  // ===== SIGNAL =====
-  document.getElementById("signal").innerText =
-    rsi>70 ? "SELL (ipercomprato)" :
-    rsi<30 ? "BUY (ipervenduto)" :
-    "NEUTRO";
-
-  // ===== FUND =====
   const f = await getFund(s.ticker);
 
+  // ===== RATING =====
+  const rating = calculateRating(data, rsi, ema50, ema200, ema10, f);
+
+  document.getElementById("signal").innerText =
+    "Rating: " + rating.label + " (" + rating.score + ")";
+
+  document.getElementById("tech").innerText =
+    rating.log.join(" | ");
+
+  // ===== FUNDAMENTALS DISPLAY =====
   if(f){
     document.getElementById("fund").innerText =
-      "PE: "+(f.pe||"-")+
-      " | EPS: "+(f.eps||"-")+
-      " | MCap: "+(f.cap||"-");
+      "PE: " + (f.pe||"-") +
+      " | EPS: " + (f.eps||"-") +
+      " | Div: " + (f.div ? (f.div*100).toFixed(2)+"%" : "-") +
+      " | Cap: " + formatCap(f.cap);
   }
 
   chart.timeScale().fitContent();
 }
 
-// ===== NAV =====
+// ================= NAV =================
 function nav(d){
   idx=(idx+d+dataList.length)%dataList.length;
   loadAsset();
 }
 
-// ===== SEARCH =====
+// ================= SEARCH =================
 function searchAsset(){
+
   let v=document.getElementById("search").value.toLowerCase();
 
   let f=dataList.find(x=>
@@ -185,5 +275,5 @@ function searchAsset(){
   }
 }
 
-// ===== START =====
+// ================= START =================
 window.onload=init;
