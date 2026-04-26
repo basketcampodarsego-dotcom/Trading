@@ -5,14 +5,13 @@ body{
   margin:0;
 }
 
-/* HEADER */
 .header{
   padding:10px;
   background:#111;
 }
 
 #title{
-  font-size:18px; /* ↓ ridotto */
+  font-size:18px;
   margin:0;
 }
 
@@ -21,38 +20,29 @@ body{
   color:#888;
 }
 
-/* SEARCH */
-.searchBox{
-  display:flex;
-  gap:8px;
-  padding:10px;
-}
-
-/* CHART */
 #chart{
   height:55vh;
 }
 
-/* NAV */
+/* FIX: grafico non copre */
 .nav-bottom{
+  position:relative;
+  z-index:5;
   display:flex;
   gap:10px;
   padding:10px;
+  background:#000;
 }
 
 .nav-bottom button{
   flex:1;
   padding:15px;
-  font-size:16px;
 }
 
-/* INFO PANEL */
+/* INFO PANEL STABILE */
 #infoPanel{
-  padding:10px;
   background:#111;
+  padding:12px;
   font-size:14px;
-}
-
-#infoPanel div{
-  margin-bottom:6px;
+  line-height:1.5;
 }
