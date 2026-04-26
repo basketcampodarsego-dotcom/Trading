@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Report</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://unpkg.com/lightweight-charts@3.8.0/dist/lightweight-charts.standalone.production.js"></script>
+</head>
+<body>
+
+<div class="menu">
+  <span class="menu-logo">◈ PAC v4.0</span>
+  <div style="width:16px"></div>
+  <a href="index.html">Dashboard</a>
+  <a href="portfolio.html">Portafoglio</a>
+  <a href="backtest.html">Backtest</a>
+  <a href="report.html">Report</a>
+</div>
+
+<div class="page-content">
+  <div class="page-title">▸ Report Portafoglio</div>
+
+  <div id="report-loading" class="loading" style="padding:40px">CARICAMENTO POSIZIONI…</div>
+
+  <div id="report-body" style="display:none">
+
+    <!-- KPI STRIP -->
+    <div class="summary-bar" id="kpi-bar" style="margin-bottom:12px;border:1px solid var(--border);border-radius:2px">
+      <div><span class="s-label">VALORE TOTALE</span><span class="s-val" id="r-total">–</span></div>
+      <div><span class="s-label">P/L TOTALE €</span><span class="s-val" id="r-pl">–</span></div>
+      <div><span class="s-label">P/L TOTALE %</span><span class="s-val" id="r-plpct">–</span></div>
+      <div><span class="s-label">MAX DRAWDOWN</span><span class="s-val" id="r-dd">–</span></div>
+      <div><span class="s-label">BUY SIGNALS</span><span class="s-val" id="r-buy">–</span></div>
+      <div><span class="s-label">SELL SIGNALS</span><span class="s-val" id="r-sell">–</span></div>
+    </div>
+
+    <div class="report-grid">
+
+      <!-- ALLOCAZIONE -->
+      <div class="report-card">
+        <h3>Allocazione per posizione</h3>
+        <div id="alloc-table"></div>
+      </div>
+
+      <!-- PERFORMANCE PER POSIZIONE -->
+      <div class="report-card">
+        <h3>Performance per posizione</h3>
+        <div id="perf-table"></div>
+      </div>
+
+      <!-- DRAWDOWN -->
+      <div class="report-card" style="grid-column: 1 / -1">
+        <h3>Equity del portafoglio (prezzi correnti)</h3>
+        <div id="drawdown-chart"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script src="core.js"></script>
+<script src="report.js"></script>
+</body>
+</html>

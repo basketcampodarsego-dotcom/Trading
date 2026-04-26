@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Backtest</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://unpkg.com/lightweight-charts@3.8.0/dist/lightweight-charts.standalone.production.js"></script>
+</head>
+<body>
+
+<div class="menu">
+  <span class="menu-logo">◈ PAC v4.0</span>
+  <div style="width:16px"></div>
+  <a href="index.html">Dashboard</a>
+  <a href="portfolio.html">Portafoglio</a>
+  <a href="backtest.html">Backtest</a>
+  <a href="report.html">Report</a>
+</div>
+
+<div class="bt-controls">
+  <div>
+    <label>TICKER</label>
+    <input id="bt_ticker" placeholder="es: AAPL" style="width:130px">
+  </div>
+  <div>
+    <label>PERIODO</label>
+    <select id="bt_range">
+      <option value="2y">2 anni</option>
+      <option value="5y">5 anni</option>
+      <option value="1y">1 anno</option>
+    </select>
+  </div>
+  <div>
+    <label>STRATEGIA</label>
+    <select id="bt_strategy">
+      <option value="ema">EMA10 / EMA50 crossover</option>
+      <option value="rsi">RSI mean-reversion</option>
+    </select>
+  </div>
+  <div>
+    <label>CAPITALE (€)</label>
+    <input id="bt_capital" type="number" value="10000" min="100" step="100" style="width:110px">
+  </div>
+  <div>
+    <label>COMMISSIONE %</label>
+    <input id="bt_fee" type="number" value="0.1" min="0" step="0.01" style="width:90px">
+  </div>
+  <div style="margin-top:20px">
+    <button class="btn-primary" onclick="runBacktest()">▶ Esegui</button>
+  </div>
+</div>
+
+<div id="bt-result">
+  <div class="loading" style="padding:40px">Imposta i parametri e premi Esegui</div>
+</div>
+
+<div id="toast"></div>
+
+<script src="core.js"></script>
+<script src="backtest.js"></script>
+</body>
+</html>

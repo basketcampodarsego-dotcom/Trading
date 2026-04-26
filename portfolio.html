@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portafoglio</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="menu">
+  <span class="menu-logo">◈ PAC v4.0</span>
+  <div style="width:16px"></div>
+  <a href="index.html">Dashboard</a>
+  <a href="portfolio.html">Portafoglio</a>
+  <a href="backtest.html">Backtest</a>
+  <a href="report.html">Report</a>
+</div>
+
+<div class="page-content">
+
+  <div class="page-title">▸ Portafoglio</div>
+
+  <!-- AGGIUNGI POSIZIONE -->
+  <div class="add-form">
+    <input id="p_ticker" placeholder="Ticker (es: ENEL.MI)" style="text-transform:uppercase">
+    <input id="p_qty"    placeholder="Quantità"       type="number" min="0" step="any">
+    <input id="p_price"  placeholder="Prezzo acquisto" type="number" min="0" step="any">
+    <input id="p_date"   placeholder="Data acquisto"   type="date">
+    <button class="btn-primary" onclick="addPosition()">+ Aggiungi</button>
+    <button onclick="refreshAll()" title="Aggiorna prezzi">⟳ Aggiorna</button>
+    <button onclick="exportCSV()" title="Esporta CSV">↓ CSV</button>
+  </div>
+
+  <!-- TABELLA -->
+  <div style="overflow-x:auto">
+  <table id="portfolioTable">
+    <thead>
+      <tr>
+        <th onclick="sortBy('ticker')">Ticker ⇅</th>
+        <th onclick="sortBy('qty')">Qty ⇅</th>
+        <th>P.Acquisto</th>
+        <th>P.Attuale</th>
+        <th onclick="sortBy('value')">Valore ⇅</th>
+        <th onclick="sortBy('pl')">P/L € ⇅</th>
+        <th onclick="sortBy('plpct')">P/L % ⇅</th>
+        <th>Segnale</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="portfolioBody">
+      <tr><td colspan="9" class="loading">CARICAMENTO</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary-bar" id="summaryBar">
+    <div><span class="s-label">VALORE TOTALE</span><span class="s-val" id="s-total">–</span></div>
+    <div><span class="s-label">COSTO TOTALE</span><span class="s-val" id="s-cost">–</span></div>
+    <div><span class="s-label">P/L TOTALE €</span><span class="s-val" id="s-pl">–</span></div>
+    <div><span class="s-label">P/L TOTALE %</span><span class="s-val" id="s-plpct">–</span></div>
+    <div><span class="s-label">POSIZIONI</span><span class="s-val" id="s-count">–</span></div>
+  </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script src="core.js"></script>
+<script src="portfolio.js"></script>
+</body>
+</html>
