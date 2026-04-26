@@ -4,9 +4,6 @@ let idx = 0;
 let chart;
 let candleSeries;
 
-// ===== CONFIG =====
-let selectedCSVs = JSON.parse(localStorage.getItem("csvFiles")) || ["Titoli.csv"];
-
 // ===== INIT =====
 async function init(){
 
@@ -19,18 +16,8 @@ async function init(){
 
   candleSeries = chart.addCandlestickSeries();
 
-  await loadAllCSVs();
+  await loadCSV();
   loadAsset();
-
-  // restore selezione UI
-  const sel = document.getElementById("csvSelector");
-  if(sel){
-    for(let opt of sel.options){
-      if(selectedCSVs.includes(opt.value)){
-        opt.selected = true;
-      }
-    }
-  }
 
   document.getElementById("search")
     .addEventListener("keypress", e=>{
@@ -38,112 +25,95 @@ async function init(){
     });
 }
 
-// ===== LOAD MULTI CSV =====
-async function loadAllCSVs(){
+// ===== CSV =====
+async function loadCSV(){
 
-  dataList = [];
+  const res = await fetch('./Titoli.csv');
+  const text = await res.text();
 
-  for(let file of selectedCSVs){
+  const rows = text.split('\n').filter(x=>x.trim());
+  const header = rows[0].toLowerCase().split(',');
 
-    try{
-      const res = await fetch('./' + file);
-      const text = await res.text();
+  const iTicker = header.indexOf('ticker');
+  const iName   = header.indexOf('name');
+  const iIsin   = header.indexOf('isin');
 
-      const rows = text.split('\n').filter(x=>x.trim());
-      const header = rows[0].toLowerCase().split(/[,;]/);
-
-      const iTicker = header.indexOf('ticker');
-      const iName   = header.indexOf('name');
-      const iIsin   = header.indexOf('isin');
-
-      const parsed = rows.slice(1).map(r=>{
-        const c = r.split(/[,;]/);
-        return {
-          ticker:(c[iTicker]||"").trim().toUpperCase(),
-          name:(c[iName]||"").trim(),
-          isin:(c[iIsin]||"").trim().toUpperCase()
-        };
-      });
-
-      dataList = dataList.concat(parsed);
-
-    }catch(e){
-      console.log("Errore CSV:", file);
-    }
-  }
-}
-
-// ===== APPLY SELECTION =====
-function applyCSVSelection(){
-
-  const sel = document.getElementById("csvSelector");
-
-  selectedCSVs = Array.from(sel.selectedOptions).map(o => o.value);
-
-  if(selectedCSVs.length === 0){
-    alert("Seleziona almeno un file");
-    return;
-  }
-
-  localStorage.setItem("csvFiles", JSON.stringify(selectedCSVs));
-
-  loadAllCSVs().then(()=>{
-    idx = 0;
-    loadAsset();
+  dataList = rows.slice(1).map(r=>{
+    const c = r.split(',');
+    return {
+      ticker:c[iTicker].trim(),
+      name:c[iName].trim(),
+      isin:c[iIsin].trim()
+    };
   });
-}
-
-// ===== SEARCH =====
-function searchAsset(){
-
-  const input = document.getElementById("search").value;
-
-  const v = input.toLowerCase()
-    .replace(/\s+/g,'')
-    .replace(/[^a-z0-9]/g,'');
-
-  let found = dataList.find(x=>{
-    return (
-      x.ticker.toLowerCase().includes(v) ||
-      x.name.toLowerCase().includes(v) ||
-      x.isin.toLowerCase().includes(v)
-    );
-  });
-
-  if(found){
-    idx = dataList.indexOf(found);
-    loadAsset();
-  }
 }
 
 // ===== DATA =====
 async function getData(symbol){
 
+  const url = "https://corsproxy.io/?" + encodeURIComponent(
+    "https://query1.finance.yahoo.com/v8/finance/chart/" +
+    symbol + "?range=1y&interval=1d"
+  );
+
+  const r = await fetch(url);
+  const d = await r.json();
+
+  const q = d.chart.result[0];
+
+  return q.timestamp.map((t,i)=>({
+    time:t,
+    close:q.indicators.quote[0].close[i]
+  }));
+}
+
+// ===== RSI =====
+function calcRSI(data, period=14){
+
+  let gains=0, losses=0;
+
+  for(let i=1;i<=period;i++){
+    let diff = data[i].close - data[i-1].close;
+    if(diff>=0) gains+=diff;
+    else losses-=diff;
+  }
+
+  let rs = gains / losses;
+  return 100 - (100/(1+rs));
+}
+
+// ===== EMA =====
+function EMA(data,p){
+  let k=2/(p+1);
+  let prev=data[0].close;
+
+  for(let i=1;i<data.length;i++){
+    prev=data[i].close*k + prev*(1-k);
+  }
+
+  return prev;
+}
+
+// ===== FUNDAMENTALS =====
+async function getFund(symbol){
+
   try{
-    const url = "https://corsproxy.io/?" + encodeURIComponent(
-      "https://query1.finance.yahoo.com/v8/finance/chart/" +
-      symbol + "?range=1y&interval=1d"
-    );
-
-    const r = await fetch(url);
+    const r = await fetch("https://query1.finance.yahoo.com/v7/finance/quote?symbols="+symbol);
     const d = await r.json();
+    const q = d.quoteResponse.result[0];
 
-    const q = d.chart.result[0];
-
-    return q.timestamp.map((t,i)=>({
-      time:t,
-      open:q.indicators.quote[0].open[i],
-      high:q.indicators.quote[0].high[i],
-      low:q.indicators.quote[0].low[i],
-      close:q.indicators.quote[0].close[i]
-    }));
+    return {
+      pe:q.trailingPE,
+      eps:q.epsTrailingTwelveMonths,
+      cap:q.marketCap
+    };
 
   }catch{
-    return [];
+    return null;
   }
 }
 
-// ===== LOAD ASSET =====
+// ===== LOAD =====
 async function loadAsset(){
 
   let s = dataList[idx];
@@ -155,21 +125,65 @@ async function loadAsset(){
   const data = await getData(s.ticker);
   if(!data.length) return;
 
-  candleSeries.setData(data);
+  candleSeries.setData(data.map(x=>({
+    time:x.time,
+    open:x.close,
+    high:x.close,
+    low:x.close,
+    close:x.close
+  })));
+
+  // ===== TECH =====
+  const rsi = calcRSI(data);
+  const ema50 = EMA(data,50);
+  const last = data[data.length-1].close;
+
+  const dist = ((last-ema50)/ema50*100).toFixed(2);
+
+  document.getElementById("tech").innerText =
+    "RSI: " + rsi.toFixed(1) +
+    " | Dist EMA50: " + dist + "%";
+
+  // ===== SIGNAL =====
+  document.getElementById("signal").innerText =
+    rsi>70 ? "SELL (ipercomprato)" :
+    rsi<30 ? "BUY (ipervenduto)" :
+    "NEUTRO";
+
+  // ===== FUND =====
+  const f = await getFund(s.ticker);
+
+  if(f){
+    document.getElementById("fund").innerText =
+      "PE: "+(f.pe||"-")+
+      " | EPS: "+(f.eps||"-")+
+      " | MCap: "+(f.cap||"-");
+  }
+
   chart.timeScale().fitContent();
 }
 
 // ===== NAV =====
 function nav(d){
-  idx = (idx + d + dataList.length) % dataList.length;
+  idx=(idx+d+dataList.length)%dataList.length;
   loadAsset();
 }
 
-// ===== CONFIG =====
-function toggleConfig(){
-  const box = document.getElementById("configBox");
-  box.style.display = box.style.display==="none" ? "block" : "none";
+// ===== SEARCH =====
+function searchAsset(){
+  let v=document.getElementById("search").value.toLowerCase();
+
+  let f=dataList.find(x=>
+    x.ticker.toLowerCase().includes(v) ||
+    x.name.toLowerCase().includes(v) ||
+    x.isin.toLowerCase().includes(v)
+  );
+
+  if(f){
+    idx=dataList.indexOf(f);
+    loadAsset();
+  }
 }
 
 // ===== START =====
-window.onload = init;
+window.onload=init;
