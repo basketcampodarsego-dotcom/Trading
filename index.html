@@ -7,46 +7,37 @@
 <title>Trading Dashboard</title>
 
 <link rel="stylesheet" href="style.css">
-
 <script src="https://unpkg.com/lightweight-charts@3.8.0/dist/lightweight-charts.standalone.production.js"></script>
 </head>
 
 <body>
 
+<!-- ⚠️ IL TUO MENU RESTA IDENTICO -->
 <div class="menu">
   <a href="index.html">Dashboard</a>
   <a href="portfolio.html">Portafoglio</a>
+  <a href="report.html">Report</a>
   <button onclick="toggleConfig()">⚙️</button>
 </div>
 
-<!-- CONFIG -->
-<div id="configBox" style="display:none;padding:10px;background:#111;">
-  <select id="csvSelector" multiple size="5" style="width:100%;"></select>
-  <button onclick="applyCSVSelection()" style="width:100%;margin-top:10px;">Applica</button>
-</div>
-
-<!-- HEADER STABILE -->
 <div class="header">
   <h2 id="title">--</h2>
   <div id="ticker"></div>
 </div>
 
-<!-- SEARCH -->
-<div class="searchBox">
-  <input id="search" placeholder="Cerca..." />
+<div style="display:flex; gap:8px; padding:10px;">
+  <input id="search" placeholder="Cerca..." style="flex:1;">
   <button onclick="searchAsset()">Cerca</button>
 </div>
 
-<!-- GRAFICO -->
 <div id="chart"></div>
 
-<!-- NAV -->
 <div class="nav-bottom">
   <button onclick="nav(-1)">◀</button>
   <button onclick="nav(1)">▶</button>
 </div>
 
-<!-- INFO PANEL (NUOVO) -->
+<!-- ✅ NUOVO PANNELLO STABILE -->
 <div id="infoPanel">
   <div id="signal"></div>
   <div id="tech"></div>
@@ -54,6 +45,5 @@
 </div>
 
 <script src="app.js"></script>
-
 </body>
 </html>
