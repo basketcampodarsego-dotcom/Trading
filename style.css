@@ -176,7 +176,7 @@ button.btn-primary {
   position: relative;
 }
 
-/* ── NAV BOTTOM ── */
+/* ── NAV BOTTOM GRANDE ── */
 .nav-bottom {
   display: flex;
   gap: 6px;
@@ -186,7 +186,90 @@ button.btn-primary {
   border-bottom: 1px solid var(--border);
 }
 
-.nav-bottom button { flex: 1; padding: 10px; font-size: 14px; }
+.nav-bottom button {
+  flex: 1;
+  padding: 18px;
+  font-size: 16px;
+  font-family: var(--mono);
+  letter-spacing: 0.12em;
+}
+
+/* ── LAST SIGNAL BAR ── */
+#last-signal-bar {
+  background: var(--bg3);
+  border-bottom: 1px solid var(--border);
+  padding: 6px 14px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  min-height: 28px;
+}
+
+/* ── SEARCH WRAP + DROPDOWN ── */
+.search-wrap {
+  position: relative;
+  flex: 1;
+}
+
+.search-wrap input {
+  width: 100%;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 2px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.search-wrap input:focus { border-color: var(--accent); }
+
+#search-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 0;
+  right: 0;
+  background: var(--bg2);
+  border: 1px solid var(--accent);
+  border-radius: 2px;
+  z-index: 200;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.dd-item {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  padding: 7px 10px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.1s;
+}
+
+.dd-item:last-child { border-bottom: none; }
+.dd-item:hover, .dd-item.dd-active { background: rgba(0,229,255,0.08); }
+
+.dd-ticker {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+  min-width: 80px;
+  font-weight: bold;
+}
+
+.dd-name {
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 /* ── INFO PANEL ── */
 #infoPanel {

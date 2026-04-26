@@ -58,8 +58,8 @@ async function init(){
     }
   });
 
-  // CSV iniziale
-  await loadCurrentCSV();
+  // Popola select da files.json, poi carica il primo CSV
+  await populateCsvSelect();
 
   // Cerca ticker salvato da portfolio.html
   const saved = localStorage.getItem('selectedTicker');
@@ -73,6 +73,28 @@ async function init(){
 
   document.getElementById('search')
     .addEventListener('keypress', e=>{ if(e.key==='Enter') searchAsset(); });
+}
+
+// ── FILES.JSON → SELECT ──────────────────────────────
+async function populateCsvSelect(){
+  const sel = document.getElementById('csvSelect');
+  sel.innerHTML = '';
+  try{
+    const res   = await fetch('./files.json');
+    const files = await res.json();                 // array di stringhe
+    files.forEach(f=>{
+      const opt   = document.createElement('option');
+      opt.value   = f;
+      opt.textContent = f.replace('.csv','');
+      sel.appendChild(opt);
+    });
+  }catch(e){
+    toast('⚠ files.json non trovato – uso Titoli.csv');
+    const opt = document.createElement('option');
+    opt.value = 'Titoli.csv'; opt.textContent = 'Titoli';
+    sel.appendChild(opt);
+  }
+  await loadCurrentCSV();
 }
 
 // ── CSV ──────────────────────────────────────────────
@@ -97,6 +119,8 @@ async function loadAsset(){
   const s = dataList[idx];
   if(!s) return;
 
+  closeDropdown();
+
   // Header
   document.getElementById('title').textContent  = s.name  || s.ticker;
   document.getElementById('ticker').textContent = s.ticker + (s.isin ? '  ·  '+s.isin : '');
@@ -104,6 +128,7 @@ async function loadAsset(){
   document.getElementById('signal').textContent = '…';
   document.getElementById('tech').textContent   = '';
   document.getElementById('fund').textContent   = '';
+  document.getElementById('last-signal-bar').textContent = '';
 
   // Spinner
   const sp = document.getElementById('spinner');
@@ -154,6 +179,56 @@ async function loadAsset(){
   ema50Series.setData(buildEmaLine(50));
   ema200Series.setData(buildEmaLine(200));
 
+  // ── SEGNALI SUL GRAFICO (marker EMA10/50 crossover) ──
+  const e10arr = emaArr(closes, 10);
+  const e50arr = emaArr(closes, 50);
+  const markers = [];
+  let lastSignal = null;
+
+  for(let i=51; i<ohlc.length; i++){
+    const e10  = e10arr[i];
+    const e10p = e10arr[i-1];
+    const e50  = e50arr[i];
+    const e50p = e50arr[i-1];
+    if(!e10||!e10p||!e50||!e50p) continue;
+
+    if(e10p<=e50p && e10>e50){
+      // Crossover rialzista → BUY
+      markers.push({
+        time: ohlc[i].time,
+        position: 'belowBar',
+        color: '#00ff88',
+        shape: 'arrowUp',
+        text: 'BUY',
+        size: 1,
+      });
+      lastSignal = {type:'BUY', time: ohlc[i].time};
+    } else if(e10p>=e50p && e10<e50){
+      // Crossover ribassista → SELL
+      markers.push({
+        time: ohlc[i].time,
+        position: 'aboveBar',
+        color: '#ff3355',
+        shape: 'arrowDown',
+        text: 'SELL',
+        size: 1,
+      });
+      lastSignal = {type:'SELL', time: ohlc[i].time};
+    }
+  }
+
+  candleSeries.setMarkers(markers);
+
+  // Pannello ultimo segnale
+  if(lastSignal){
+    const d   = new Date(lastSignal.time * 1000);
+    const ds  = d.toLocaleDateString('it-IT',{day:'2-digit',month:'2-digit',year:'numeric'});
+    const bar = document.getElementById('last-signal-bar');
+    bar.innerHTML =
+      `Ultimo segnale: <span class="${lastSignal.type==='BUY'?'signal-buy-forte':'signal-sell-forte'}">` +
+      `${lastSignal.type}</span>  ·  ${ds}`;
+  }
+
   chart.timeScale().fitContent();
 
   // Rating
@@ -182,11 +257,77 @@ async function loadAsset(){
   }
 }
 
-// ── NAV + SEARCH ─────────────────────────────────────
+// ── NAV ──────────────────────────────────────────────
 function nav(d){
   if(!dataList.length) return;
   idx = (idx+d+dataList.length) % dataList.length;
   loadAsset();
+}
+
+// ── SEARCH DROPDOWN ──────────────────────────────────
+let ddHighlight = -1;
+
+function onSearchInput(){
+  const v = document.getElementById('search').value.toLowerCase().trim();
+  const dd = document.getElementById('search-dropdown');
+  ddHighlight = -1;
+
+  if(!v || v.length < 1){ dd.innerHTML=''; dd.style.display='none'; return; }
+
+  const matches = dataList.filter(x=>
+    x.ticker?.toLowerCase().includes(v) ||
+    x.name?.toLowerCase().includes(v)   ||
+    x.isin?.toLowerCase().includes(v)
+  ).slice(0, 30);
+
+  if(!matches.length){ dd.innerHTML=''; dd.style.display='none'; return; }
+
+  dd.innerHTML = matches.map((m,i)=>
+    `<div class="dd-item" data-idx="${dataList.indexOf(m)}"
+      onmousedown="selectFromDropdown(${dataList.indexOf(m)})">
+      <span class="dd-ticker">${m.ticker}</span>
+      <span class="dd-name">${m.name||''}</span>
+    </div>`
+  ).join('');
+  dd.style.display = 'block';
+}
+
+function onSearchKey(e){
+  const dd = document.getElementById('search-dropdown');
+  const items = dd.querySelectorAll('.dd-item');
+  if(!items.length) return;
+
+  if(e.key==='ArrowDown'){
+    e.preventDefault();
+    ddHighlight = Math.min(ddHighlight+1, items.length-1);
+    items.forEach((el,i)=>el.classList.toggle('dd-active', i===ddHighlight));
+  } else if(e.key==='ArrowUp'){
+    e.preventDefault();
+    ddHighlight = Math.max(ddHighlight-1, 0);
+    items.forEach((el,i)=>el.classList.toggle('dd-active', i===ddHighlight));
+  } else if(e.key==='Enter'){
+    if(ddHighlight>=0 && items[ddHighlight]){
+      selectFromDropdown(parseInt(items[ddHighlight].dataset.idx));
+    } else {
+      searchAsset();
+    }
+  } else if(e.key==='Escape'){
+    closeDropdown();
+  }
+}
+
+function selectFromDropdown(i){
+  idx = i;
+  document.getElementById('search').value = '';
+  closeDropdown();
+  loadAsset();
+}
+
+function closeDropdown(){
+  const dd = document.getElementById('search-dropdown');
+  dd.innerHTML = '';
+  dd.style.display = 'none';
+  ddHighlight = -1;
 }
 
 function searchAsset(){
@@ -199,11 +340,18 @@ function searchAsset(){
   );
   if(f){
     idx = dataList.indexOf(f);
+    document.getElementById('search').value = '';
+    closeDropdown();
     loadAsset();
   } else {
     toast('Nessun risultato per "'+v+'"');
   }
 }
+
+// Chiudi dropdown cliccando fuori
+document.addEventListener('click', e=>{
+  if(!e.target.closest('.search-wrap')) closeDropdown();
+});
 
 // ── START ─────────────────────────────────────────────
 window.onload = init;

@@ -25,22 +25,28 @@
 </div>
 
 <div class="search-bar">
-  <select id="csvSelect" onchange="onCsvChange()">
-    <option value="Titoli.csv">Titoli</option>
-    <option value="ETF.csv">ETF</option>
-    <option value="Italia.csv">Italia</option>
-    <option value="USA.csv">USA</option>
-  </select>
-  <input id="search" placeholder="Cerca ticker / nome / ISIN…">
+  <select id="csvSelect" onchange="onCsvChange()"></select>
+  <div class="search-wrap">
+    <input id="search" placeholder="Cerca ticker / nome / ISIN…" autocomplete="off"
+           oninput="onSearchInput()" onkeydown="onSearchKey(event)">
+    <div id="search-dropdown"></div>
+  </div>
   <button onclick="searchAsset()">Cerca</button>
-  <button onclick="nav(-1)">◀</button>
-  <button onclick="nav(1)">▶</button>
 </div>
 
 <div style="position:relative">
   <div id="chart"></div>
   <div id="spinner" class="spinner">CARICAMENTO…</div>
 </div>
+
+<!-- NAV GRANDI SOTTO GRAFICO -->
+<div class="nav-bottom">
+  <button onclick="nav(-1)">◀ PREC</button>
+  <button onclick="nav(1)">SUCC ▶</button>
+</div>
+
+<!-- ULTIMO SEGNALE -->
+<div id="last-signal-bar"></div>
 
 <div id="infoPanel">
   <div id="signal">–</div>
