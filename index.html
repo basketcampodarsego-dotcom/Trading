@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>Trading Dashboard</title>
 
 <link rel="stylesheet" href="style.css">
@@ -22,13 +23,21 @@
 
 <!-- CONFIG -->
 <div id="configBox" style="display:none;padding:10px;background:#111;">
-  <div>Seleziona file titoli:</div>
 
-  <select id="csvSelector" onchange="changeCSV()">
-    <option value="Titoli.csv">Titoli.csv</option>
-    <option value="Titoli2.csv">Titoli2.csv</option>
-    <option value="ETF.csv">ETF.csv</option>
+  <div style="margin-bottom:10px;">Seleziona liste titoli:</div>
+
+  <!-- MULTI SELECT -->
+  <select id="csvSelector" multiple size="5" style="width:100%;padding:10px;">
+    <option value="Titoli.csv">Titoli principali</option>
+    <option value="ETF.csv">ETF</option>
+    <option value="Italia.csv">Italia</option>
+    <option value="USA.csv">USA</option>
   </select>
+
+  <button onclick="applyCSVSelection()" style="margin-top:10px;width:100%;padding:10px;">
+    Applica selezione
+  </button>
+
 </div>
 
 <div class="header">
@@ -44,13 +53,10 @@
   <button onclick="searchAsset()">Cerca</button>
 </div>
 
-<div id="searchInfo" style="padding:5px 10px; font-size:12px;"></div>
-
-<div id="fundamentals" style="padding:10px;"></div>
+<div id="searchInfo" style="padding:5px 10px;"></div>
 
 <div id="chart"></div>
 
-<!-- BOTTONI SOTTO GRAFICO -->
 <div class="nav-bottom">
   <button onclick="nav(-1)">◀ Precedente</button>
   <button onclick="nav(1)">Successivo ▶</button>
