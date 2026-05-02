@@ -2,6 +2,22 @@
 
 ---
 
+## v1.4 — 26/04/2026
+
+### Modifiche
+
+**`app.js`**
+- `rightOffset:5` nella timeScale: 5 candele di spazio vuoto a destra del grafico
+- Zoom persistente tra titoli: `subscribeVisibleLogicalRangeChange` salva il numero di barre visibili in `userRange`; al nav viene ripristinato con `setVisibleLogicalRange({from, to})` mantenendo lo stesso zoom
+- Al primo caricamento (userRange=null) applica `fitContent` + offset +5 barre destra
+- Aggiunto `volumeSeries` (istogramma) con pannello separato `priceScaleId:'volume'`, colore verde/rosso in base a close vs open
+- Fondamentali: ora mostrati come span separati con valore in grassetto (`#fund span b`)
+
+**`style.css`**
+- `#fund`: cambiato da testo inline a `display:flex; flex-wrap:wrap; gap:10px` con `b` in colore testo
+
+---
+
 ## v1.3 — 26/04/2026
 
 ### Modifiche
