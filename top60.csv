@@ -1,61 +1,61 @@
-isin,name,pm,settore,score,stato,prezzo,spread_pct,prezzo_limite,data_chiusura
-BMG6331P1041,Alpha & Omega Semiconductor,M,semiconductors,87.3,ALT,43.08,0,0,01/05/2026
-US5012421013,Kulicke & Soffa,M,other,83.3,ALT,86.33,0,0,01/05/2026
-CA4957802073,Kingman Minerals,M,canadian,81.4,ALT,68.54,0,0,01/05/2026
-IL0010952641,Camtek,M,middle_east,81.1,ALT,186.62,0,0,01/05/2026
-US7291321005,Plexus,M,other,80.4,ALT,264.6,0,0,01/05/2026
-CA7029251088,Pason Systems,M,canadian,79.5,,135.12,0,0,01/05/2026
-US6677461013,Northwest Pipe,M,other,79.4,,107.0,0,0,01/05/2026
+isin,nome,pm,settore,score,stato,prezzo,spread_pct,prezzo_limite,data_chiusura
+DE0006450000,LPKF Laser & Electronics,P,european,89.9,TOP-5,16.55,0,0,30/04/2026
+BMG6331P1041,Alpha & Omega Semiconductor,M,semiconductors,85.6,ALT,43.08,0,0,01/05/2026
+US5012421013,Kulicke & Soffa,M,semiconductors,82.6,ALT,86.33,0,0,01/05/2026
+CA4957802073,Kingman Minerals,M,energy,81.4,ALT,68.54,0,0,01/05/2026
+IL0010952641,Camtek,M,semiconductors,81.1,ALT,186.62,0,0,01/05/2026
+US7291321005,Plexus,M,semiconductors,80.4,ALT,264.6,0,0,01/05/2026
+CA7029251088,Pason Systems,M,us_tech,79.5,,135.12,0,0,01/05/2026
+US6677461013,Northwest Pipe,M,commodity,79.4,,107.0,0,0,01/05/2026
 JP3385820000,GS Yuasa,M,em_asia,78.7,,6278.0,0,0,01/05/2026
 US5335351004,Lincoln Educational Services Corp.,M,other,78.7,,40.93,0,0,01/05/2026
-KYG211861045,China Sanjiang Fine Chems,M,china,78.5,,5.2,0,0,30/04/2026
-JP3809200003,Fuji,P,em_asia,77.7,TOP-5,6024.0,0,0,01/05/2026
+PLTSQGM00016,Ten Square Games S.A.,M,energy,78.0,,42.4,0,0,01/05/2026
 DE000A0D6554,Nordex,P,european,77.6,TOP-5,48.52,0,0,30/04/2026
 JP3668000007,Nikkiso,P,em_asia,77.3,TOP-5,2634.0,0,0,01/05/2026
-JP3879250003,Maruwa,M,em_asia,77.3,,70650.0,0,0,01/05/2026
-PLTSQGM00016,Ten Square Games S.A.,M,other,77.3,,42.4,0,0,01/05/2026
-CA84859H2072,Spirit Blockchain Capital,M,crypto,75.7,,18.18,0,0,01/05/2026
+JP3879250003,Maruwa,M,semiconductors,77.3,,70650.0,0,0,01/05/2026
 US7404441047,Preformed Line Products,M,other,75.7,,333.73,0,0,01/05/2026
-JP3452000007,Taiyo Yuden,M,em_asia,75.3,,6143.0,0,0,01/05/2026
-US3023011063,EZCORP,P,other,75.1,,32.36,0,0,01/05/2026
-GB00BP7NQJ77,Kistos Holdings Plc,M,other,74.7,,313.0,0,0,01/05/2026
-JP3701200002,Nippon Chemi-Con,M,em_asia,73.7,,2651.0,0,0,01/05/2026
-JP3866800000,Panasonic,M,em_asia,73.6,,3324.0,0,0,01/05/2026
-US5021601043,LSB Industries,M,other,73.6,,14.77,0,0,01/05/2026
+JP3452000007,Taiyo Yuden,M,semiconductors,75.3,,6143.0,0,0,01/05/2026
+US3023011063,EZCORP,P,finance,75.1,,32.36,0,0,01/05/2026
+GB00BP7NQJ77,Kistos Holdings Plc,M,energy,74.8,,313.0,0,0,01/05/2026
+JP3701200002,Nippon Chemi-Con,M,semiconductors,73.7,,2651.0,0,0,01/05/2026
+JP3866800000,Panasonic,M,us_tech,73.6,,3324.0,0,0,01/05/2026
+US5021601043,LSB Industries,M,commodity,73.6,,14.77,0,0,01/05/2026
 CA14875E1025,CAT Strategic Metals,M,canadian,73.4,,889.67,0,0,01/05/2026
 US3830821043,The Gorman-Rupp,M,other,73.1,,76.15,0,0,01/05/2026
-CY0200352116,Frontline,M,other,73.0,,37.01,0,0,01/05/2026
 JP3695200000,NGK Insulators,M,em_asia,72.8,,5121.0,0,0,01/05/2026
-US4834971032,KalVista Pharma.,M,healthcare,72.7,,26.65,0,0,01/05/2026
-BMG657731060,Nordic American Tankers,M,energy,72.4,,5.76,0,0,01/05/2026
-US01749D1054,ALLEGRO Microsystems,M,other,72.3,,48.98,0,0,01/05/2026
-SG9999000020,Flex,M,em_asia,71.8,,91.7,0,0,01/05/2026
+CA84859H2072,Spirit Blockchain Capital,M,crypto,72.6,,18.18,0,0,01/05/2026
+CY0200352116,Frontline,M,energy,72.6,,37.01,0,0,01/05/2026
+US4834971032,KalVista Pharma.,M,healthcare,72.6,,26.65,0,0,01/05/2026
+BMG657731060,Nordic American Tankers,M,energy,72.2,,5.76,0,0,01/05/2026
+SG9999000020,Flex,M,semiconductors,71.8,,91.7,0,0,01/05/2026
 CA04035D1024,Arianne Phosphate,M,canadian,71.7,,35.87,0,0,01/05/2026
-GB00BPJHV584,Ithaca Energy Plc,P,other,71.6,TOP-5,266.0,0,0,01/05/2026
+GB00BPJHV584,Ithaca Energy Plc,P,energy,71.6,TOP-5,266.0,0,0,01/05/2026
 JP3919800007,Meidensha,M,em_asia,71.5,,8460.0,0,0,01/05/2026
-ZAE000013181,Valterra Platinum,M,em_latam,71.5,,102.23,0,0,01/05/2026
+US01749D1054,ALLEGRO Microsystems,M,semiconductors,71.5,,48.98,0,0,01/05/2026
 US88362T1034,Thermon,M,other,71.2,,60.52,0,0,01/05/2026
-GB00B4X3Q493,Sterling Energy PLC,M,other,71.1,,77.8,0,0,01/05/2026
-US81617J3014,Select Energy Services,M,other,71.0,,16.42,0,0,01/05/2026
-JP3914400001,Murata Manufacturing,M,em_asia,70.9,,5138.0,0,0,01/05/2026
-DE0006766504,Aurubis,P,european,70.8,TOP-5,183.3,0,0,30/04/2026
+JP3914400001,Murata Manufacturing,M,semiconductors,70.9,,5138.0,0,0,01/05/2026
+DE0006766504,Aurubis,P,european,70.8,,183.3,0,0,30/04/2026
 US3665051054,Garrett Motion,M,other,70.8,,25.87,0,0,01/05/2026
 SG9999003735,XP Power,M,em_asia,70.7,,1750.0,0,0,01/05/2026
-US2641471097,Ducommun,M,other,70.6,,141.24,0,0,01/05/2026
-PLSUNEX00013,Sunex,M,other,70.5,,228.2,0,0,01/05/2026
+US81617J3014,Select Energy Services,M,energy,70.7,,16.42,0,0,01/05/2026
+US2641471097,Ducommun,M,defense,70.6,,141.24,0,0,01/05/2026
+PLSUNEX00013,Sunex,M,us_tech,70.2,,228.2,0,0,01/05/2026
 US3845561063,Graham,M,other,70.2,,94.8,0,0,01/05/2026
 US71742Q1067,Phibro Animal Health,M,healthcare,70.1,,54.89,0,0,01/05/2026
-FR0013506730,Vallourec,M,european,69.8,,25.65,0,0,30/04/2026
-MHY2065G1219,DHT Holdings,M,other,69.6,,18.87,0,0,01/05/2026
-JP3549600009,Denka,M,em_asia,69.4,,4173.0,0,0,01/05/2026
+FR0013506730,Vallourec,M,commodity,69.8,,25.65,0,0,30/04/2026
+MHY2065G1219,DHT Holdings,M,energy,69.5,,18.87,0,0,01/05/2026
+JP3549600009,Denka,M,commodity,69.4,,4173.0,0,0,01/05/2026
+US1925761066,Cohu,M,semiconductors,69.4,,45.59,0,0,01/05/2026
 US74164F1030,Primoris Services,P,other,69.4,,180.35,0,0,01/05/2026
 CA26916F1045,E Split,M,canadian,69.3,,212.39,0,0,01/05/2026
-US2925541029,Encore Capital,M,other,69.1,,83.3,0,0,01/05/2026
-CA46016U1084,Intl. Petroleum,M,canadian,69.0,,258.2,0,0,30/04/2026
-SGXE34184239,Seatrium Ltd,M,em_asia,69.0,,55.75,0,0,01/05/2026
-CA29373A3038,Enterprise,M,canadian,68.7,,56.16,0,0,01/05/2026
-CNE1000004Q8,Yanzhou Coal Mining,M,commodity,68.7,,16.38,0,0,30/04/2026
-JP3119820003,Astroscale Holdings Inc,M,em_asia,68.6,,1310.0,0,0,01/05/2026
-US36472T1097,Gannett,M,other,68.6,,7.38,0,0,01/05/2026
-DE0006231004,Infineon Technologies,M,european,68.4,,57.13,0,0,30/04/2026
+CA46016U1084,Intl. Petroleum,M,energy,69.3,,258.2,0,0,30/04/2026
+GB00B4X3Q493,Sterling Energy PLC,M,energy,69.1,,77.8,0,0,01/05/2026
+US2925541029,Encore Capital,M,finance,68.9,,83.3,0,0,01/05/2026
+ZAE000013181,Valterra Platinum,M,energy,68.8,,102.23,0,0,01/05/2026
+CA29373A3038,Enterprise,M,energy,68.6,,56.16,0,0,01/05/2026
+JP3119820003,Astroscale Holdings Inc,M,defense,68.6,,1310.0,0,0,01/05/2026
+US36472T1097,Gannett,M,us_tech,68.6,,7.38,0,0,01/05/2026
+DE0006231004,Infineon Technologies,M,semiconductors,68.3,,57.13,0,0,30/04/2026
 JP3912700006,Musashi Seimitsu Industry,M,em_asia,68.2,,4250.0,0,0,01/05/2026
+US8618961085,StoneX,M,finance,67.9,,105.19,0,0,01/05/2026
+JP3497800007,DAIHEN,M,em_asia,67.8,,15760.0,0,0,01/05/2026
