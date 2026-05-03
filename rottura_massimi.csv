@@ -1,4 +1,4 @@
-isin,nome,resistenza,distanza_pct,stato,data_rottura
+isin,name,resistenza,distanza_pct,stato,data_rottura
 CA4957802073,Kingman Minerals,3M,3.88,rotto,2026-04-27
 US7291321005,Plexus,3M,4.14,rotto,2026-05-01
 CA7029251088,Pason Systems,3M,0.19,rotto,2026-05-01
