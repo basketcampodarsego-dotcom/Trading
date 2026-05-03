@@ -1,4 +1,4 @@
-isin,nome,pm,settore,score,stato,prezzo,spread_pct,prezzo_limite,data_chiusura
+isin,name,pm,settore,score,stato,prezzo,spread_pct,prezzo_limite,data_chiusura
 BMG6331P1041,Alpha & Omega Semiconductor,M,semiconductors,87.3,ALT,43.08,0,0,01/05/2026
 US5012421013,Kulicke & Soffa,M,other,83.3,ALT,86.33,0,0,01/05/2026
 CA4957802073,Kingman Minerals,M,canadian,81.4,ALT,68.54,0,0,01/05/2026
