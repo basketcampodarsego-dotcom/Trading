@@ -19,12 +19,13 @@ US36472T1097,Gannett,3M,-0.67,a_ridosso,
 US8618961085,StoneX,3M,-0.9,a_ridosso,
 FR0013467479,Constellium,3M,2.01,rotto,2026-04-29
 JP3678000005,Nisshinbo Holdings,3M,1.7,rotto,2026-04-28
+CNE100003F19,WuXi AppTec,3M,4.82,rotto,2026-04-28
 US5766901012,Materion,3M,1.25,rotto,2026-05-01
-CNE100003F19,WuXi AppTec,3M,4.13,rotto,2026-04-28
 CA15135U1093,Cenovus Energy,3M,7.65,rotto,2026-04-28
 JP3902400005,Mitsubishi Electric,3M,-0.28,a_ridosso,
 JP3545270005,Tess Holdings,3M,11.14,rotto,2026-04-30
 GB0002259116,Gooch & Housego,3M,1.58,rotto,2026-04-30
+CNE100005F09,Tianqi Lithium (H),3M,10.01,rotto,2026-04-29
 GB0007538100,M.P. Evans Group,3M,2.88,rotto,2026-04-28
 US0462241011,Astec Industries,3M,0.59,rotto,2026-04-30
 US76680R2067,RingCentral,3M,7.47,rotto,2026-05-01
@@ -47,8 +48,9 @@ BMG359472021,Flex LNG,3M,2.38,rotto,2026-04-28
 FR0000044448,Nexans,3M,11.18,rotto,2026-04-28
 FR0010208488,Engie,3M,-0.32,a_ridosso,
 JP3538400007,TOC,3M,3.66,rotto,2026-05-01
-AU000000CDA3,Codan,3M,10.07,rotto,2026-04-29
+AU000000CDA3,Codan,3M,10.58,rotto,2026-04-29
 CA6744822033,Obsidian Energy,3M,4.87,rotto,2026-04-29
+CNE1000031W9,Ganfeng Lithium,3M,4.46,rotto,2026-05-04
 DE0006070006,HochTief,3M,-0.85,a_ridosso,
 IT0003621783,Societa Sportiva Lazio,3M,0.74,rotto,2026-04-29
 JP3396350005,SKY Perfect JSAT Holdings,3M,3.23,rotto,2026-04-30
@@ -73,6 +75,7 @@ US3873281071,Granite Construction,3M,2.49,rotto,2026-04-30
 US75524W1080,RE/MAX Holdings,1Y,5.38,rotto,2026-04-28
 IE00B52MJD48,Nikkei 225 JPY (Acc),3M,-0.39,a_ridosso,
 IT0003242622,Terna,3M,3.92,rotto,2026-05-01
+KYG4818G1010,Innovent Biologics,3M,-0.16,a_ridosso,
 SE0000872095,Swedish Orphan Biovitrum,3M,1.62,rotto,2026-04-30
 CA83671M1059,South Bow,3M,2.57,rotto,2026-04-30
 BMG455841020,HAL Trust,3M,3.07,rotto,2026-04-28
@@ -83,7 +86,7 @@ US29357K1034,Enova International,3M,-0.84,a_ridosso,
 NL0009272764,Multi-Asset Conservative Alloc,3M,4.21,rotto,2026-04-30
 LU2573967036,MSCI Emerging Markets II USD (,3M,0.74,rotto,2026-05-01
 DE000A0WMPJ6,Aixtron,3M,0.77,rotto,2026-04-30
-KYG5257K1076,Kingboard Laminates,3M,1.64,rotto,2026-04-28
+KYG5257K1076,Kingboard Laminates,3M,6.91,rotto,2026-04-28
 CA29787F1045,Etruscus Resources,3M,-0.32,a_ridosso,
 US92645B1035,Victory Capital Holdings,3M,1.53,rotto,2026-04-30
 IE000ANHU3J3,Global Emerging Markets Resear,3M,-0.96,a_ridosso,
@@ -177,12 +180,12 @@ JP3932000007,Yaskawa Electric,3M,0.11,rotto,2026-04-30
 SE0009806607,Munters Group,3M,-0.94,a_ridosso,
 US74267C1062,ProAssurance,3M,-0.36,a_ridosso,
 JP3931600005,Yakult Honsha,3M,11.24,rotto,2026-05-01
-AU0000030678,Coles Group,3M,-0.65,a_ridosso,
 GB00BJLP1Y77,HICL Infrastructure,3M,-0.62,a_ridosso,
 AT0000785555,Semperit,3M,-0.06,a_ridosso,
 US8610251048,Stock Yards Bancorp,3M,-0.98,a_ridosso,
 DE000A0H08R2,STOXX 600 Telecomm EUR (Dist),1Y,-0.78,a_ridosso,
 GB00B7N0K053,Premier Foods,3M,-0.75,a_ridosso,
+KYG8586D1097,Sunny Optical Technology,3M,-0.38,a_ridosso,
 IT0003153621,Tamburi Investment Partners,3M,0.03,rotto,2026-05-01
 SE0009888738,Boozt,6M,2.16,rotto,2026-04-28
 US38173M1027,Golub Capital,3M,1.1,rotto,2026-04-30
