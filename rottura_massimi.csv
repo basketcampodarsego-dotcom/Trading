@@ -20,8 +20,8 @@ US8618961085,StoneX,3M,-0.9,a_ridosso,
 FR0013467479,Constellium,3M,2.01,rotto,2026-04-29
 JP3678000005,Nisshinbo Holdings,3M,1.7,rotto,2026-04-28
 US5766901012,Materion,3M,1.25,rotto,2026-05-01
-CA15135U1093,Cenovus Energy,3M,7.65,rotto,2026-04-28
 CNE100003F19,WuXi AppTec,3M,4.13,rotto,2026-04-28
+CA15135U1093,Cenovus Energy,3M,7.65,rotto,2026-04-28
 JP3902400005,Mitsubishi Electric,3M,-0.28,a_ridosso,
 JP3545270005,Tess Holdings,3M,11.14,rotto,2026-04-30
 GB0002259116,Gooch & Housego,3M,1.58,rotto,2026-04-30
@@ -162,7 +162,6 @@ GB00BMBK7016,Calnex Solutions,3M,-0.85,a_ridosso,
 SE0009663826,Ambea,3M,-0.14,a_ridosso,
 US7403674044,Preferred Bank,3M,-0.5,a_ridosso,
 IE00B4MCHD36,S&P 500 Consumer Discretionary,1Y,-0.21,a_ridosso,
-AU0000030678,Coles Group,3M,-0.65,a_ridosso,
 US53263P1057,Limbach Holdings,3M,-0.6,a_ridosso,
 CA09226M2094,Black Swan Graphene Inc. Regis,3M,0.12,rotto,2026-05-01
 US69349H1077,TXNM Energy,3M,0.32,rotto,2026-04-30
@@ -178,6 +177,7 @@ JP3932000007,Yaskawa Electric,3M,0.11,rotto,2026-04-30
 SE0009806607,Munters Group,3M,-0.94,a_ridosso,
 US74267C1062,ProAssurance,3M,-0.36,a_ridosso,
 JP3931600005,Yakult Honsha,3M,11.24,rotto,2026-05-01
+AU0000030678,Coles Group,3M,-0.65,a_ridosso,
 GB00BJLP1Y77,HICL Infrastructure,3M,-0.62,a_ridosso,
 AT0000785555,Semperit,3M,-0.06,a_ridosso,
 US8610251048,Stock Yards Bancorp,3M,-0.98,a_ridosso,
