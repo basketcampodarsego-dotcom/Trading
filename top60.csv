@@ -38,16 +38,18 @@ US2641471097,Ducommun,M,defense,70.6,,141.24,0,0,01/05/2026
 PLSUNEX00013,Sunex,M,us_tech,70.2,,228.2,0,0,01/05/2026
 US3845561063,Graham,M,other,70.2,,94.8,0,0,01/05/2026
 US71742Q1067,Phibro Animal Health,M,healthcare,70.1,,54.89,0,0,01/05/2026
+CNE1000004L9,Weichai Power,M,other,70.0,,43.42,0,0,04/05/2026
 FR0013506730,Vallourec,M,commodity,69.8,,25.65,0,0,30/04/2026
 MHY2065G1219,DHT Holdings,M,energy,69.5,,18.87,0,0,01/05/2026
 JP3549600009,Denka,M,commodity,69.4,,4173.0,0,0,01/05/2026
 US1925761066,Cohu,M,semiconductors,69.4,,45.59,0,0,01/05/2026
-US74164F1030,Primoris Services,P,other,69.4,,180.35,0,0,01/05/2026
+US74164F1030,Primoris Services,P,other,69.4,TOP-5,180.35,0,0,01/05/2026
 CA26916F1045,E Split,M,canadian,69.3,,212.39,0,0,01/05/2026
 CA46016U1084,Intl. Petroleum,M,energy,69.3,,258.2,0,0,30/04/2026
 US2925541029,Encore Capital,M,finance,68.9,,83.3,0,0,01/05/2026
 ZAE000013181,Valterra Platinum,M,energy,68.8,,102.23,0,0,01/05/2026
 CA29373A3038,Enterprise,M,energy,68.6,,56.16,0,0,01/05/2026
+HK3808041546,Sinotruk Hong Kong,M,china,68.6,,39.34,0,0,04/05/2026
 JP3119820003,Astroscale Holdings Inc,M,defense,68.6,,1310.0,0,0,01/05/2026
 US36472T1097,Gannett,M,us_tech,68.6,,7.38,0,0,01/05/2026
 DE0006231004,Infineon Technologies,M,semiconductors,68.3,,57.13,0,0,30/04/2026
@@ -56,6 +58,4 @@ US8618961085,StoneX,M,finance,67.9,,105.19,0,0,01/05/2026
 JP3497800007,DAIHEN,M,em_asia,67.8,,15760.0,0,0,01/05/2026
 SGXE34184239,Seatrium Ltd,M,semiconductors,67.8,,55.75,0,0,01/05/2026
 CA4530384086,Imperial Oil,M,energy,67.7,,128.48,0,0,01/05/2026
-CNE1000048G6,RemeGen,M,healthcare,67.4,,100.6,0,0,30/04/2026
 FR0013467479,Constellium,M,commodity,67.4,,32.01,0,0,01/05/2026
-JP3678000005,Nisshinbo Holdings,M,em_asia,67.3,,2009.0,0,0,01/05/2026
