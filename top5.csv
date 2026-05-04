@@ -1,6 +1,6 @@
-isin,nome,pm,settore,score,prezzo,bid,ask,spread_pct,prezzo_limite,data_chiusura
+isin,name,pm,settore,score,prezzo,bid,ask,spread_pct,prezzo_limite,data_chiusura
 DE0006450000,LPKF Laser & Electronics,P,european,89.9,16.55,0,0,0,0,30/04/2026
-DE000A0D6554,Nordex,P,european,77.6,48.52,0,0,0,0,30/04/2026
-JP3668000007,Nikkiso,P,em_asia,77.3,2634.0,0,0,0,0,01/05/2026
 GB00BPJHV584,Ithaca Energy Plc,P,energy,71.6,266.0,0,0,0,0,01/05/2026
-JP3224200000,Kawasaki Heavy Industries,P,em_asia,66.7,3151.0,0,0,0,0,01/05/2026
+DE0006766504,Aurubis,P,european,70.8,183.3,0,0,0,0,30/04/2026
+JP3166000004,Ebara,P,em_asia,66.2,5242.0,0,0,0,0,01/05/2026
+JP3545270005,Tess Holdings,P,em_asia,64.6,808.0,0,0,0,0,01/05/2026
