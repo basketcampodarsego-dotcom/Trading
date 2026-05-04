@@ -1,5 +1,5 @@
 isin,name,pm,settore,score,stato,prezzo,spread_pct,prezzo_limite,data_chiusura
-DE0006450000,LPKF Laser & Electronics,P,european,89.9,TOP-5,16.55,0,0,30/04/2026
+DE0006450000,LPKF Laser & Electronics,P,european,89.9,,16.55,0,0,30/04/2026
 BMG6331P1041,Alpha & Omega Semiconductor,M,semiconductors,85.6,ALT,43.08,0,0,01/05/2026
 US5012421013,Kulicke & Soffa,M,semiconductors,82.6,ALT,86.33,0,0,01/05/2026
 US50012A1088,Kodiak Gas Services,M,energy,81.4,ALT,68.54,0,0,01/05/2026
@@ -38,7 +38,7 @@ US2641471097,Ducommun,M,defense,70.6,,141.24,0,0,01/05/2026
 PLSUNEX00013,Sunex,M,us_tech,70.2,,228.2,0,0,01/05/2026
 US3845561063,Graham,M,other,70.2,,94.8,0,0,01/05/2026
 US71742Q1067,Phibro Animal Health,M,healthcare,70.1,,54.89,0,0,01/05/2026
-CNE1000004L9,Weichai Power,M,other,70.0,,43.42,0,0,04/05/2026
+CNE1000004L9,Weichai Power,M,other,70.0,,43.24,0,0,04/05/2026
 FR0013506730,Vallourec,M,commodity,69.8,,25.65,0,0,30/04/2026
 MHY2065G1219,DHT Holdings,M,energy,69.5,,18.87,0,0,01/05/2026
 JP3549600009,Denka,M,commodity,69.4,,4173.0,0,0,01/05/2026
@@ -49,7 +49,7 @@ CA46016U1084,Intl. Petroleum,M,energy,69.3,,258.2,0,0,30/04/2026
 US2925541029,Encore Capital,M,finance,68.9,,83.3,0,0,01/05/2026
 ZAE000013181,Valterra Platinum,M,energy,68.8,,102.23,0,0,01/05/2026
 CA29373A3038,Enterprise,M,energy,68.6,,56.16,0,0,01/05/2026
-HK3808041546,Sinotruk Hong Kong,M,china,68.6,,39.34,0,0,04/05/2026
+HK3808041546,Sinotruk Hong Kong,M,china,68.6,,39.36,0,0,04/05/2026
 JP3119820003,Astroscale Holdings Inc,M,defense,68.6,,1310.0,0,0,01/05/2026
 US36472T1097,Gannett,M,us_tech,68.6,,7.38,0,0,01/05/2026
 DE0006231004,Infineon Technologies,M,semiconductors,68.3,,57.13,0,0,30/04/2026
