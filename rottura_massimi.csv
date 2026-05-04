@@ -1,52 +1,33 @@
 isin,nome,resistenza,distanza_pct,stato,data_rottura
-CA4957802073,Kingman Minerals,3M,3.88,rotto,2026-04-27
 US7291321005,Plexus,3M,4.14,rotto,2026-05-01
 CA7029251088,Pason Systems,3M,0.19,rotto,2026-05-01
 US6677461013,Northwest Pipe,3M,21.8,rotto,2026-04-30
 PLTSQGM00016,Ten Square Games S.A.,3M,4.15,rotto,2026-05-01
-DE000A0D6554,Nordex,3M,5.16,rotto,2026-04-27
-US3023011063,EZCORP,3M,1.57,rotto,2026-04-27
 GB00BP7NQJ77,Kistos Holdings Plc,3M,0.97,rotto,2026-04-29
 JP3701200002,Nippon Chemi-Con,3M,8.2,rotto,2026-04-28
-JP3866800000,Panasonic,3M,10.1,rotto,2026-04-27
 CA14875E1025,CAT Strategic Metals,3M,6.52,rotto,2026-04-30
 US3830821043,The Gorman-Rupp,3M,-0.82,a_ridosso,
-JP3695200000,NGK Insulators,3M,12.28,rotto,2026-04-27
 US4834971032,KalVista Pharma.,3M,27.7,rotto,2026-04-29
 SG9999000020,Flex,3M,0.32,rotto,2026-04-30
 US01749D1054,ALLEGRO Microsystems,3M,10.99,rotto,2026-04-30
 US88362T1034,Thermon,3M,9.5,rotto,2026-04-28
 US3665051054,Garrett Motion,3M,22.22,rotto,2026-04-30
-SG9999003735,XP Power,3M,17.61,rotto,2026-04-27
 PLSUNEX00013,Sunex,3M,0.22,rotto,2026-04-30
-US74164F1030,Primoris Services,3M,4.53,rotto,2026-04-27
-CA26916F1045,E Split,3M,1.48,rotto,2026-04-27
 US2925541029,Encore Capital,3M,-0.95,a_ridosso,
 ZAE000013181,Valterra Platinum,3M,-0.01,a_ridosso,
 US36472T1097,Gannett,3M,-0.67,a_ridosso,
 US8618961085,StoneX,3M,-0.9,a_ridosso,
-JP3497800007,DAIHEN,3M,6.87,rotto,2026-04-27
-SGXE34184239,Seatrium Ltd,3M,10.46,rotto,2026-04-27
 FR0013467479,Constellium,3M,2.01,rotto,2026-04-29
 JP3678000005,Nisshinbo Holdings,3M,1.7,rotto,2026-04-28
-US98419J2069,XOMA,3M,3.11,rotto,2026-04-27
 US5766901012,Materion,3M,1.25,rotto,2026-05-01
 CA15135U1093,Cenovus Energy,3M,7.65,rotto,2026-04-28
 CNE100003F19,WuXi AppTec,3M,4.13,rotto,2026-04-28
-CNE100004Z06,Asymchem Laboratories (Tianjin,3M,2.83,rotto,2026-04-27
 JP3902400005,Mitsubishi Electric,3M,-0.28,a_ridosso,
 JP3545270005,Tess Holdings,3M,11.14,rotto,2026-04-30
-ZAE000314084,OUTsurance Group,3M,4.48,rotto,2026-04-27
-US55405W1045,MYR Group,3M,27.77,rotto,2026-04-27
 GB0002259116,Gooch & Housego,3M,1.58,rotto,2026-04-30
-US03676C1009,Anterix,3M,9.79,rotto,2026-04-27
-CA04016E2024,Argentina Lithium,3M,4.66,rotto,2026-04-27
 GB0007538100,M.P. Evans Group,3M,2.88,rotto,2026-04-28
 US0462241011,Astec Industries,3M,0.59,rotto,2026-04-30
-GB0009390070,Volex,3M,1.9,rotto,2026-04-27
-GB00BR3YV268,Polar Capital Technology Trust,3M,0.91,rotto,2026-04-27
 US76680R2067,RingCentral,3M,7.47,rotto,2026-05-01
-DE0007037129,RWE,3M,2.28,rotto,2026-04-27
 JP3122800000,Amada Co.,3M,0.22,rotto,2026-04-30
 US2537981027,Digi International,3M,1.5,rotto,2026-05-01
 JP3385000009,NS United Kaiun Kaisha,3M,1.43,rotto,2026-05-01
@@ -54,40 +35,26 @@ US41068X1000,Hannon Armstrong Sustainable I,3M,1.55,rotto,2026-04-30
 BMG8726X1065,Teekay Tankers,3M,2.9,rotto,2026-04-29
 US55825T1034,Madison Square Garden,3M,-0.3,a_ridosso,
 JP3497400006,Daifuku,3M,3.03,rotto,2026-04-28
-IE00BDBRT036,Nasdaq Clean Edge Green Energy,3M,3.66,rotto,2026-04-27
 CA1939291060,Collective Metals,3M,2.56,rotto,2026-04-28
 US33768G1076,FirstCash,3M,0.42,rotto,2026-05-01
-US74837P4054,QuickLogic,3M,24.77,rotto,2026-04-27
 US92846Q1076,Vita Coco,3M,10.15,rotto,2026-04-29
-IE000U6ABUJ7,Rba American Industrial Renais,3M,1.46,rotto,2026-04-27
 CA21873Y1051,Core Silver Corp. Registered S,3M,4.21,rotto,2026-04-30
 JP3404600003,Sumitomo,3M,2.87,rotto,2026-05-01
-JP3538800008,TDK,3M,2.78,rotto,2026-04-27
 CH0311864901,VAT Group AG,3M,-0.32,a_ridosso,
 CA7672171021,Rio2,3M,0.3,rotto,2026-04-30
 GB00BZC0LP49,Luceco PLC,3M,2.35,rotto,2026-04-28
-GRS536003007,Athens International Airport,3M,1.31,rotto,2026-04-27
 BMG359472021,Flex LNG,3M,2.38,rotto,2026-04-28
 FR0000044448,Nexans,3M,11.18,rotto,2026-04-28
-GB00BY7QYJ50,Molten Ventures,3M,2.83,rotto,2026-04-27
-CA6699882065,NU E POWER,3M,5.48,rotto,2026-04-27
 FR0010208488,Engie,3M,-0.32,a_ridosso,
 JP3538400007,TOC,3M,3.66,rotto,2026-05-01
 AU000000CDA3,Codan,3M,10.07,rotto,2026-04-29
-CA07317Q1054,Baytex Energy,3M,8.03,rotto,2026-04-27
-CA15101Q2071,Celestica,3M,2.13,rotto,2026-04-27
 CA6744822033,Obsidian Energy,3M,4.87,rotto,2026-04-29
-CA8283411079,Silver X Mining,3M,6.92,rotto,2026-04-27
-CH1403212751,Lithium Argentina AG Namens-Ak,3M,10.96,rotto,2026-04-27
 DE0006070006,HochTief,3M,-0.85,a_ridosso,
 IT0003621783,Societa Sportiva Lazio,3M,0.74,rotto,2026-04-29
-JP3302100007,Kohoku Kogyo,3M,7.9,rotto,2026-04-27
 JP3396350005,SKY Perfect JSAT Holdings,3M,3.23,rotto,2026-04-30
-US0327241065,AnaptysBio,3M,13.38,rotto,2026-04-27
 US0773472016,Bel Fuse,3M,1.28,rotto,2026-05-01
 US0773473006,Bel Fuse (B),3M,2.51,rotto,2026-05-01
-US20337X1090,CommScope Holding Company,3M,25.83,rotto,2026-04-27
-US25402D1028,Digitalocean,3M,7.26,rotto,2026-04-27
+US20337X1090,CommScope Holding Company,6M,18.97,rotto,2026-04-29
 US30041T1043,Everspin,3M,52.74,rotto,2026-04-30
 US55826T1025,Sphere Entertainment A,3M,6.68,rotto,2026-04-29
 US69888T2078,Par Pacific Holdings,3M,-0.7,a_ridosso,
@@ -97,101 +64,67 @@ US9011091082,Tutor Perini,3M,4.9,rotto,2026-04-30
 US92552V1008,ViaSat,3M,1.62,rotto,2026-04-30
 GB00B647W791,Savannah Resources PLC,3M,12.73,rotto,2026-04-28
 ZAE000132577,Vodacom,3M,1.83,rotto,2026-05-01
-JP3885400006,Misumi,3M,9.21,rotto,2026-04-27
-GB00BNG2M159,Allianz Technology Trust,3M,1.46,rotto,2026-04-27
 US45688C1071,Ingevity,3M,-0.85,a_ridosso,
 US05603J1088,BKV,3M,-0.57,a_ridosso,
 LU0839027447,Nikkei 225 JPY (Dist),3M,-0.56,a_ridosso,
 US12503M1080,Cboe Global Markets,3M,5.68,rotto,2026-05-01
-JP3765150002,Harmonic Drive Systems Inc. Re,3M,9.69,rotto,2026-04-27
 JP3130830007,Erex,3M,0.09,rotto,2026-04-28
-IT0004093263,Ascopiave,3M,8.23,rotto,2026-04-27
 US3873281071,Granite Construction,3M,2.49,rotto,2026-04-30
-US75524W1080,RE/MAX Holdings,3M,34.92,rotto,2026-04-27
-US68621T1025,Origin Bancorp,3M,1.5,rotto,2026-04-27
+US75524W1080,RE/MAX Holdings,1Y,5.38,rotto,2026-04-28
 IE00B52MJD48,Nikkei 225 JPY (Acc),3M,-0.39,a_ridosso,
 IT0003242622,Terna,3M,3.92,rotto,2026-05-01
 SE0000872095,Swedish Orphan Biovitrum,3M,1.62,rotto,2026-04-30
-JP3371200001,Shin-Etsu Chemical,3M,2.81,rotto,2026-04-27
-US6090271072,Monarch Casino & Resort,3M,0.83,rotto,2026-04-27
-US9293281021,WSFS Financial Corporation,3M,1.04,rotto,2026-04-27
 CA83671M1059,South Bow,3M,2.57,rotto,2026-04-30
-US03937C1053,ArcBest,3M,2.71,rotto,2026-04-27
 BMG455841020,HAL Trust,3M,3.07,rotto,2026-04-28
-MHY2106R1100,Dorian LPG,3M,4.09,rotto,2026-04-27
 CA8911605092,Toronto-Dominion Bank,3M,0.82,rotto,2026-04-30
 US87265H1095,Tri Pointe Homes,3M,-0.09,a_ridosso,
 BMG1466R1732,Borr Drilling,3M,-0.49,a_ridosso,
 US29357K1034,Enova International,3M,-0.84,a_ridosso,
-US91359V1070,Universal Insurance,3M,0.56,rotto,2026-04-27
 NL0009272764,Multi-Asset Conservative Alloc,3M,4.21,rotto,2026-04-30
 LU2573967036,MSCI Emerging Markets II USD (,3M,0.74,rotto,2026-05-01
 DE000A0WMPJ6,Aixtron,3M,0.77,rotto,2026-04-30
-GB00BG5KQW09,Ceres Power,3M,26.01,rotto,2026-04-27
-JP3236330001,Kioxia Holdings Corporation,3M,2.91,rotto,2026-04-27
-JP3915350007,Meiko Electronics,3M,0.03,rotto,2026-04-27
 KYG5257K1076,Kingboard Laminates,3M,1.64,rotto,2026-04-28
-PLSTLEX00019,Stalexport Autostrady,3M,23.71,rotto,2026-04-27
 CA29787F1045,Etruscus Resources,3M,-0.32,a_ridosso,
 US92645B1035,Victory Capital Holdings,3M,1.53,rotto,2026-04-30
 IE000ANHU3J3,Global Emerging Markets Resear,3M,-0.96,a_ridosso,
 BSP736841136,OneSpaWorld,3M,1.08,rotto,2026-05-01
 SE0000667925,Telia,3M,-0.72,a_ridosso,
-CA4234071054,HELLO PAL INTERN. INC.,3M,5.4,rotto,2026-04-27
 CA8552811017,Stardust Solar Energy,3M,1.62,rotto,2026-04-29
 GB00BMX3W479,Metro Bank Holdings,3M,2.48,rotto,2026-04-30
-US80689H1023,Schneider National Inc. Regist,3M,3.93,rotto,2026-04-27
 FR0000120503,Bouygues,3M,-1.0,a_ridosso,
-CA4495861060,IGM Financial,3M,1.56,rotto,2026-04-27
 US66405S1006,Northeast Bank,3M,-0.18,a_ridosso,
 IE000QLV3SY5,Emerging Markets Paris Aligned,3M,-0.6,a_ridosso,
 US67066G1040,NVIDIA,3M,-0.94,a_ridosso,
-CA31810H1073,Fintech Select,3M,0.65,rotto,2026-04-27
-GB0007323586,Renishaw,3M,4.25,rotto,2026-04-27
 SE0015556873,Cheffelo,3M,8.84,rotto,2026-04-29
 US03076K1088,Ameris Bancorp,3M,-0.18,a_ridosso,
 CA87807B1076,TC Energy,3M,3.31,rotto,2026-04-30
 CA30041N1078,Evertz Technologies,3M,1.37,rotto,2026-04-29
 CA0641491075,Bank of Nova Scotia,3M,0.28,rotto,2026-04-30
 US8964423086,Trinity Capital,3M,0.8,rotto,2026-04-30
-CA75602C1077,Real Estate Split,3M,1.93,rotto,2026-04-27
 IT0005603078,Misitano & Stracuzzi S.p.A.,3M,-0.22,a_ridosso,
-US1491501045,Cathay Bancorp,3M,2.1,rotto,2026-04-27
 CA94947L1022,WELL Health Technologies,3M,1.02,rotto,2026-04-30
 US0477263026,Atlanta Braves Holdings,3M,0.7,rotto,2026-05-01
 US83545G1022,Sonic Automotive,3M,6.39,rotto,2026-04-28
 US3138551086,Federal Signal,3M,1.07,rotto,2026-04-29
-CA59132M1086,Metalsource Mining,3M,4.66,rotto,2026-04-27
 US1265011056,CTS Corporation,3M,-0.72,a_ridosso,
 CA87241L1094,TFI International,3M,2.55,rotto,2026-04-28
-GB00BJT16S69,Tronox Holdings,3M,2.08,rotto,2026-04-27
-GB0001667087,Camellia,3M,1.25,rotto,2026-04-27
-GB0004270301,Hill & Smith,3M,1.83,rotto,2026-04-27
 US8984021027,Trustmark,3M,-0.97,a_ridosso,
 JP3555700008,Towa,3M,-0.46,a_ridosso,
-IE0005E47AH7,"MSCI Global SDG 9 Industry, In",3M,1.18,rotto,2026-04-27
-JE00BMDZN391,TP ICAP Group,3M,1.67,rotto,2026-04-27
 FR0000120172,Carrefour,3M,0.89,rotto,2026-04-30
-CA59125R1064,Metallis Resources,3M,0.21,rotto,2026-04-27
 SE0017483506,Instalco,3M,0.16,rotto,2026-04-30
 US8448951025,Southwest Gas Holdings,3M,0.02,rotto,2026-04-30
 IE000DS9ZCL4,China A Research Enhanced Inde,3M,1.02,rotto,2026-04-30
-GB00BFMBMT84,Sensata Technologies,3M,0.79,rotto,2026-04-27
 IE00BMDV7578,China A Research Enhanced Inde,3M,0.68,rotto,2026-04-30
 GB00BFFK7H57,Odyssean Inv. Trust,3M,1.03,rotto,2026-05-01
 US43940T1097,Hope Bancorp,3M,-0.47,a_ridosso,
 CA15138B3065,Centaurus Energy,3M,4.0,rotto,2026-04-28
 PR3186727065,First Bancorp,3M,-0.08,a_ridosso,
 US6304021057,Napco Security Tech,3M,-0.73,a_ridosso,
-DE000BASF111,BASF,3M,0.07,rotto,2026-04-30
 US0625401098,Bank of Hawaii,3M,0.06,rotto,2026-05-01
 US87157D1090,Synaptics,3M,2.81,rotto,2026-05-01
 ID1000109507,Bank Central Asia,3M,-0.52,a_ridosso,
-CA3144602057,FendX Technologies Inc. Regist,3M,1.9,rotto,2026-04-27
-US4104952043,Hanmi Financial,3M,0.13,rotto,2026-04-27
 GB00BNK9TP58,Trustpilot,3M,-0.38,a_ridosso,
 CA29250N1050,Enbridge,3M,0.46,rotto,2026-04-30
-US20786W1071,ConnectOne Bancorp,3M,1.52,rotto,2026-04-27
 JP3560800009,Tokai Carbon,3M,0.48,rotto,2026-05-01
 FR0004125920,Amundi,3M,0.98,rotto,2026-04-30
 JP3634600005,Toyota Industries,3M,-0.8,a_ridosso,
@@ -201,19 +134,14 @@ US6673401039,Northwest Bancshares,3M,1.53,rotto,2026-04-28
 JP3197800000,Omron,3M,1.83,rotto,2026-04-30
 FR0000124141,Veolia Environnement,3M,-0.06,a_ridosso,
 NO0013461350,Integrated Wind Solutions ASA,3M,-0.12,a_ridosso,
-US7867001049,Sagimet Biosciences,3M,16.01,rotto,2026-04-27
 US87240R1077,TFS Financial,3M,-0.13,a_ridosso,
 CA56501R1064,Manulife Financial,3M,0.75,rotto,2026-04-30
-US1263491094,CSG Systems,3M,0.05,rotto,2026-04-27
 IE00BYYHSQ67,MSCI World Quality Dividend US,3M,0.79,rotto,2026-04-30
-JP3236200006,Keyence,3M,14.39,rotto,2026-04-27
 US1381031061,Cantaloupe,3M,1.01,rotto,2026-04-30
-IE00BFMXXD54,S&P 500 USD (Acc),3M,1.54,rotto,2026-04-27
 CA2908761018,Emera,3M,-0.28,a_ridosso,
 JP3162600005,SMC,3M,-0.22,a_ridosso,
 CA5394811015,Loblaw,3M,-0.64,a_ridosso,
-IE00BKX8G916,S&P 500 GBP Hedged (Acc),3M,1.49,rotto,2026-04-27
-IE00B48X4842,MSCI EM Small Cap (Acc),3M,0.86,rotto,2026-04-27
+DE000BASF111,BASF,3M,0.07,rotto,2026-04-30
 IT0004125677,Masi Agricola S.p.A.,3M,-0.14,a_ridosso,
 IE000JLILKH0,All Country Research Enhanced ,3M,-0.58,a_ridosso,
 IE000DTA2ZH9,Active Us Value Usd (Dist),3M,-0.43,a_ridosso,
@@ -236,7 +164,6 @@ US7403674044,Preferred Bank,3M,-0.5,a_ridosso,
 IE00B4MCHD36,S&P 500 Consumer Discretionary,1Y,-0.21,a_ridosso,
 AU0000030678,Coles Group,3M,-0.65,a_ridosso,
 US53263P1057,Limbach Holdings,3M,-0.6,a_ridosso,
-IE0006HMLPV6,Us Research Enhanced Index Equ,3M,0.16,rotto,2026-04-27
 CA09226M2094,Black Swan Graphene Inc. Regis,3M,0.12,rotto,2026-05-01
 US69349H1077,TXNM Energy,3M,0.32,rotto,2026-04-30
 IE0002ZM3JI1,USA Net Zero Pathway Paris Ali,3M,-0.08,a_ridosso,
@@ -256,15 +183,11 @@ AT0000785555,Semperit,3M,-0.06,a_ridosso,
 US8610251048,Stock Yards Bancorp,3M,-0.98,a_ridosso,
 DE000A0H08R2,STOXX 600 Telecomm EUR (Dist),1Y,-0.78,a_ridosso,
 GB00B7N0K053,Premier Foods,3M,-0.75,a_ridosso,
-US68622V1061,Organon,3M,18.03,rotto,2026-04-27
 IT0003153621,Tamburi Investment Partners,3M,0.03,rotto,2026-05-01
 SE0009888738,Boozt,6M,2.16,rotto,2026-04-28
-US03763A2078,Apollo Medical,3M,3.47,rotto,2026-04-27
 US38173M1027,Golub Capital,3M,1.1,rotto,2026-04-30
 JP3386110005,JINS Holdings,3M,-0.6,a_ridosso,
 JE00BYSS4X48,Novocure,3M,10.87,rotto,2026-04-30
-GB0005630420,Mears Group,3M,2.47,rotto,2026-04-27
-DE000EVNK013,Evonik Industries,3M,0.91,rotto,2026-04-27
 DE000A1DAHH0,Brenntag,3M,2.82,rotto,2026-04-30
 CA75157B1085,Ramp Metals,3M,1.79,rotto,2026-04-28
 SE0011337708,AAK,3M,1.23,rotto,2026-04-28
@@ -275,20 +198,16 @@ GB00BKS7YK08,Treatt,3M,37.47,rotto,2026-04-29
 DE0006969603,PUMA,3M,-0.84,a_ridosso,
 JP3386650000,J Frontier,3M,2.08,rotto,2026-04-30
 SE0023313762,Apotea AB Namn-Aktier o.N.,3M,15.28,rotto,2026-04-29
-JP3943800007,Yamaya,3M,4.61,rotto,2026-04-27
+JP3943800007,Yamaya,6M,-0.17,a_ridosso,
 GB00BY2Z0H74,Puretech Health PLC,3M,0.87,rotto,2026-05-01
 CA13515Q1037,Canada Nickel Company,3M,15.25,rotto,2026-04-28
 SE0000195810,Bure Equity,3M,-0.74,a_ridosso,
 GB0004526900,IG Design Group PLC,3M,6.92,rotto,2026-04-30
-US39854F1012,Grindr,3M,2.23,rotto,2026-04-27
 CH0435377954,SIG Group,3M,-0.55,a_ridosso,
 GB00B01F7T14,M & C Saatchi,3M,-0.37,a_ridosso,
 IT0005452658,Stevanato Group,3M,1.2,rotto,2026-05-01
 US8342033094,Soleno Therapeutics,3M,0.08,rotto,2026-05-01
 CA2568277834,Dolly Varden Silver Corp. Regi,3M,1.25,rotto,2026-05-01
-JE00B3NKMM36,Short CHF Long GBP,3M,0.18,rotto,2026-04-27
-CA5408991019,Logan Energy,3M,11.06,rotto,2026-04-27
-CA8875228030,CA8875228030,3M,3.14,rotto,2026-04-27
 SE0025138357,Hacksaw,3M,23.89,rotto,2026-04-28
 IE0002DDYPW4,Alpha Enhanced World USD (Acc),3M,-0.33,a_ridosso,
 IE00032YLFR3,Alpha Enhanced US USD (Acc),3M,-0.18,a_ridosso,
