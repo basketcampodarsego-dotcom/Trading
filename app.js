@@ -144,8 +144,27 @@ async function onCsvChange(){
 
 // ── LOAD ASSET ───────────────────────────────────────
 async function loadAsset(){
-  const s = dataList[idx];
+const s = dataList[idx];
   if(!s) return;
+
+   
+// NOVITÀ: Se il ticker manca ma c'è l'ISIN, prova a risolverlo
+  if(!s.ticker && s.isin) {
+    document.getElementById('title').textContent = "Risoluzione Ticker...";
+    const resolved = await resolveTickerFromISIN(s.isin);
+    if(resolved) {
+      s.ticker = resolved; 
+    } else {
+      toast('⚠ Impossibile trovare il ticker per ISIN: ' + s.isin);
+      return;
+    }
+  }
+
+  // ... resto della funzione loadAsset ...
+
+
+   
+  
 
   closeDropdown();
 
