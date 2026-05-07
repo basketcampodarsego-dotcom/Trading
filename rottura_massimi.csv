@@ -1,278 +1,1409 @@
 isin,nome,resistenza,distanza_pct,stato,data_rottura
-US5012421013,Kulicke & Soffa,3M,3.43,rotto,2026-05-04
-US50012A1088,Kodiak Gas Services,3M,4.56,rotto,2026-04-29
-US88362T1034,Thermon,3M,13.38,rotto,2026-05-04
-US5335351004,Lincoln Educational Services C,3M,0.52,rotto,2026-05-05
-US7291321005,Plexus,3M,5.03,rotto,2026-05-01
-US6677461013,Northwest Pipe,3M,26.14,rotto,2026-04-30
+US7069151055,Penguin Solutions Inc. DEL Reg,3M,27.04,rotto,2026-05-01
+US21873S1087,CoreWeave Inc. Registered Shar,3M,12.6,rotto,2026-05-04
+US0420682058,ARM (ADR),3M,1.06,rotto,2026-05-06
+US5335351004,Lincoln Educational Services C,3M,5.53,rotto,2026-05-05
+US6098391054,Monolithic Power Systems,3M,1.24,rotto,2026-05-06
+US88362T1034,Thermon,3M,13.6,rotto,2026-05-04
+US7404441047,Preformed Line Products,3M,2.69,rotto,2026-05-05
+US7291321005,Plexus,3M,4.31,rotto,2026-05-01
+US25525P1075,Diversified Hlthc.,3M,7.52,rotto,2026-05-01
 PLTSQGM00016,Ten Square Games S.A.,3M,6.04,rotto,2026-05-01
-GB00BP7NQJ77,Kistos Holdings Plc,3M,2.66,rotto,2026-04-29
-US1925761066,Cohu,3M,3.95,rotto,2026-04-30
-PLFERRO00016,Ferro S.A.,3M,-0.58,a_ridosso,
-US3830821043,The Gorman-Rupp,3M,1.03,rotto,2026-05-05
-US4834971032,KalVista Pharma.,3M,27.96,rotto,2026-04-29
-SG9999000020,Flex,3M,2.97,rotto,2026-04-30
-US81617J3014,Select Energy Services,3M,0.98,rotto,2026-04-29
-US3845561063,Graham,3M,0.76,rotto,2026-05-05
-US01749D1054,ALLEGRO Microsystems,3M,11.35,rotto,2026-04-30
-PLSUNEX00013,Sunex,3M,2.57,rotto,2026-04-30
-DE0006231004,Infineon Technologies,3M,9.57,rotto,2026-04-29
-US2925541029,Encore Capital,3M,1.44,rotto,2026-05-05
-FR0013506730,Vallourec,3M,1.95,rotto,2026-04-30
-CA26916F1045,E Split,3M,3.94,rotto,2026-04-30
-US5766901012,Materion,3M,6.58,rotto,2026-05-01
-CNE1000004L9,Weichai Power,3M,18.86,rotto,2026-04-30
-US8618961085,StoneX,3M,1.45,rotto,2026-05-05
-US3665051054,Garrett Motion,3M,20.19,rotto,2026-04-30
-CA4530384086,Imperial Oil,3M,-0.76,a_ridosso,
-SGXE34184239,Seatrium Ltd,3M,12.76,rotto,2026-04-29
-FR0013467479,Constellium,3M,4.17,rotto,2026-04-29
-US76680R2067,RingCentral,3M,15.53,rotto,2026-05-01
-AU000000CDA3,Codan,3M,1.1,rotto,2026-04-29
-CA15135U1093,Cenovus Energy,3M,9.12,rotto,2026-04-29
-GB0009390070,Volex,3M,6.32,rotto,2026-04-30
-NL0000226223,STMicroelectronics,3M,11.71,rotto,2026-04-29
+US4663131039,Jabil Circuit,3M,8.98,rotto,2026-05-01
+US4834971032,KalVista Pharma.,3M,0.19,rotto,2026-05-05
+US81617J3014,Select Energy Services,3M,3.07,rotto,2026-05-05
+US5370081045,Littelfuse,3M,8.48,rotto,2026-05-04
+DE0006766504,Aurubis,3M,0.05,rotto,2026-05-06
+US2641471097,Ducommun,3M,2.61,rotto,2026-05-06
+US5184151042,Lattice Semiconductor,3M,1.95,rotto,2026-05-04
+US49926D1090,Knowles,3M,8.08,rotto,2026-05-01
+LU0075646355,Subsea 7,3M,-0.36,a_ridosso,
+US97717P1049,WisdomTree,3M,4.15,rotto,2026-05-06
+US8825081040,Texas Instruments,3M,3.08,rotto,2026-05-05
+US4830077040,Kaiser Aluminum,3M,1.44,rotto,2026-05-06
+US3845561063,Graham,3M,-0.92,a_ridosso,
+US8269191024,Silicon Laboratories,3M,-0.3,a_ridosso,
+US5352191093,Lindblad Expeditions,3M,3.53,rotto,2026-05-06
+HK0016000132,Sun Hung Kai Properties,3M,0.85,rotto,2026-05-06
+US7194051022,Photronics,3M,-0.34,a_ridosso,
+BMG6331P1041,Alpha & Omega Semiconductor,3M,10.98,rotto,2026-05-06
+CA8629521086,Strathcona Resources,3M,1.0,rotto,2026-05-01
+US2925541029,Encore Capital,3M,-0.07,a_ridosso,
+US5766901012,Materion,3M,5.9,rotto,2026-05-01
+US10948W1036,BrightSphere Investment Group,3M,-0.43,a_ridosso,
+US01741R1023,ATI,3M,-0.81,a_ridosso,
+US8618961085,StoneX,3M,0.24,rotto,2026-05-05
+US4891701009,Kennametal,3M,3.57,rotto,2026-05-06
+CH1169360919,Accelleron Industries Ltd. Nam,3M,4.94,rotto,2026-05-05
+US98419J2069,XOMA,3M,-0.88,a_ridosso,
+US29382R1077,Entravision,3M,99.74,rotto,2026-05-05
+GB00BR3YV268,Polar Capital Technology Trust,3M,5.99,rotto,2026-05-01
+US2674751019,Dycom Industries,3M,6.53,rotto,2026-05-01
+CA09228F1036,BlackBerry,3M,7.21,rotto,2026-05-05
+US5738741041,Marvell Technology,3M,3.98,rotto,2026-05-05
 JP3902400005,Mitsubishi Electric,3M,-0.28,a_ridosso,
-JP3545270005,Tess Holdings,3M,11.14,rotto,2026-04-30
-GB00BR3YV268,Polar Capital Technology Trust,3M,2.85,rotto,2026-05-01
-CH1169360919,Accelleron Industries Ltd. Nam,3M,0.75,rotto,2026-05-05
-US0462241011,Astec Industries,3M,1.62,rotto,2026-04-30
-US29355X1072,EnPro Industries,3M,0.01,rotto,2026-05-05
-US2537981027,Digi International,3M,2.81,rotto,2026-05-01
-CA04016E2024,Argentina Lithium,3M,3.9,rotto,2026-04-29
-BMG8726X1065,Teekay Tankers,3M,5.36,rotto,2026-04-29
-GB0002259116,Gooch & Housego,3M,0.45,rotto,2026-04-30
-US03676C1009,Anterix,3M,2.08,rotto,2026-04-30
-US57686G1058,Matson,3M,1.62,rotto,2026-05-05
-JP3122800000,Amada Co.,3M,0.22,rotto,2026-04-30
-ZAE000314084,OUTsurance Group,3M,0.69,rotto,2026-04-30
-JP3385000009,NS United Kaiun Kaisha,3M,1.43,rotto,2026-05-01
-US41068X1000,Hannon Armstrong Sustainable I,3M,1.81,rotto,2026-04-30
-CA59151K1084,Methanex,3M,0.86,rotto,2026-04-30
-CNE100005F09,Tianqi Lithium (H),3M,8.27,rotto,2026-04-29
-CA13810W2013,Canter Resources Corp. Registe,3M,-0.14,a_ridosso,
-US33768G1076,FirstCash,3M,2.66,rotto,2026-05-01
-CA1939291060,Collective Metals,3M,2.46,rotto,2026-04-29
-US92846Q1076,Vita Coco,3M,13.45,rotto,2026-04-29
-US11040G1031,Bristow Group,3M,-0.85,a_ridosso,
-IE00BDBRT036,Nasdaq Clean Edge Green Energy,3M,3.7,rotto,2026-04-30
-IE000U6ABUJ7,Rba American Industrial Renais,3M,3.26,rotto,2026-04-30
-CA21873Y1051,Core Silver Corp. Registered S,3M,6.93,rotto,2026-04-30
-GRS536003007,Athens International Airport,3M,4.38,rotto,2026-04-30
-CH0311864901,VAT Group AG,3M,1.43,rotto,2026-05-05
-BMG359472021,Flex LNG,3M,2.81,rotto,2026-04-29
+US2537981027,Digi International,3M,3.87,rotto,2026-05-01
+US57686G1058,Matson,3M,3.78,rotto,2026-05-05
+IE00B4Q5ZN47,Jazz Pharmaceuticals,3M,12.06,rotto,2026-05-04
+US29355X1072,EnPro Industries,3M,4.05,rotto,2026-05-05
+US6932821050,PDF Solutions,3M,3.44,rotto,2026-05-06
+US76680R2067,RingCentral,3M,9.0,rotto,2026-05-01
+US04626A1034,Astera Labs,3M,0.5,rotto,2026-05-05
+US2315611010,Curtiss-Wright,3M,0.04,rotto,2026-05-06
+NL0010273215,ASML,3M,1.42,rotto,2026-05-06
+SE0000667891,Sandvik,3M,1.54,rotto,2026-05-06
+USN070592100,ASML (ADR),3M,1.42,rotto,2026-05-06
+US43289P1066,Himax Technologies (ADR),3M,1.99,rotto,2026-05-01
+US1924221039,Cognex,3M,6.06,rotto,2026-05-05
+GB00BP9LHF23,Schroders,3M,-1.0,a_ridosso,
+US45841N1072,Interactive Brokers,3M,6.52,rotto,2026-05-04
+US33768G1076,FirstCash,3M,3.37,rotto,2026-05-01
+CH0311864901,VAT Group AG,3M,6.08,rotto,2026-05-05
+FR0010259150,Ipsen,3M,1.23,rotto,2026-05-06
+US7587501039,Regal Rexnord,3M,3.46,rotto,2026-05-06
+GB0001826634,Diploma,3M,2.99,rotto,2026-05-06
+US0886061086,BHP Group Ltd (ADR),3M,3.59,rotto,2026-05-06
+US0953061068,Blue Bird,3M,0.05,rotto,2026-05-06
+MHY1968P1218,DANAOS,3M,7.96,rotto,2026-05-04
+US90138F1021,Twilio,3M,27.22,rotto,2026-05-01
+US71880K1016,PHINIA,3M,-0.53,a_ridosso,
+US18915M1071,Cloudflare (A),3M,10.25,rotto,2026-05-05
+US92846Q1076,Vita Coco,3M,2.52,rotto,2026-05-04
+MHY271836006,Global Ship Lease,3M,1.24,rotto,2026-05-05
+US30226D1063,Extreme Networks,1Y,3.02,rotto,2026-05-05
+US8816242098,Teva Pharmaceutical Industries,3M,0.25,rotto,2026-05-06
+US7437131094,Proto Labs,3M,2.03,rotto,2026-05-05
+US0024741045,AZZ,3M,-0.1,a_ridosso,
+US91307C1027,United Therapeutics,3M,0.64,rotto,2026-05-06
+KYG2177B1014,CK Asset Holdings,3M,3.35,rotto,2026-05-05
 JP3404600003,Sumitomo,3M,2.87,rotto,2026-05-01
-CA6699882065,NU E POWER,3M,2.95,rotto,2026-04-30
-CA7672171021,Rio2,3M,-0.74,a_ridosso,
-FR0011726835,Gaztransport Technigaz,3M,-0.28,a_ridosso,
-GB00BS3DYQ52,Raspberry Pi,3M,2.86,rotto,2026-05-05
-GB00BNG2M159,Allianz Technology Trust,3M,3.07,rotto,2026-05-01
-US12503M1080,Cboe Global Markets,3M,10.39,rotto,2026-05-01
-JP3538400007,TOC,3M,3.66,rotto,2026-05-01
-CA03114B1022,Amex Exploration,3M,-0.11,a_ridosso,
-CA05337L3048,Avalon Advanced Materials,3M,0.08,rotto,2026-05-05
-CA07317Q1054,Baytex Energy,3M,3.65,rotto,2026-04-29
-CA15101Q2071,Celestica,3M,0.07,rotto,2026-05-05
-CA6744822033,Obsidian Energy,3M,1.74,rotto,2026-04-29
-CA8283411079,Silver X Mining,3M,10.58,rotto,2026-04-30
-CH1403212751,Lithium Argentina AG Namens-Ak,3M,6.12,rotto,2026-04-30
-CNE1000031W9,Ganfeng Lithium,3M,2.79,rotto,2026-05-04
-DE0006070006,HochTief,3M,14.5,rotto,2026-05-05
-IT0003621783,Societa Sportiva Lazio,3M,4.34,rotto,2026-04-29
-JP3396350005,SKY Perfect JSAT Holdings,3M,3.23,rotto,2026-04-30
-US0079031078,AMD,3M,1.18,rotto,2026-04-30
-US0327241065,AnaptysBio,3M,5.61,rotto,2026-05-01
-US0773473006,Bel Fuse (B),3M,7.5,rotto,2026-05-01
-US20337X1090,CommScope Holding Company,3M,24.85,rotto,2026-04-29
-US30041T1043,Everspin,3M,31.2,rotto,2026-04-30
-US5533681012,MP Materials,3M,-0.87,a_ridosso,
-US55405W1045,MYR Group,3M,34.88,rotto,2026-04-30
-US55826T1025,Sphere Entertainment A,3M,0.88,rotto,2026-04-29
-US6047491013,Mirum Pharmaceuticals,3M,-0.56,a_ridosso,
-US69888T2078,Par Pacific Holdings,3M,3.53,rotto,2026-04-29
-US74164F1030,Primoris Services,3M,14.73,rotto,2026-04-30
-US74837P4054,QuickLogic,3M,18.57,rotto,2026-04-30
-US83418M1036,Solaris Oilfield,3M,2.56,rotto,2026-05-04
-US8808811074,Terns Pharmaceuticals,3M,-0.41,a_ridosso,
-US9011091082,Tutor Perini,3M,9.22,rotto,2026-04-30
-US92552V1008,ViaSat,3M,1.58,rotto,2026-04-30
-US9706461053,Willis Lease Finance,3M,4.76,rotto,2026-05-05
-US05603J1088,BKV,3M,0.54,rotto,2026-04-30
-US9037311076,UL Solutions,3M,8.57,rotto,2026-05-05
-BE0003816338,Euronav,3M,3.43,rotto,2026-05-05
-SE0000872095,Swedish Orphan Biovitrum,3M,3.23,rotto,2026-04-30
-FR0010307819,Legrand,3M,0.19,rotto,2026-05-05
-LU0839027447,Nikkei 225 JPY (Dist),3M,-0.16,a_ridosso,
-CA83671M1059,South Bow,3M,3.52,rotto,2026-04-30
-US3873281071,Granite Construction,3M,3.71,rotto,2026-04-30
-US6090271072,Monarch Casino & Resort,3M,-0.05,a_ridosso,
-MHY2106R1100,Dorian LPG,3M,3.5,rotto,2026-04-29
-IT0003242622,Terna,3M,3.54,rotto,2026-05-01
-CA8552811017,Stardust Solar Energy,3M,2.6,rotto,2026-04-29
-KYG4818G1010,Innovent Biologics,3M,-0.43,a_ridosso,
-US92645B1035,Victory Capital Holdings,3M,4.94,rotto,2026-04-30
-US9293281021,WSFS Financial Corporation,3M,-0.84,a_ridosso,
-US8962152091,TriMas,3M,2.91,rotto,2026-05-05
-BMG455841020,HAL Trust,3M,2.27,rotto,2026-04-29
-US0396531008,Arcosa,3M,-0.87,a_ridosso,
-US87265H1095,Tri Pointe Homes,3M,-0.07,a_ridosso,
-CA8911605092,Toronto-Dominion Bank,3M,0.12,rotto,2026-04-30
-CA30041N1078,Evertz Technologies,3M,3.61,rotto,2026-04-29
-CA29787F1045,Etruscus Resources,3M,0.03,rotto,2026-04-30
-DE000A0WMPJ6,Aixtron,3M,11.2,rotto,2026-04-30
-GB00BG5KQW09,Ceres Power,3M,45.14,rotto,2026-04-29
-PLSTLEX00019,Stalexport Autostrady,3M,30.72,rotto,2026-04-29
-SE0000667925,Telia,3M,0.64,rotto,2026-05-05
-US25402D1028,Digitalocean,3M,47.39,rotto,2026-05-01
-IE000ANHU3J3,Global Emerging Markets Resear,3M,0.2,rotto,2026-05-04
-CA4495861060,IGM Financial,3M,3.1,rotto,2026-04-30
-CA4234071054,HELLO PAL INTERN. INC.,3M,4.25,rotto,2026-04-29
-SE0017483506,Instalco,3M,2.67,rotto,2026-04-30
-NL0009272764,Multi-Asset Conservative Alloc,3M,3.68,rotto,2026-04-30
-SE0006288015,Granges,3M,-0.57,a_ridosso,
-CA31810H1073,Fintech Select,3M,2.01,rotto,2026-05-01
-GB0002018363,Clarkson,3M,0.58,rotto,2026-05-05
-GB00B0MTC970,Hargreaves Services,3M,-0.98,a_ridosso,
-GB00BJT16S69,Tronox Holdings,3M,2.96,rotto,2026-05-01
-US83545G1022,Sonic Automotive,3M,8.8,rotto,2026-04-29
-IE000QLV3SY5,Emerging Markets Paris Aligned,3M,0.51,rotto,2026-05-04
-US87157D1090,Synaptics,3M,9.9,rotto,2026-05-01
-US8964423086,Trinity Capital,3M,2.26,rotto,2026-04-30
-US03076K1088,Ameris Bancorp,3M,0.59,rotto,2026-05-05
-FR0000120503,Bouygues,3M,-0.52,a_ridosso,
-CA75602C1077,Real Estate Split,3M,1.9,rotto,2026-04-30
-GB00BHSRZC82,Edinburgh Worldwide,3M,-0.62,a_ridosso,
-US0231351067,Amazon.com,3M,5.55,rotto,2026-04-29
-GB0007323586,Renishaw,3M,3.27,rotto,2026-04-30
-SE0015556873,Cheffelo,3M,9.57,rotto,2026-04-29
-US1491501045,Cathay Bancorp,3M,2.53,rotto,2026-04-30
-GB00BMX3W479,Metro Bank Holdings,3M,1.24,rotto,2026-04-30
-US1265011056,CTS Corporation,3M,0.57,rotto,2026-05-05
-SE0018040677,Hexatronic Group,3M,4.45,rotto,2026-05-04
-CH1335392721,Galderma Group AG Registered S,3M,0.76,rotto,2026-04-30
-IT0005603078,Misitano & Stracuzzi S.p.A.,3M,-0.23,a_ridosso,
-IE000Y6ZXZ48,MSCI Global SDG 12 Circular Ec,3M,0.54,rotto,2026-04-30
-US4202611095,Hawkins,3M,-0.97,a_ridosso,
-CA87807B1076,TC Energy,3M,1.93,rotto,2026-04-30
-US8448951025,Southwest Gas Holdings,3M,0.44,rotto,2026-04-30
-US3138551086,Federal Signal,3M,0.78,rotto,2026-04-29
-GB00BFFK7H57,Odyssean Inv. Trust,3M,2.84,rotto,2026-05-01
-DE000BASF111,BASF,3M,2.28,rotto,2026-04-30
+IE00BM67HJ62,MSCI Emerging Markets ESG Scre,3M,6.62,rotto,2026-05-01
+GB00BJVQC708,Helios Tower,3M,0.59,rotto,2026-05-06
+KYG217651051,CK Hutchison Holdings,3M,5.73,rotto,2026-05-05
+GB00BNG2M159,Allianz Technology Trust,3M,5.5,rotto,2026-05-01
+GB00BYQ0JC66,Beazley,3M,-0.91,a_ridosso,
+US48238T1097,Openlane,3M,12.81,rotto,2026-05-04
+US87612G1013,Targa Resources,3M,-0.09,a_ridosso,
+US29362U1043,Entegris,3M,-0.3,a_ridosso,
+FR0010307819,Legrand,3M,3.42,rotto,2026-05-05
+US12503M1080,Cboe Global Markets,3M,11.84,rotto,2026-05-01
+US6247561029,Mueller Industries,3M,0.28,rotto,2026-05-06
+FR0011726835,Gaztransport Technigaz,3M,-0.75,a_ridosso,
+GB0004052071,Halma,3M,3.17,rotto,2026-05-01
+GB00BMBK7016,Calnex Solutions,3M,24.79,rotto,2026-05-05
+GB00BS3DYQ52,Raspberry Pi,3M,3.91,rotto,2026-05-05
+US5011471027,Krystal Biotech,3M,0.4,rotto,2026-05-06
+US1572101053,CEVA,1Y,13.05,rotto,2026-05-01
+US45688C1071,Ingevity,3M,1.7,rotto,2026-05-05
+US3434121022,Fluor,3M,0.95,rotto,2026-05-06
+AU0000185993,IREN,3M,1.91,rotto,2026-05-06
+CA05337L3048,Avalon Advanced Materials,3M,0.56,rotto,2026-05-05
+CA7029251088,Pason Systems,3M,7.23,rotto,2026-05-01
+CH0030380734,Huber & Suhner,3M,18.82,rotto,2026-05-04
+CNE1000031W9,Ganfeng Lithium,3M,5.53,rotto,2026-05-04
+DE0006070006,HochTief,3M,18.84,rotto,2026-05-05
+DE000ENER6Y0,Siemens Energy,3M,-0.95,a_ridosso,
+FR0013467479,Constellium,3M,3.41,rotto,2026-05-05
+GB00BKPG0138,Seraphim Space Investment Trus,3M,0.22,rotto,2026-05-05
+HK0000218211,Hua Hong Semiconductor,3M,6.03,rotto,2026-05-06
+IL0010952641,Camtek,3M,-0.23,a_ridosso,
+KYG0535Q1331,ASM Pacific Technology,3M,2.24,rotto,2026-05-06
+KYG4740B1059,Ichor Holdings Ltd Registered ,3M,2.23,rotto,2026-05-06
+NL0009805522,Nebius Group (A),3M,16.98,rotto,2026-05-04
+US00835Q2021,Aeva Technologies,3M,-0.84,a_ridosso,
+US0327241065,AnaptysBio,3M,1.16,rotto,2026-05-01
+US04280A1007,Arrowhead Pharmaceuticals,3M,6.37,rotto,2026-05-01
+US0545402085,Axcelis Technologies,3M,19.47,rotto,2026-05-06
+US0773473006,Bel Fuse (B),3M,3.7,rotto,2026-05-01
+US1251411013,CECO Environmental,3M,8.98,rotto,2026-05-05
+US1442851036,Carpenter Technology,3M,1.36,rotto,2026-05-06
+US1523091007,Centessa Pharmaceuticals (ADR),3M,-0.65,a_ridosso,
+US17253J1060,Cipher Mining,3M,12.71,rotto,2026-05-05
+US21874A1060,Core Scientific,3M,16.23,rotto,2026-05-05
+US2193501051,Corning,3M,3.23,rotto,2026-05-06
+US44812J1043,HUT 8,3M,34.93,rotto,2026-05-06
+US5012421013,Kulicke & Soffa,3M,6.92,rotto,2026-05-04
+US5502411037,Lumen Technologies,3M,5.94,rotto,2026-05-01
+US5533681012,MP Materials,3M,5.0,rotto,2026-05-06
+US5951121038,Micron Technology,3M,26.4,rotto,2026-05-04
+US6047491013,Mirum Pharmaceuticals,3M,1.34,rotto,2026-05-06
+US6078281002,Modine Manufacturing,3M,6.7,rotto,2026-05-01
+US68247W1099,One Stop Systems,3M,36.39,rotto,2026-05-06
+US76155X1000,Revolution Medicines,3M,-0.96,a_ridosso,
+US7672921050,Riot Platforms,3M,27.35,rotto,2026-05-04
+US7960508882,Samsung (GDR),3M,18.44,rotto,2026-05-01
+US8168501018,Semtech Corp,3M,8.56,rotto,2026-05-05
+US83404D1090,SoftBank Group (ADR),3M,2.69,rotto,2026-05-06
+US83418M1036,Solaris Oilfield,3M,4.04,rotto,2026-05-04
+US90385V1070,Ultra Clean,3M,0.54,rotto,2026-05-05
+US9706461053,Willis Lease Finance,3M,13.75,rotto,2026-05-05
+GB0000961622,Balfour Beatty,3M,3.61,rotto,2026-05-06
+US4282911084,Hexcel,3M,2.05,rotto,2026-05-06
+CA03114B1022,Amex Exploration,3M,-0.33,a_ridosso,
+IT0004093263,Ascopiave,3M,5.33,rotto,2026-05-01
+MHY0207T1001,Ardmore Shipping,3M,5.33,rotto,2026-05-01
+US02390A1016,Am-rica M-vil (ADR),3M,-0.33,a_ridosso,
+US6821431029,Omeros,3M,0.61,rotto,2026-05-01
+US9037311076,UL Solutions,3M,12.81,rotto,2026-05-05
+ZAE000132577,Vodacom,3M,1.7,rotto,2026-05-01
+US23918K1088,DaVita,3M,23.68,rotto,2026-05-05
+IL0011407140,UroGen Pharma,3M,0.73,rotto,2026-05-06
+BMG491BT1088,Invesco,3M,-0.54,a_ridosso,
+SE0018040677,Hexatronic Group,3M,5.91,rotto,2026-05-04
+US7332451043,Porch Group,3M,9.58,rotto,2026-05-01
+CA0636711016,Bank of Montreal,3M,1.69,rotto,2026-05-06
+IE00BK5BCD43,Artificial Intelligence USD (A,3M,6.46,rotto,2026-05-01
+GB00BLDYK618,Scottish Mortgage Investment T,3M,0.59,rotto,2026-05-06
+AU000000BSL0,BlueScope Steel,3M,-0.59,a_ridosso,
+BE0003816338,Euronav,3M,1.08,rotto,2026-05-05
+GB00BTK05J60,Anglo American PLC Registered ,3M,-0.04,a_ridosso,
+US0396531008,Arcosa,3M,2.56,rotto,2026-05-05
+US8962152091,TriMas,3M,5.29,rotto,2026-05-05
+US5543821012,Macerich,3M,-0.31,a_ridosso,
+IT0003242622,Terna,3M,4.0,rotto,2026-05-01
+US8965221091,Trinity Industries,3M,4.0,rotto,2026-05-01
+US46222L1089,IonQ Inc. Reg. Shares Cl.A DL-,3M,8.8,rotto,2026-05-06
+FR0000133308,Orange,3M,-0.38,a_ridosso,
+PR7331747001,Popular,3M,-0.46,a_ridosso,
+CA00288U1066,ABCELLERA BIOLOGICS,3M,21.15,rotto,2026-05-01
+US9293281021,WSFS Financial Corporation,3M,-0.41,a_ridosso,
+MHY2106R1100,Dorian LPG,3M,0.75,rotto,2026-05-01
+MHY8162K2046,Star Bulk Carriers,3M,1.63,rotto,2026-05-05
+IE00B8KQN827,Eaton,3M,-0.73,a_ridosso,
+US29357K1034,Enova International,3M,-0.59,a_ridosso,
+IE00B2QWDR12,MSCI AC Far East ex-Japan Smal,3M,2.33,rotto,2026-05-01
+FR0000120503,Bouygues,3M,4.36,rotto,2026-05-05
+US9197941076,Valley National,3M,-0.8,a_ridosso,
+US8808901081,Ternium (ADR),3M,7.01,rotto,2026-05-06
+CA31810H1073,Fintech Select,3M,5.08,rotto,2026-05-01
+CA8787422044,Teck Resources (B),3M,1.12,rotto,2026-05-06
+FR0010451203,Rexel,3M,-0.1,a_ridosso,
+KYG114481008,Bitdeer Technology Group,3M,13.79,rotto,2026-05-06
+US3073051027,Fanuc Corporation ADR,3M,0.31,rotto,2026-05-06
+US9478901096,Webster Finl,3M,-0.66,a_ridosso,
+IE000ANHU3J3,Global Emerging Markets Resear,3M,2.17,rotto,2026-05-04
+US87265H1095,Tri Pointe Homes,3M,0.09,rotto,2026-05-06
+GB00B15KXQ89,Copper USD,3M,-0.12,a_ridosso,
+US87157D1090,Synaptics,3M,14.27,rotto,2026-05-01
+GB0002018363,Clarkson,3M,2.48,rotto,2026-05-05
+US1265011056,CTS Corporation,3M,4.51,rotto,2026-05-05
+US66405S1006,Northeast Bank,3M,-0.94,a_ridosso,
+SE0000667925,Telia,3M,1.6,rotto,2026-05-05
+US14888U1016,Catalyst Pharmaceuticals,3M,3.67,rotto,2026-05-05
+AT0000969985,AT&S,3M,4.21,rotto,2026-05-04
+US00760J1088,Aehr Test Systems,3M,-0.65,a_ridosso,
+US25402D1028,Digitalocean,3M,62.7,rotto,2026-05-01
+US42226K1051,Healthcare Realty Trust (A),3M,7.66,rotto,2026-05-01
+US4581401001,Intel,3M,19.27,rotto,2026-05-01
+US9258151029,Vicor,3M,2.49,rotto,2026-05-06
+BRGGBRACNPR8,GERDAU S.A. PFD,3M,3.2,rotto,2026-05-05
+BSP736841136,OneSpaWorld,3M,1.52,rotto,2026-05-01
+GB00BJDQQ870,Watches of Switzerland,3M,-0.74,a_ridosso,
+US00971T1016,Akamai Technologies,3M,2.38,rotto,2026-05-06
+US03076K1088,Ameris Bancorp,3M,1.8,rotto,2026-05-05
+GB00BHSRZC82,Edinburgh Worldwide,3M,0.41,rotto,2026-05-06
+US0311001004,AMETEK,3M,0.13,rotto,2026-05-06
+US44107P1049,Host Hotels & Resorts,3M,1.83,rotto,2026-05-05
+CH1335392721,Galderma Group AG Registered S,6M,2.1,rotto,2026-05-06
+US3202091092,First Financial Bancorp,3M,-0.69,a_ridosso,
+US6067102003,Mitek Systems,3M,-0.13,a_ridosso,
+US0477263026,Atlanta Braves Holdings,3M,2.76,rotto,2026-05-01
+CA59132M1086,Metalsource Mining,3M,0.81,rotto,2026-05-06
+IT0005603078,Misitano & Stracuzzi S.p.A.,3M,1.45,rotto,2026-05-06
+US5535301064,MSC Industrial Direct,3M,0.81,rotto,2026-05-06
+IE00B3WJKG14,S&P 500 Information Tech USD (,3M,4.02,rotto,2026-05-01
+US98980A1051,ZTO Express (ADR),3M,0.58,rotto,2026-05-06
+GB00BFMBMT84,Sensata Technologies,3M,8.28,rotto,2026-05-05
+SG1T75931496,SingTel,3M,8.28,rotto,2026-05-05
+US20451W1018,Compass Pathways ADR,3M,1.88,rotto,2026-05-06
+US2527843013,DiamondRock Hospitality,3M,1.04,rotto,2026-05-05
+GB00BJT16S69,Tronox Holdings,3M,-0.2,a_ridosso,
+SE0000695876,Alfa Laval,3M,0.71,rotto,2026-05-06
+US03524A1088,Anheuser-Busch InBev (ADR),3M,1.41,rotto,2026-05-06
+US3614481030,GATX,3M,-0.6,a_ridosso,
+GB00B06QFB75,IG Group Holdings,3M,0.83,rotto,2026-05-06
+HK0006000050,Power Assets Hldgs,3M,1.61,rotto,2026-05-06
+NL0011821202,ING Group,3M,0.66,rotto,2026-05-06
+FR0000121972,Schneider Electric,3M,1.45,rotto,2026-05-06
+PLBSK0000017,ING Bank Slaski,3M,-0.07,a_ridosso,
+US4568371037,ING Group (ADR),3M,-0.07,a_ridosso,
+KYG037AX1015,Ambarella,3M,6.0,rotto,2026-05-01
+US9027881088,UMB Financial,3M,0.1,rotto,2026-05-06
+DK0010274414,Danske Bank,3M,-0.97,a_ridosso,
+CA59125R1064,Metallis Resources,3M,1.32,rotto,2026-05-05
+BMG2178K1009,CK Infrastructure,3M,0.22,rotto,2026-05-06
+US9840171030,Xenia Hotels & Resorts,3M,1.82,rotto,2026-05-01
+GB0030913577,BT Group,3M,0.4,rotto,2026-05-06
+GB00BFFK7H57,Odyssean Inv. Trust,3M,3.61,rotto,2026-05-01
+US03753U1060,Apellis Pharmaceuticals,3M,0.32,rotto,2026-05-06
+US5544891048,Veris Residential,3M,-0.11,a_ridosso,
+US88322Q1085,TG Therapeutics,3M,9.55,rotto,2026-05-06
+JE00BMDZN391,TP ICAP Group,3M,0.95,rotto,2026-05-05
+GB00BNK9TP58,Trustpilot,3M,2.6,rotto,2026-05-05
 JP3555700008,Towa,3M,-0.46,a_ridosso,
-CA94947L1022,WELL Health Technologies,3M,-0.98,a_ridosso,
-CA59125R1064,Metallis Resources,3M,-0.25,a_ridosso,
-GB00BNK9TP58,Trustpilot,3M,2.07,rotto,2026-05-05
-US20786W1071,ConnectOne Bancorp,3M,0.91,rotto,2026-05-05
-IE000DS9ZCL4,China A Research Enhanced Inde,3M,1.02,rotto,2026-04-30
-GB00BFMBMT84,Sensata Technologies,3M,0.4,rotto,2026-05-05
-SE0007491303,Bravida Holding,3M,3.04,rotto,2026-05-05
-CA15138B3065,Centaurus Energy,3M,2.54,rotto,2026-04-29
-IE00BMDV7578,China A Research Enhanced Inde,3M,0.68,rotto,2026-04-30
-CA3144602057,FendX Technologies Inc. Regist,3M,2.01,rotto,2026-04-29
-FR0000120172,Carrefour,3M,-0.54,a_ridosso,
-PR3186727065,First Bancorp,3M,-0.16,a_ridosso,
-CA29250N1050,Enbridge,3M,0.44,rotto,2026-04-30
-US0625401098,Bank of Hawaii,3M,-0.81,a_ridosso,
-FR0004125920,Amundi,3M,2.03,rotto,2026-04-30
-AU000000TLS2,Telstra,3M,-0.37,a_ridosso,
-US1404752032,Capital Senior Living,3M,-0.4,a_ridosso,
+US23282W6057,Cytokinetics,3M,6.76,rotto,2026-05-05
+US68373M1071,Opera (ADR),3M,5.84,rotto,2026-05-01
+IE00BF2FL590,Eurozone AlphaDEX EUR (Dist),3M,0.74,rotto,2026-05-06
+DK0061027356,SP Group,3M,-0.99,a_ridosso,
+US5526901096,MDU Resources Group,3M,-0.13,a_ridosso,
+US8261975010,Siemens AG Shares (Sp. ADRs)/1,3M,2.4,rotto,2026-05-06
+US8288061091,Simon Property,3M,-0.99,a_ridosso,
+ZAE000161832,Super Group Ltd.,3M,-0.99,a_ridosso,
+DE0007236101,Siemens,3M,5.1,rotto,2026-05-05
+DE000CBK1001,Commerzbank,3M,1.26,rotto,2026-05-06
+CY1000031710,ASBISc Enterprises PLC Namens-,3M,-0.77,a_ridosso,
+US0454871056,Associated Banc-Corp,3M,-0.77,a_ridosso,
+US0625401098,Bank of Hawaii,3M,0.75,rotto,2026-05-01
+US5380341090,Live Nation Entertainment,3M,0.93,rotto,2026-05-06
+US92936U1097,W.P. Carey,3M,-0.18,a_ridosso,
+PR3186727065,First Bancorp,3M,-0.21,a_ridosso,
+IE000IM4K4K2,"AI, Metaverse and Blockchain U",3M,2.34,rotto,2026-05-05
+US57667L1070,Match Group,1Y,-0.25,a_ridosso,
+CH1176493729,Bachem Holding,3M,10.48,rotto,2026-05-04
+US2772761019,EastGroup Properties,3M,-0.05,a_ridosso,
+US6877931096,Oscar Health Inc. Reg. Shares ,6M,1.54,rotto,2026-05-06
+IE00B56GVS15,Alkermes,3M,-0.11,a_ridosso,
+US6673401039,Northwest Bancshares,3M,-0.56,a_ridosso,
+US91704F1049,Urban Edge Properties,3M,-0.32,a_ridosso,
+ID1000109507,Bank Central Asia,3M,-0.98,a_ridosso,
+US9024941034,Tyson Foods,3M,3.73,rotto,2026-05-04
+IE00BWY4ZF18,Cairn Homes,3M,-0.45,a_ridosso,
+US5290434084,LXP Industrial Trust Registere,3M,0.44,rotto,2026-05-06
+CA86828P1036,Superior Plus,3M,-0.44,a_ridosso,
+DE0007224008,Sedlmayr Grund und Immobilien,3M,-0.44,a_ridosso,
+US84790A1051,Spectrum Brands,3M,-0.44,a_ridosso,
+IE00B6R52259,MSCI ACWI USD (Acc),3M,2.38,rotto,2026-05-01
+CA29250N1050,Enbridge,3M,-0.7,a_ridosso,
+GB00B128J450,IP Group,3M,0.47,rotto,2026-05-06
+SE0016101844,Sinch,3M,16.22,rotto,2026-05-04
 JP3560800009,Tokai Carbon,3M,0.48,rotto,2026-05-01
-NO0013461350,Integrated Wind Solutions ASA,3M,0.63,rotto,2026-04-30
 JP3634600005,Toyota Industries,3M,-0.8,a_ridosso,
-US1381031061,Cantaloupe,3M,2.75,rotto,2026-04-30
-JP3197800000,Omron,3M,1.83,rotto,2026-04-30
-US6031581068,Minerals Technologies,3M,7.05,rotto,2026-05-01
-DE0007236101,Siemens,3M,1.34,rotto,2026-05-05
-FR0000124141,Veolia Environnement,3M,-0.67,a_ridosso,
-CA56501R1064,Manulife Financial,3M,0.39,rotto,2026-04-30
-US1405011073,Capital Southwest,3M,-0.58,a_ridosso,
-US1263491094,CSG Systems,3M,0.01,rotto,2026-04-30
-US45569U1016,indie Semiconductor,3M,7.64,rotto,2026-04-30
-IT0004125677,Masi Agricola S.p.A.,3M,-0.26,a_ridosso,
-IE00B48X4842,MSCI EM Small Cap (Acc),3M,1.05,rotto,2026-04-30
-IE00BFMXXD54,S&P 500 USD (Acc),3M,1.35,rotto,2026-04-30
+FR0000124141,Veolia Environnement,3M,0.67,rotto,2026-05-06
+US1381031061,Cantaloupe,1Y,0.81,rotto,2026-05-04
+US30161Q1040,Exelixis,3M,3.95,rotto,2026-05-06
+LU1829220133,MSCI All Country World USD (Ac,3M,2.13,rotto,2026-05-01
+AT0000818802,Do & Co,3M,10.64,rotto,2026-05-06
+CH0102484968,JULIUS BAER,3M,1.56,rotto,2026-05-06
+US1263491094,CSG Systems,3M,-0.06,a_ridosso,
+US42250P1030,Healthpeak Properties,3M,10.64,rotto,2026-05-06
+US6031581068,Minerals Technologies,3M,7.09,rotto,2026-05-01
+IE00BQZJBX31,Europe Equity Income EUR (Dist,3M,-0.29,a_ridosso,
+IT0004125677,Masi Agricola S.p.A.,3M,-0.14,a_ridosso,
+US32051X1081,First Hawaiian,3M,1.19,rotto,2026-05-01
+US5747951003,Masimo,3M,-0.14,a_ridosso,
+US70509V1008,Pebblebrook Hotel,3M,1.89,rotto,2026-05-06
+US8287302009,Simmons First National,3M,-0.32,a_ridosso,
+US1405011073,Capital Southwest,3M,-0.45,a_ridosso,
+PLVOXEL00014,Voxel S.A.,3M,-0.78,a_ridosso,
 JP3162600005,SMC,3M,-0.22,a_ridosso,
-IE00BKX8G916,S&P 500 GBP Hedged (Acc),3M,1.35,rotto,2026-04-30
-US53263P1057,Limbach Holdings,3M,7.31,rotto,2026-05-04
-IE000JLILKH0,All Country Research Enhanced ,3M,-0.58,a_ridosso,
-US7006581075,Park National,3M,-0.76,a_ridosso,
-US3134003017,Freddie Mac,3M,-0.65,a_ridosso,
-IE000DTA2ZH9,Active Us Value Usd (Dist),3M,-0.43,a_ridosso,
-US3810131017,Golden Entertainment,3M,8.77,rotto,2026-04-30
-IE00B8X9NW27,US Large Cap Core Alphadex Cla,3M,-0.41,a_ridosso,
-IE000HPBRE54,Paris-Aligned Climate World Eq,3M,0.36,rotto,2026-05-01
+US12621E1038,CNO Financial Group,3M,2.35,rotto,2026-05-04
+US45857P8068,Intercont. Hotels (ADR),3M,-0.93,a_ridosso,
+US52736R1023,Levis,3M,-0.82,a_ridosso,
+US37247D1063,Genworth Financial,3M,1.21,rotto,2026-05-06
+GB0031232498,Impax Environmental Mkts,3M,-0.22,a_ridosso,
+US16954L2043,51 Talk Online Education Group,3M,-0.86,a_ridosso,
+US16115Q3083,Chart Industries,3M,-0.31,a_ridosso,
+HK0002007356,CLP Holdings,3M,-0.06,a_ridosso,
+GRS396003006,Quality & Reliability,3M,1.27,rotto,2026-05-05
+US7006581075,Park National,3M,-0.65,a_ridosso,
+GB0003466074,F&C Investment Trust PLC,3M,1.23,rotto,2026-05-06
+GB0003718474,Games Workshop,3M,-0.37,a_ridosso,
+US7841171033,SEI Investments,3M,-0.37,a_ridosso,
+IE000DTA2ZH9,Active Us Value Usd (Dist),3M,-0.59,a_ridosso,
+IE00BLNMYC90,S&P 500 Equal Weight USD (Acc),3M,0.58,rotto,2026-05-06
+US3810131017,Golden Entertainment,1Y,-0.22,a_ridosso,
+IT0003492391,DiaSorin,3M,-0.19,a_ridosso,
 JP3481800005,Daikin Industries,3M,2.77,rotto,2026-05-01
-US78435P1057,Sezzle,3M,1.32,rotto,2026-05-04
-GRS396003006,Quality & Reliability,3M,-0.03,a_ridosso,
-IE00B5WFQ436,MSCI USA USD (Dist),3M,-0.31,a_ridosso,
-IE000FYTRRJ6,Global Research Enhanced Index,3M,-0.7,a_ridosso,
-GB0003466074,F&C Investment Trust PLC,3M,-0.55,a_ridosso,
-IE0003KQ8JX1,Active Us Growth USD (Dist),3M,0.86,rotto,2026-05-01
-US7403674044,Preferred Bank,3M,0.15,rotto,2026-05-05
-IE00B4MCHD36,S&P 500 Consumer Discretionary,1Y,-0.21,a_ridosso,
-IE0002ZM3JI1,USA Net Zero Pathway Paris Ali,3M,0.2,rotto,2026-04-29
-US69349H1077,TXNM Energy,3M,0.24,rotto,2026-04-30
-CA09226M2094,Black Swan Graphene Inc. Regis,3M,0.21,rotto,2026-05-01
-SE0009806607,Munters Group,3M,0.85,rotto,2026-05-04
-PLSHPR000021,SHOPER,3M,2.1,rotto,2026-04-29
-IE000N1ZEIG9,Net Zero Pathway ESG USD (Acc),6M,-0.12,a_ridosso,
-US68622V1061,Organon,3M,0.0,rotto,2026-04-29
-IE000UZCJS58,World Net Zero Pathway Paris U,3M,-0.12,a_ridosso,
-US4108671052,Hanover Insurance,3M,1.57,rotto,2026-04-30
-JP3932000007,Yaskawa Electric,3M,0.11,rotto,2026-04-30
-US74267C1062,ProAssurance,3M,-0.24,a_ridosso,
+JP3399000003,Star Micronics,3M,-0.81,a_ridosso,
+US00773J2024,Spyre Therapeutics,3M,-0.53,a_ridosso,
+US0381692070,Applied Digital,3M,15.63,rotto,2026-05-05
+US26740W1099,D-Wave Quantum,3M,2.63,rotto,2026-05-06
+US92337F1075,Veracyte,3M,6.3,rotto,2026-05-06
+IE00B5WFQ436,MSCI USA USD (Dist),3M,0.12,rotto,2026-05-05
+CA53680V1076,Lithium Ionic,3M,10.78,rotto,2026-05-06
+US78435P1057,Sezzle,3M,0.41,rotto,2026-05-04
+FR0012399772,Euro STOXX 50 GBP Hedged (Acc),3M,-0.89,a_ridosso,
+IE000HPBRE54,Paris-Aligned Climate World Eq,3M,-0.27,a_ridosso,
+US25401T6038,DigitalBridge Group,3M,0.13,rotto,2026-05-06
+LU0908500753,Core Stoxx Europe 600 EUR (Acc,3M,-0.45,a_ridosso,
+FI4000153465,Alexandria Pankkiiriliike,3M,-0.05,a_ridosso,
+PLSHPR000021,SHOPER,3M,4.27,rotto,2026-05-01
+US00182C1036,ANI Pharma,3M,2.51,rotto,2026-05-04
+US8678921011,Sunstone Hotel Investors,3M,4.27,rotto,2026-05-01
+US92839U2069,Visteon,3M,0.03,rotto,2026-05-06
+IE0003KQ8JX1,Active Us Growth USD (Dist),3M,1.18,rotto,2026-05-01
+IE00B1YZSC51,MSCI Europe EUR (Dist),3M,-0.87,a_ridosso,
+CA09226M2094,Black Swan Graphene Inc. Regis,3M,1.88,rotto,2026-05-01
+NL0015002IE0,Avantium N.V. Bearer Shares EO,3M,15.7,rotto,2026-05-06
+US05338F3064,Avalo Therapeutics,3M,15.7,rotto,2026-05-06
+US2774614067,Eastman Kodak,3M,8.28,rotto,2026-05-01
+IE00BZ56RG20,US Quality Dividend Growth USD,3M,-0.01,a_ridosso,
+US57164Y1073,Marriott Vacations,3M,0.54,rotto,2026-05-06
+US76655K1034,Rigetti Computing Inc. Registe,3M,1.21,rotto,2026-05-06
+US3024921039,Flywire,3M,25.07,rotto,2026-05-04
+GB0002998192,Idox,3M,-0.56,a_ridosso,
+US2183521028,Corcept Therapeutics,3M,11.86,rotto,2026-05-01
+US0200021014,Allstate,3M,-0.14,a_ridosso,
+US15117B2025,Celldex Therapeutics,3M,-0.46,a_ridosso,
+GB0031743007,Burberry Group,3M,-0.67,a_ridosso,
+LU0446734526,MSCI Pacific Ex Japan (Dist),1Y,-0.06,a_ridosso,
 JP3931600005,Yakult Honsha,3M,11.24,rotto,2026-05-01
-AT0000785555,Semperit,3M,-0.03,a_ridosso,
-IT0003153621,Tamburi Investment Partners,3M,-0.18,a_ridosso,
-US03763A2078,Apollo Medical,3M,0.57,rotto,2026-04-29
-JP3386110005,JINS Holdings,3M,-0.6,a_ridosso,
-NL00150005Y4,Pharvaris N.V.,3M,0.37,rotto,2026-04-30
-DE000A1DAHH0,Brenntag,3M,3.94,rotto,2026-04-30
-JE00BYSS4X48,Novocure,3M,7.37,rotto,2026-04-30
-CA75157B1085,Ramp Metals,3M,1.18,rotto,2026-05-01
-IT0003121677,Credito Emiliano,3M,2.15,rotto,2026-05-01
-US19247A1007,Cohen & Steers,3M,0.58,rotto,2026-04-30
-SE0011337708,AAK,3M,-0.38,a_ridosso,
-US57142B1044,Marqeta,3M,3.8,rotto,2026-05-04
-US3024921039,Flywire,3M,2.29,rotto,2026-05-04
-US59064R1095,Mesa Laboratories,3M,-0.13,a_ridosso,
-US69121K1043,Blue Owl Capital,3M,0.38,rotto,2026-05-01
-US25063F1075,Destiny Tech100,3M,5.66,rotto,2026-05-04
-GB00BKS7YK08,Treatt,3M,37.47,rotto,2026-04-29
-GB00BVFCZV34,RWS,3M,3.7,rotto,2026-05-05
-JP3386650000,J Frontier,3M,2.08,rotto,2026-04-30
-SE0000195810,Bure Equity,3M,3.0,rotto,2026-05-04
-JP3943800007,Yamaya,6M,-0.17,a_ridosso,
-SE0023313762,Apotea AB Namn-Aktier o.N.,3M,13.89,rotto,2026-04-29
-CA13515Q1037,Canada Nickel Company,3M,8.65,rotto,2026-04-29
-GB0004526900,IG Design Group PLC,3M,6.24,rotto,2026-04-30
-CA8239011031,Sherritt,3M,6.46,rotto,2026-05-04
-US39854F1012,Grindr,3M,1.99,rotto,2026-05-01
-CH0435377954,SIG Group,3M,-0.16,a_ridosso,
-GB00B01F7T14,M & C Saatchi,3M,-0.38,a_ridosso,
-FR0000051807,Teleperformance,3M,7.57,rotto,2026-05-04
-US8342033094,Soleno Therapeutics,3M,0.14,rotto,2026-05-01
-GB0004281639,Iomart,3M,7.1,rotto,2026-04-29
-CA2568277834,Dolly Varden Silver Corp. Regi,3M,3.49,rotto,2026-05-01
-GRS426003000,Motor Oil Hellas,3M,3.68,rotto,2026-04-29
-CA5408991019,Logan Energy,3M,19.59,rotto,2026-04-30
-DE0006450000,DE0006450000,3M,41.8,rotto,2026-04-29
-GB00B608Z994,GB00B608Z994,3M,2.78,rotto,2026-05-05
-IT0004093263,IT0004093263,3M,6.83,rotto,2026-04-29
-IT0005452658,IT0005452658,3M,3.97,rotto,2026-05-01
-NO0010894512,Omda AS,3M,2.92,rotto,2026-05-04
-US0773472016,US0773472016,3M,5.59,rotto,2026-05-01
-US68621T1025,US68621T1025,3M,-0.93,a_ridosso,
-US8610251048,US8610251048,3M,-0.82,a_ridosso,
-DE000A0H08R2,DE000A0H08R2,1Y,-0.78,a_ridosso,
-GB00B5840F36,GB00B5840F36,3M,11.03,rotto,2026-05-05
-IE0002DDYPW4,IE0002DDYPW4,3M,0.46,rotto,2026-05-05
-IE00032YLFR3,IE00032YLFR3,3M,0.95,rotto,2026-05-04
-IE0006FAD976,IE0006FAD976,3M,1.21,rotto,2026-04-29
-IE0006WOV4I9,IE0006WOV4I9,3M,0.69,rotto,2026-04-30
-IE000IMGE5W5,IE000IMGE5W5,3M,-0.83,a_ridosso,
-IE000SNCKVM9,S&P 500 Quality USD (Dist),3M,0.77,rotto,2026-04-30
-IE00BYYHSQ67,IE00BYYHSQ67,3M,0.14,rotto,2026-04-30
-JE00B3W0MY68,JE00B3W0MY68,3M,9915.06,rotto,2026-04-30
-LU0446734526,LU0446734526,3M,7.52,rotto,2026-05-05
-LU2573967036,LU2573967036,3M,2.3,rotto,2026-05-01
+US74267C1062,ProAssurance,3M,-0.65,a_ridosso,
+DE0008404005,Allianz,3M,-0.58,a_ridosso,
+US92343E1029,VeriSign,3M,-0.43,a_ridosso,
+US64125C1099,Neurocrine Biosciences,3M,4.12,rotto,2026-05-06
+US68622V1061,Organon,3M,0.53,rotto,2026-05-05
+GB00B7N0K053,Premier Foods,3M,1.1,rotto,2026-05-06
+GB00B5NR1S72,Restore PLC,3M,-0.55,a_ridosso,
+US49427F1084,Kilroy Realty,3M,2.21,rotto,2026-05-06
+US85571B1052,Starwood Property,3M,-0.27,a_ridosso,
+GB0031638363,Intertek Group,3M,2.76,rotto,2026-05-05
+US22788C1053,Crowdstrike Holdings (A),3M,0.3,rotto,2026-05-04
+US9553061055,West Pharmaceutical,3M,1.0,rotto,2026-05-05
+AT0000785555,Semperit,3M,-0.36,a_ridosso,
+AU000000TCL6,Transurban Group,3M,-0.62,a_ridosso,
+US2227955026,Cousins Properties,3M,4.57,rotto,2026-05-01
+GB00B11V7W98,Alliance Witan,3M,1.08,rotto,2026-05-06
+US7050151056,Pearson (ADR),3M,3.19,rotto,2026-05-01
+US4595061015,International Flavors & Fragra,3M,0.51,rotto,2026-05-06
+BMG243851091,Conduit Holdings,3M,-0.56,a_ridosso,
+US1270551013,Cabot Corporation,3M,5.3,rotto,2026-05-05
+IT0003153621,Tamburi Investment Partners,3M,-0.15,a_ridosso,
+US03763A2078,Apollo Medical,3M,0.66,rotto,2026-05-05
+US3131483063,Federal Agricultural,3M,-0.95,a_ridosso,
+US35086T1097,Four Corners Ppty Trust,3M,-0.94,a_ridosso,
+GB0000055888,discoverIE Group,3M,1.05,rotto,2026-05-06
+US21871N1019,CoreCivic,3M,2.67,rotto,2026-05-06
+US29476L1070,Equity Residential,3M,1.12,rotto,2026-05-05
+US2971781057,Essex Property,3M,-0.23,a_ridosso,
+BE0003470755,Solvay,3M,1.26,rotto,2026-05-06
+DE000A1DAHH0,Brenntag,1Y,-0.13,a_ridosso,
+US36162J1060,GEO Group,3M,16.66,rotto,2026-05-06
+US25063F1075,Destiny Tech100,3M,18.88,rotto,2026-05-01
+US34959E1091,Fortinet,3M,2.43,rotto,2026-05-04
+US4312841087,Highwoods Properties,3M,1.46,rotto,2026-05-06
+US71844V2016,Phillips Edison & CO,3M,-0.17,a_ridosso,
+US0534841012,AvalonBay Communities,3M,1.12,rotto,2026-05-05
+US45781V1017,Innovative Industrial Properti,3M,3.02,rotto,2026-05-05
+US59064R1095,Mesa Laboratories,3M,1.06,rotto,2026-05-06
+US8523123052,STAAR Surgical,3M,3.39,rotto,2026-05-01
+US9345502036,Warner Music,3M,-0.82,a_ridosso,
+US22822V1017,Crown Castle,3M,-0.54,a_ridosso,
+US18452B2097,Cleanspark,3M,13.64,rotto,2026-05-04
+US69121K1043,Blue Owl Capital,3M,-0.25,a_ridosso,
+GB00B0744B38,Bunzl,3M,0.74,rotto,2026-05-06
+US89977P1066,Tuniu (ADR),3M,5.01,rotto,2026-05-04
+US02665T3068,American Homes 4 Rent,6M,1.29,rotto,2026-05-05
+GB00BYT1DJ19,Intermediate Capital,3M,0.96,rotto,2026-05-01
+US78440X8873,SL Green Realty REIT,3M,1.43,rotto,2026-05-06
+US4448591028,Humana,3M,1.32,rotto,2026-05-06
+CA13515Q1037,Canada Nickel Company,3M,2.5,rotto,2026-05-06
+US15135B1017,Centene,3M,2.5,rotto,2026-05-06
+US0123481089,Albany International,3M,2.57,rotto,2026-05-06
+GB00BVFCZV34,RWS,3M,1.58,rotto,2026-05-05
+US4579852082,Integra LifeSciences,3M,14.66,rotto,2026-05-05
+IE000G0E83X3,AI Innovation Active USD (Acc),3M,14.66,rotto,2026-05-05
+CA40444L1031,HPQ Silicon,3M,1.52,rotto,2026-05-05
+US52490G1022,Legend Biotech (ADS),3M,11.69,rotto,2026-05-04
+CH0435377954,SIG Group,3M,3.3,rotto,2026-05-05
+US5949724083,MicroStrategy (A),3M,4.16,rotto,2026-05-04
+GB00B01F7T14,M & C Saatchi,3M,4.87,rotto,2026-05-06
+US39854F1012,Grindr,3M,-0.44,a_ridosso,
+CA8239011031,Sherritt,3M,4.29,rotto,2026-05-01
+US81730H1095,SentinelOne,3M,4.29,rotto,2026-05-01
+US0942351083,Bloomin' Brands,3M,12.31,rotto,2026-05-06
+US87918A1051,Teladoc Health,3M,11.48,rotto,2026-05-01
+US8342033094,Soleno Therapeutics,3M,0.21,rotto,2026-05-01
+US90400D1081,Ultragenyx Pharmaceutical,3M,2.98,rotto,2026-05-06
+FR0000051807,Teleperformance,3M,6.54,rotto,2026-05-04
+US7811541090,Rubrik,3M,-0.33,a_ridosso,
+US3383071012,Five9,3M,13.35,rotto,2026-05-01
+GRS426003000,Motor Oil Hellas,3M,0.48,rotto,2026-05-06
+US60855R1005,Molina Healthcare,3M,0.48,rotto,2026-05-06
+CA2568277834,Dolly Varden Silver Corp. Regi,3M,0.54,rotto,2026-05-01
+US2041661024,CommVault Systems,3M,0.03,rotto,2026-05-04
+US67059N1081,Nutanix,3M,2.69,rotto,2026-05-01
+DK0060252690,Pandora,3M,4.69,rotto,2026-05-06
+JE00B3NKMM36,Short CHF Long GBP,3M,-0.09,a_ridosso,
+AT0000609607,AT0000609607,3M,-0.35,a_ridosso,
+AT0000821103,AT0000821103,3M,0.83,rotto,2026-05-06
+AT0000908504,AT0000908504,3M,-0.73,a_ridosso,
+AT0000A3EPA4,AT0000A3EPA4,3M,0.08,rotto,2026-05-06
+AT0000BAWAG2,AT0000BAWAG2,3M,2.11,rotto,2026-05-06
+AU000000AZJ1,AU000000AZJ1,3M,-0.96,a_ridosso,
+AU000000BRN8,AU000000BRN8,3M,3.12,rotto,2026-05-06
+AU000000BWP3,AU000000BWP3,3M,-0.5,a_ridosso,
+AU000000EUR7,AU000000EUR7,3M,12.05,rotto,2026-05-01
+AU000000IMD5,AU000000IMD5,3M,2.02,rotto,2026-05-06
+AU000000LTR4,AU000000LTR4,3M,4.53,rotto,2026-05-01
+AU000000NHF0,AU000000NHF0,3M,0.59,rotto,2026-05-01
+AU000000NWH5,AU000000NWH5,3M,3.6,rotto,2026-05-01
+AU000000SLC8,AU000000SLC8,3M,0.87,rotto,2026-05-04
+AU000000WGN7,AU000000WGN7,3M,4.53,rotto,2026-05-05
+AU0000018236,AU0000018236,3M,-0.94,a_ridosso,
+AU0000021461,AU0000021461,3M,0.92,rotto,2026-05-01
+AU0000143729,AU0000143729,3M,2.97,rotto,2026-05-06
+AU0000189318,AU0000189318,3M,4.04,rotto,2026-05-04
+AU0000369753,AU0000369753,3M,13.62,rotto,2026-05-01
+AU0000413254,AU0000413254,3M,0.0,rotto,2026-05-04
+BE0003734481,BE0003734481,3M,5.68,rotto,2026-05-05
+BE0974293251,BE0974293251,3M,-0.06,a_ridosso,
+BMG0772R2087,BMG0772R2087,3M,-0.91,a_ridosso,
+BMG1368B1028,BMG1368B1028,3M,20.0,rotto,2026-05-04
+BMG3602E1084,BMG3602E1084,3M,-0.4,a_ridosso,
+BMG4069C1486,BMG4069C1486,3M,0.6,rotto,2026-05-06
+BMG4660A1036,BMG4660A1036,3M,1.83,rotto,2026-05-05
+BMG6964L2062,BMG6964L2062,3M,-0.11,a_ridosso,
+CA00217Y1043,CA00217Y1043,3M,-0.12,a_ridosso,
+CA00288E3005,CA00288E3005,3M,-0.06,a_ridosso,
+CA0156581070,CA0156581070,3M,-0.59,a_ridosso,
+CA03421C1086,CA03421C1086,3M,-0.25,a_ridosso,
+CA03444Q1000,CA03444Q1000,3M,0.0,rotto,2026-05-01
+CA0585861085,CA0585861085,3M,34.73,rotto,2026-05-05
+CA1368421014,CA1368421014,3M,5.39,rotto,2026-05-04
+CA14913M1086,CA14913M1086,3M,9.68,rotto,2026-05-04
+CA17878Y2078,CA17878Y2078,3M,-0.99,a_ridosso,
+CA21750C1014,CA21750C1014,3M,4.91,rotto,2026-05-06
+CA2548481043,CA2548481043,3M,-0.05,a_ridosso,
+CA25537R1091,CA25537R1091,3M,-0.27,a_ridosso,
+CA25537Y1043,CA25537Y1043,3M,0.36,rotto,2026-05-06
+CA25675T1075,CA25675T1075,3M,0.45,rotto,2026-05-06
+CA26153W1095,CA26153W1095,3M,-0.76,a_ridosso,
+CA2684692023,CA2684692023,3M,-0.63,a_ridosso,
+CA26886R1047,CA26886R1047,3M,-0.34,a_ridosso,
+CA27033V1058,CA27033V1058,3M,0.87,rotto,2026-05-06
+CA29384J1030,CA29384J1030,3M,-0.82,a_ridosso,
+CA31622P3051,CA31622P3051,3M,-0.24,a_ridosso,
+CA3567773005,CA3567773005,3M,0.65,rotto,2026-05-06
+CA37149B1094,CA37149B1094,3M,-0.99,a_ridosso,
+CA3794441020,CA3794441020,3M,-0.24,a_ridosso,
+CA37956H1082,CA37956H1082,3M,3.05,rotto,2026-05-01
+CA37957M1068,CA37957M1068,3M,-0.29,a_ridosso,
+CA37989H1091,CA37989H1091,3M,1.86,rotto,2026-05-05
+CA3803551074,CA3803551074,3M,0.09,rotto,2026-05-01
+CA38216R1001,CA38216R1001,3M,-0.2,a_ridosso,
+CA40281L1094,CA40281L1094,3M,-0.68,a_ridosso,
+CA4039254079,CA4039254079,3M,0.21,rotto,2026-05-06
+CA4339211035,CA4339211035,3M,5.6,rotto,2026-05-05
+CA45780T4046,CA45780T4046,3M,4.71,rotto,2026-05-04
+CA4707481046,CA4707481046,3M,-0.13,a_ridosso,
+CA5005838365,CA5005838365,3M,-0.04,a_ridosso,
+CA51440M1023,CA51440M1023,3M,0.15,rotto,2026-05-06
+CA53620R1091,CA53620R1091,3M,-0.49,a_ridosso,
+CA57773Y2096,CA57773Y2096,3M,-0.61,a_ridosso,
+CA59142H1073,CA59142H1073,3M,0.54,rotto,2026-05-05
+CA65344U1012,CA65344U1012,3M,0.29,rotto,2026-05-01
+CA67054W1032,CA67054W1032,3M,-0.86,a_ridosso,
+CA68616X2095,CA68616X2095,3M,-0.18,a_ridosso,
+CA70470T2092,CA70470T2092,3M,-0.51,a_ridosso,
+CA7170461064,CA7170461064,3M,-0.61,a_ridosso,
+CA74167K1093,CA74167K1093,3M,-0.24,a_ridosso,
+CA74840A1066,CA74840A1066,3M,-0.34,a_ridosso,
+CA75671E1097,CA75671E1097,3M,1.92,rotto,2026-05-05
+CA75888V1004,CA75888V1004,3M,-0.08,a_ridosso,
+CA76029E1060,CA76029E1060,3M,0.38,rotto,2026-05-06
+CA7669101031,CA7669101031,3M,2.47,rotto,2026-05-04
+CA81111V2066,CA81111V2066,3M,0.06,rotto,2026-05-06
+CA83179X1087,CA83179X1087,3M,0.55,rotto,2026-05-06
+CA83411A2056,CA83411A2056,3M,0.6,rotto,2026-05-06
+CA8710031094,CA8710031094,3M,0.17,rotto,2026-05-06
+CA91688R1082,CA91688R1082,3M,0.59,rotto,2026-05-06
+CA92241Y1016,CA92241Y1016,3M,1.47,rotto,2026-05-01
+CA92281P2008,CA92281P2008,6M,1.95,rotto,2026-05-01
+CA92512J1066,CA92512J1066,3M,0.21,rotto,2026-05-06
+CA92537Y1043,CA92537Y1043,3M,-0.46,a_ridosso,
+CA94357L1058,CA94357L1058,3M,10.71,rotto,2026-05-04
+CA98400H1029,CA98400H1029,3M,-0.78,a_ridosso,
+CH0000816824,CH0000816824,3M,-0.28,a_ridosso,
+CH0001341608,CH0001341608,3M,-0.47,a_ridosso,
+CH0002178181,CH0002178181,3M,1.88,rotto,2026-05-06
+CH0003420806,CH0003420806,3M,-0.9,a_ridosso,
+CH0008967926,CH0008967926,3M,4.21,rotto,2026-05-04
+CH0014345117,CH0014345117,3M,1.35,rotto,2026-05-06
+CH0016440353,CH0016440353,3M,-0.07,a_ridosso,
+CH0024736404,CH0024736404,3M,-0.55,a_ridosso,
+CH0025751329,CH0025751329,3M,1.61,rotto,2026-05-04
+CH0030486770,CH0030486770,3M,-0.1,a_ridosso,
+CH0039651184,CH0039651184,1Y,-0.52,a_ridosso,
+CH0042615283,CH0042615283,3M,2.34,rotto,2026-05-06
+CH0100837282,CH0100837282,3M,2.02,rotto,2026-05-06
+CH0238627142,CH0238627142,3M,-0.99,a_ridosso,
+CH0239229302,CH0239229302,3M,-1.0,a_ridosso,
+CH0305951201,CH0305951201,3M,0.36,rotto,2026-05-06
+CH0312309682,CH0312309682,3M,-0.75,a_ridosso,
+CH0360826991,CH0360826991,3M,5.15,rotto,2026-05-05
+CH0493891243,CH0493891243,3M,-0.43,a_ridosso,
+CH0560888270,CH0560888270,1Y,13.41,rotto,2026-05-04
+CH1338987303,CH1338987303,3M,-0.58,a_ridosso,
+CNE1000012B3,CNE1000012B3,3M,-0.25,a_ridosso,
+CNE1000031G2,CNE1000031G2,3M,0.42,rotto,2026-05-06
+CNE100003YB7,CNE100003YB7,3M,1.09,rotto,2026-05-04
+CNE100004QH8,CNE100004QH8,3M,-0.57,a_ridosso,
+DE0005102008,DE0005102008,3M,22.98,rotto,2026-05-04
+DE0005203947,DE0005203947,3M,12.81,rotto,2026-05-04
+DE0005313506,DE0005313506,3M,3.02,rotto,2026-05-05
+DE0005408686,DE0005408686,3M,-0.36,a_ridosso,
+DE0005492938,DE0005492938,3M,1.38,rotto,2026-05-06
+DE0005754402,DE0005754402,3M,0.8,rotto,2026-05-05
+DE0005759807,DE0005759807,1Y,2.45,rotto,2026-05-04
+DE0005765507,DE0005765507,3M,-0.48,a_ridosso,
+DE0005878003,DE0005878003,3M,-0.82,a_ridosso,
+DE0006916604,DE0006916604,3M,0.12,rotto,2026-05-06
+DE0007235301,DE0007235301,3M,0.11,rotto,2026-05-06
+DE000A0JM2M1,DE000A0JM2M1,3M,0.27,rotto,2026-05-04
+DE000A0XYGA7,DE000A0XYGA7,3M,1.59,rotto,2026-05-05
+DE000A11QW68,DE000A11QW68,3M,-0.26,a_ridosso,
+DE000A12UP29,DE000A12UP29,3M,0.81,rotto,2026-05-06
+DE000A1A6WE6,DE000A1A6WE6,3M,8.82,rotto,2026-05-04
+DE000A1TNU68,DE000A1TNU68,3M,-0.94,a_ridosso,
+DE000A1TNWJ4,DE000A1TNWJ4,3M,1.92,rotto,2026-05-05
+DE000A1YC913,DE000A1YC913,3M,-0.85,a_ridosso,
+DE000A2E4T77,DE000A2E4T77,3M,3.26,rotto,2026-05-06
+DE000A2GS5D8,DE000A2GS5D8,3M,-0.63,a_ridosso,
+DE000A2NB601,DE000A2NB601,3M,3.36,rotto,2026-05-05
+DE000A3DSV01,DE000A3DSV01,3M,4.42,rotto,2026-05-04
+DE000A3DW408,DE000A3DW408,3M,-0.89,a_ridosso,
+DE000A3E5D64,DE000A3E5D64,6M,-0.45,a_ridosso,
+DE000BFB0019,DE000BFB0019,3M,3.68,rotto,2026-05-06
+DE000BFB0027,DE000BFB0027,3M,0.0,rotto,2026-05-05
+DE000FPH9000,DE000FPH9000,3M,-0.36,a_ridosso,
+DE000KC01000,DE000KC01000,3M,-0.16,a_ridosso,
+DE000PFSE212,DE000PFSE212,3M,-0.88,a_ridosso,
+DE000SPG1003,DE000SPG1003,3M,5.56,rotto,2026-05-04
+DK0010287663,DK0010287663,3M,2.83,rotto,2026-05-05
+FR0000031023,FR0000031023,3M,2.81,rotto,2026-05-05
+FR0000031973,FR0000031973,3M,-0.53,a_ridosso,
+FR0000035370,FR0000035370,3M,1.71,rotto,2026-05-04
+FR0000050049,FR0000050049,3M,0.32,rotto,2026-05-06
+FR0000050353,FR0000050353,3M,6.31,rotto,2026-05-06
+FR0000050395,FR0000050395,3M,-0.93,a_ridosso,
+FR0000053381,FR0000053381,3M,0.95,rotto,2026-05-06
+FR0000053944,FR0000053944,3M,-0.55,a_ridosso,
+FR0000054421,FR0000054421,3M,-0.4,a_ridosso,
+FR0000061418,FR0000061418,3M,-0.75,a_ridosso,
+FR0000062234,FR0000062234,3M,-0.83,a_ridosso,
+FR0000065278,FR0000065278,3M,1.1,rotto,2026-05-06
+FR0000066722,FR0000066722,3M,0.42,rotto,2026-05-05
+FR0000076952,FR0000076952,3M,1.09,rotto,2026-05-06
+FR0000079147,FR0000079147,3M,3.85,rotto,2026-05-05
+FR0000121295,FR0000121295,3M,-0.97,a_ridosso,
+FR0000121709,FR0000121709,3M,-0.46,a_ridosso,
+FR0004016699,FR0004016699,3M,0.35,rotto,2026-05-05
+FR0004065605,FR0004065605,3M,5.57,rotto,2026-05-06
+FR0004155000,FR0004155000,3M,3.39,rotto,2026-05-05
+FR0004170017,FR0004170017,3M,-0.68,a_ridosso,
+FR0006239109,FR0006239109,3M,-0.5,a_ridosso,
+FR0010095596,FR0010095596,3M,3.13,rotto,2026-05-06
+FR0010221234,FR0010221234,3M,2.04,rotto,2026-05-04
+FR0010241638,FR0010241638,3M,-0.07,a_ridosso,
+FR0010341032,FR0010341032,3M,0.29,rotto,2026-05-06
+FR0010380626,FR0010380626,3M,1.89,rotto,2026-05-06
+FR0010386334,FR0010386334,3M,3.17,rotto,2026-05-05
+FR0010397901,FR0010397901,6M,-0.94,a_ridosso,
+FR0010411983,FR0010411983,3M,1.51,rotto,2026-05-06
+FR0010428771,FR0010428771,3M,1.92,rotto,2026-05-06
+FR0010436584,FR0010436584,3M,13.88,rotto,2026-05-04
+FR0010667147,FR0010667147,3M,-0.8,a_ridosso,
+FR0010688465,FR0010688465,3M,0.72,rotto,2026-05-04
+FR0011341205,FR0011341205,3M,3.58,rotto,2026-05-06
+FR0011476928,FR0011476928,3M,-0.7,a_ridosso,
+FR0011605617,FR0011605617,6M,-0.43,a_ridosso,
+FR0012435121,FR0012435121,3M,-0.29,a_ridosso,
+FR0013015583,FR0013015583,3M,-0.55,a_ridosso,
+FR0013143872,FR0013143872,1Y,1.29,rotto,2026-05-05
+FR0013310281,FR0013310281,3M,3.64,rotto,2026-05-04
+FR0013455482,FR0013455482,3M,-0.25,a_ridosso,
+FR0014000RP6,FR0014000RP6,6M,16.67,rotto,2026-05-04
+FR0014005HJ9,FR0014005HJ9,3M,4.89,rotto,2026-05-05
+FR001400SUB7,FR001400SUB7,3M,3.85,rotto,2026-05-06
+GB0003362992,GB0003362992,3M,14.86,rotto,2026-05-05
+GB0005957005,GB0005957005,6M,4.77,rotto,2026-05-05
+GB0006094303,GB0006094303,3M,-0.86,a_ridosso,
+GB0006776081,GB0006776081,3M,2.76,rotto,2026-05-04
+GB0007188757,GB0007188757,3M,4.02,rotto,2026-05-06
+GB0009188797,GB0009188797,3M,1.44,rotto,2026-05-01
+GB00B0CY5V57,GB00B0CY5V57,3M,10.91,rotto,2026-05-04
+GB00B608Z994,GB00B608Z994,3M,9.03,rotto,2026-05-05
+GB00BH4HKS39,GB00BH4HKS39,3M,0.7,rotto,2026-05-04
+GRS314003013,GRS314003013,3M,-0.9,a_ridosso,
+HK0008011667,HK0008011667,3M,0.0,rotto,2026-05-05
+HK0083000502,HK0083000502,3M,0.53,rotto,2026-05-06
+HK0257001336,HK0257001336,3M,-0.35,a_ridosso,
+HK0363006039,HK0363006039,3M,0.26,rotto,2026-05-06
+HK0836012952,HK0836012952,3M,-0.96,a_ridosso,
+HK0992009065,HK0992009065,3M,0.25,rotto,2026-05-06
+ID1000076706,ID1000076706,3M,8.37,rotto,2026-05-06
+ID1000125503,ID1000125503,3M,-0.63,a_ridosso,
+IE000GID8VI0,IE000GID8VI0,3M,3.91,rotto,2026-05-04
+IE00BD6JX574,IE00BD6JX574,3M,-0.98,a_ridosso,
+IE00BJ5FQX74,IE00BJ5FQX74,3M,-0.81,a_ridosso,
+IE00BLP58571,IE00BLP58571,3M,1.19,rotto,2026-05-06
+IL0010826688,IL0010826688,3M,0.0,rotto,2026-05-01
+IL0011691438,IL0011691438,3M,4.85,rotto,2026-05-06
+IL0011754137,IL0011754137,3M,8.37,rotto,2026-05-06
+IL0011786493,IL0011786493,3M,0.42,rotto,2026-05-01
+IT0000062072,IT0000062072,3M,1.88,rotto,2026-05-06
+IT0003173629,IT0003173629,3M,4.07,rotto,2026-05-01
+IT0005176406,IT0005176406,3M,0.45,rotto,2026-05-05
+IT0005211237,IT0005211237,3M,-0.95,a_ridosso,
+IT0005452658,IT0005452658,3M,6.8,rotto,2026-05-01
+IT0005495657,IT0005495657,3M,-0.46,a_ridosso,
+IT0005508921,IT0005508921,6M,0.57,rotto,2026-05-06
+JP3385000009,JP3385000009,3M,1.43,rotto,2026-05-01
+JP3386110005,JP3386110005,3M,-0.6,a_ridosso,
+JP3538400007,JP3538400007,3M,3.66,rotto,2026-05-01
+JP3809200003,JP3809200003,3M,-0.3,a_ridosso,
+JP3943800007,JP3943800007,6M,-0.17,a_ridosso,
+KYG3825B1059,KYG3825B1059,3M,-0.07,a_ridosso,
+KYG410121084,KYG410121084,3M,1.51,rotto,2026-05-06
+KYG5571R1011,KYG5571R1011,3M,-0.81,a_ridosso,
+KYG622681008,KYG622681008,3M,7.7,rotto,2026-05-04
+KYG826051099,KYG826051099,3M,1.09,rotto,2026-05-06
+KYG876551170,KYG876551170,3M,2.02,rotto,2026-05-04
+KYG9094C1042,KYG9094C1042,3M,1.45,rotto,2026-05-01
+KYG9572D1034,KYG9572D1034,3M,-0.27,a_ridosso,
+LU1092234845,LU1092234845,3M,10.61,rotto,2026-05-01
+LU1704650164,LU1704650164,3M,-0.99,a_ridosso,
+MHY2066G1044,MHY2066G1044,3M,0.98,rotto,2026-05-05
+MHY2685T1313,MHY2685T1313,3M,3.05,rotto,2026-05-01
+MHY481251012,MHY481251012,3M,3.84,rotto,2026-05-01
+MHY737604006,MHY737604006,3M,5.51,rotto,2026-05-01
+MXP001161019,MXP001161019,3M,3.82,rotto,2026-05-04
+MXP225611567,MXP225611567,3M,2.51,rotto,2026-05-06
+NL0009269109,NL0009269109,3M,1.71,rotto,2026-05-06
+NL0015000PB5,NL0015000PB5,3M,4.94,rotto,2026-05-01
+NL0015001W49,NL0015001W49,3M,2.37,rotto,2026-05-04
+NL0015285941,NL0015285941,3M,-0.09,a_ridosso,
+NO0004822503,NO0004822503,3M,2.39,rotto,2026-05-04
+NO0010014632,NO0010014632,3M,-0.42,a_ridosso,
+NO0010768096,NO0010768096,3M,0.42,rotto,2026-05-06
+NO0010894512,Omda AS,3M,5.45,rotto,2026-05-01
+NZMELE0002S7,NZMELE0002S7,3M,-0.75,a_ridosso,
+PLCCC0000016,PLCCC0000016,3M,8.05,rotto,2026-05-04
+PLDINPL00011,PLDINPL00011,3M,-0.37,a_ridosso,
+PTALT0AE0002,PTALT0AE0002,3M,1.8,rotto,2026-05-04
+PTCOR0AE0006,PTCOR0AE0006,3M,-0.42,a_ridosso,
+PTINA0AP0008,PTINA0AP0008,3M,-0.91,a_ridosso,
+PTZON0AM0006,PTZON0AM0006,3M,-0.01,a_ridosso,
+SE0000106270,SE0000106270,3M,12.18,rotto,2026-05-06
+SE0000108656,SE0000108656,3M,-0.05,a_ridosso,
+SE0000195810,SE0000195810,3M,8.78,rotto,2026-05-04
+SE0001279142,SE0001279142,3M,3.77,rotto,2026-05-06
+SE0002110064,SE0002110064,3M,1.09,rotto,2026-05-06
+SE0002591420,SE0002591420,3M,6.13,rotto,2026-05-06
+SE0003815604,SE0003815604,3M,8.15,rotto,2026-05-04
+SE0006288015,SE0006288015,3M,3.47,rotto,2026-05-06
+SE0006425815,SE0006425815,3M,5.0,rotto,2026-05-04
+SE0007491303,SE0007491303,3M,7.76,rotto,2026-05-05
+SE0008321921,SE0008321921,3M,-0.74,a_ridosso,
+SE0009806607,SE0009806607,3M,4.38,rotto,2026-05-04
+SE0009997018,SE0009997018,3M,3.42,rotto,2026-05-06
+SE0010413567,SE0010413567,3M,-0.4,a_ridosso,
+SE0010520106,SE0010520106,3M,-0.58,a_ridosso,
+SE0010714311,SE0010714311,3M,0.41,rotto,2026-05-06
+SE0015961982,SE0015961982,3M,0.81,rotto,2026-05-04
+SE0017134125,SE0017134125,1Y,1.26,rotto,2026-05-06
+SE0017160773,SE0017160773,3M,1.35,rotto,2026-05-06
+SE0021309614,SE0021309614,3M,-0.88,a_ridosso,
+SE0024171458,SE0024171458,3M,3.59,rotto,2026-05-06
+SG1A98006814,SG1A98006814,3M,3.33,rotto,2026-05-04
+SG1CI0000005,SG1CI0000005,3M,-0.31,a_ridosso,
+TH0068010Z15,TH0068010Z15,3M,6.82,rotto,2026-05-05
+TH0088010R13,TH0088010R13,3M,-0.58,a_ridosso,
+TH0101A10Z19,TH0101A10Z19,3M,66.22,rotto,2026-05-05
+TH0122010R10,TH0122010R10,3M,-0.76,a_ridosso,
+TH0150010Z11,TH0150010Z11,3M,-0.58,a_ridosso,
+TH0324B10Z19,TH0324B10Z19,3M,7.14,rotto,2026-05-04
+TH0420010R18,TH0420010R18,3M,-0.47,a_ridosso,
+TH0465010013,TH0465010013,3M,0.71,rotto,2026-05-04
+TH0471010Y12,TH0471010Y12,3M,1.94,rotto,2026-05-05
+TH0831010010,TH0831010010,3M,7.69,rotto,2026-05-06
+TH1027010012,TH1027010012,3M,30.44,rotto,2026-05-05
+US0003041052,US0003041052,3M,0.4,rotto,2026-05-05
+US00081T1088,US00081T1088,3M,-0.98,a_ridosso,
+US00089H1068,US00089H1068,3M,11.97,rotto,2026-05-05
+US00246W1036,US00246W1036,3M,20.8,rotto,2026-05-01
+US00289Y2063,US00289Y2063,3M,6.22,rotto,2026-05-04
+US0038813079,US0038813079,3M,-0.59,a_ridosso,
+US00449R1095,US00449R1095,3M,1.73,rotto,2026-05-05
+US00461U1051,US00461U1051,3M,3.63,rotto,2026-05-05
+US00791N1028,US00791N1028,3M,14.65,rotto,2026-05-01
+US00832E1038,US00832E1038,3M,0.09,rotto,2026-05-06
+US0096062031,US0096062031,3M,7.94,rotto,2026-05-04
+US0147521092,US0147521092,3M,0.29,rotto,2026-05-06
+US0188201000,US0188201000,3M,-0.07,a_ridosso,
+US02128L1061,US02128L1061,3M,4.33,rotto,2026-05-06
+US02319V1035,US02319V1035,3M,5.04,rotto,2026-05-06
+US03485P4090,US03485P4090,3M,0.83,rotto,2026-05-06
+US03754H1041,US03754H1041,3M,4.59,rotto,2026-05-04
+US03761U5020,US03761U5020,3M,1.43,rotto,2026-05-01
+US0378331005,US0378331005,3M,2.71,rotto,2026-05-04
+US0382221051,US0382221051,3M,2.38,rotto,2026-05-06
+US0453962070,US0453962070,3M,3.34,rotto,2026-05-06
+US04638F1084,US04638F1084,3M,4.24,rotto,2026-05-04
+US05207U1034,US05207U1034,3M,-0.32,a_ridosso,
+US0552625057,US0552625057,3M,-0.12,a_ridosso,
+US05684B1070,US05684B1070,6M,1.64,rotto,2026-05-01
+US0733201034,US0733201034,3M,1.28,rotto,2026-05-05
+US0773472016,US0773472016,3M,1.32,rotto,2026-05-01
+US1021171087,US1021171087,3M,4.06,rotto,2026-05-05
+US10807Q7007,US10807Q7007,3M,1.5,rotto,2026-05-05
+US12562Y1001,US12562Y1001,3M,6.43,rotto,2026-05-05
+US1273871087,US1273871087,3M,4.66,rotto,2026-05-04
+US1444302046,US1444302046,3M,4.88,rotto,2026-05-05
+US1512908898,US1512908898,3M,3.89,rotto,2026-05-06
+US1534361001,US1534361001,3M,0.05,rotto,2026-05-06
+US1547604090,US1547604090,3M,-0.8,a_ridosso,
+US1570851014,US1570851014,3M,-0.39,a_ridosso,
+US1630921096,US1630921096,3M,3.95,rotto,2026-05-04
+US16934Q8024,US16934Q8024,3M,-0.03,a_ridosso,
+US17133Q5027,US17133Q5027,3M,-0.96,a_ridosso,
+US1717793095,US1717793095,3M,8.81,rotto,2026-05-04
+US2026081057,US2026081057,3M,19.3,rotto,2026-05-06
+US20369C1062,US20369C1062,3M,-0.46,a_ridosso,
+US2067871036,US2067871036,3M,0.28,rotto,2026-05-06
+US20786W1071,US20786W1071,3M,0.94,rotto,2026-05-05
+US21833P3010,US21833P3010,3M,4.99,rotto,2026-05-05
+US22041X1028,US22041X1028,3M,6.16,rotto,2026-05-01
+US2290503075,US2290503075,3M,17.7,rotto,2026-05-05
+US22948Q1013,US22948Q1013,3M,-0.15,a_ridosso,
+US23304Y1001,US23304Y1001,3M,-0.44,a_ridosso,
+US2332761046,US2332761046,3M,-0.37,a_ridosso,
+US23804L1035,US23804L1035,3M,3.69,rotto,2026-05-04
+US24661P8077,US24661P8077,3M,1.34,rotto,2026-05-05
+US24703L2025,US24703L2025,3M,4.85,rotto,2026-05-06
+US2473617023,US2473617023,3M,-0.95,a_ridosso,
+US25381B1017,US25381B1017,3M,5.54,rotto,2026-05-04
+US2763171046,US2763171046,3M,-0.45,a_ridosso,
+US2786421030,US2786421030,3M,1.63,rotto,2026-05-04
+US27900N1037,US27900N1037,3M,10.71,rotto,2026-05-04
+US29278D1054,US29278D1054,3M,1.55,rotto,2026-05-06
+US29286D1054,US29286D1054,3M,-0.54,a_ridosso,
+US30050B1017,US30050B1017,3M,1.98,rotto,2026-05-04
+US30052C1071,US30052C1071,3M,12.01,rotto,2026-05-05
+US31188H2004,US31188H2004,3M,1.95,rotto,2026-05-04
+US31189P1021,US31189P1021,3M,39.2,rotto,2026-05-04
+US3205571017,US3205571017,3M,3.21,rotto,2026-05-04
+US33751L1052,US33751L1052,3M,3.38,rotto,2026-05-01
+US33830T1034,US33830T1034,3M,-0.46,a_ridosso,
+US3500601097,US3500601097,3M,29.98,rotto,2026-05-04
+US35952Q1067,US35952Q1067,3M,-0.09,a_ridosso,
+US36237H1014,US36237H1014,3M,0.25,rotto,2026-05-06
+US36317J2096,Galaxy Digital Inc. Reg. Shs. ,3M,3.87,rotto,2026-05-05
+US38141G1040,US38141G1040,3M,-0.6,a_ridosso,
+US3830821043,US3830821043,3M,1.16,rotto,2026-05-05
+US3909051076,US3909051076,3M,1.91,rotto,2026-05-01
+US40434L1052,US40434L1052,3M,0.73,rotto,2026-05-06
+US42222N1037,US42222N1037,3M,3.43,rotto,2026-05-05
+US4233253073,US4233253073,3M,0.74,rotto,2026-05-06
+US42824C1099,US42824C1099,3M,3.41,rotto,2026-05-05
+US4380908057,US4380908057,3M,1.89,rotto,2026-05-06
+US4404071049,US4404071049,3M,0.21,rotto,2026-05-06
+US4489475073,US4489475073,3M,0.49,rotto,2026-05-05
+US4510511060,US4510511060,3M,1.15,rotto,2026-05-05
+US45170X2053,US45170X2053,3M,0.64,rotto,2026-05-01
+US4562371066,US4562371066,3M,3.4,rotto,2026-05-01
+US46059T1097,US46059T1097,3M,-0.88,a_ridosso,
+US46604H2040,US46604H2040,3M,-0.34,a_ridosso,
+US46625H1005,US46625H1005,3M,-0.99,a_ridosso,
+US47012E4035,US47012E4035,3M,2.55,rotto,2026-05-01
+US4884452065,US4884452065,3M,0.63,rotto,2026-05-06
+US4893981070,US4893981070,3M,0.42,rotto,2026-05-05
+US49372L2097,US49372L2097,3M,-0.81,a_ridosso,
+US50105F1057,US50105F1057,1Y,0.46,rotto,2026-05-01
+US50186Q2021,US50186Q2021,3M,-0.1,a_ridosso,
+US5128073062,US5128073062,3M,8.62,rotto,2026-05-05
+US52187K2006,US52187K2006,3M,3.31,rotto,2026-05-05
+US5246711049,US5246711049,3M,3.39,rotto,2026-05-06
+US5262501050,US5262501050,3M,2.08,rotto,2026-05-06
+US53222K2050,US53222K2050,3M,6.87,rotto,2026-05-06
+US54150E1047,US54150E1047,3M,0.21,rotto,2026-05-06
+US55024U1097,US55024U1097,3M,-0.38,a_ridosso,
+US56600D1072,US56600D1072,3M,0.39,rotto,2026-05-05
+US5663241090,US5663241090,3M,1.94,rotto,2026-05-06
+US5679081084,US5679081084,3M,0.63,rotto,2026-05-06
+US57633B1008,US57633B1008,3M,-0.71,a_ridosso,
+US5771281012,US5771281012,6M,-0.23,a_ridosso,
+US58450D1046,US58450D1046,3M,2.76,rotto,2026-05-06
+US58470H1014,US58470H1014,3M,10.13,rotto,2026-05-05
+US58502K1060,US58502K1060,3M,-0.39,a_ridosso,
+US5915202007,US5915202007,3M,2.49,rotto,2026-05-06
+US6005512040,US6005512040,3M,1.37,rotto,2026-05-05
+US6174464486,US6174464486,3M,1.49,rotto,2026-05-06
+US62474M1080,US62474M1080,3M,3.92,rotto,2026-05-05
+US6294452064,US6294452064,3M,4.11,rotto,2026-05-01
+US6300873022,US6300873022,3M,6.63,rotto,2026-05-04
+US63009J1079,US63009J1079,3M,4.24,rotto,2026-05-06
+US6323471002,US6323471002,3M,-0.62,a_ridosso,
+US64026Q1085,US64026Q1085,1Y,27.36,rotto,2026-05-05
+US64121N1090,US64121N1090,3M,1.96,rotto,2026-05-06
+US64135M1053,US64135M1053,3M,16.19,rotto,2026-05-04
+US6475511001,US6475511001,3M,-0.47,a_ridosso,
+US65366E1001,US65366E1001,3M,2.5,rotto,2026-05-05
+US67090S1087,US67090S1087,3M,-0.07,a_ridosso,
+US6778641000,US6778641000,3M,0.25,rotto,2026-05-06
+US68170A1088,Omada Health Inc. Registered S,3M,5.45,rotto,2026-05-01
+US68287N1000,US68287N1000,3M,1.23,rotto,2026-05-04
+US68389X1054,US68389X1054,3M,0.5,rotto,2026-05-06
+US6840601065,US6840601065,3M,0.05,rotto,2026-05-06
+US68621T1025,US68621T1025,3M,-0.53,a_ridosso,
+US68628V3087,US68628V3087,3M,4.52,rotto,2026-05-01
+US68750L1026,US68750L1026,3M,-0.69,a_ridosso,
+US69002R1032,US69002R1032,3M,24.05,rotto,2026-05-01
+US6915436074,US6915436074,3M,-0.04,a_ridosso,
+US69320M1099,US69320M1099,3M,-0.52,a_ridosso,
+US6974351057,US6974351057,3M,-0.47,a_ridosso,
+US7008851062,US7008851062,3M,0.82,rotto,2026-05-05
+US7046991078,US7046991078,3M,0.35,rotto,2026-05-05
+US70806A1060,US70806A1060,3M,-0.23,a_ridosso,
+US7403674044,US7403674044,3M,-0.24,a_ridosso,
+US74144T1088,US74144T1088,3M,2.18,rotto,2026-05-04
+US74265M2052,US74265M2052,3M,10.38,rotto,2026-05-05
+US74728G6052,US74728G6052,3M,-0.43,a_ridosso,
+US7475251036,US7475251036,6M,1.52,rotto,2026-05-06
+US74930B1052,US74930B1052,3M,0.59,rotto,2026-05-01
+US74934Q1085,US74934Q1085,3M,-0.42,a_ridosso,
+US7495521053,US7495521053,3M,-0.66,a_ridosso,
+US74967R1068,US74967R1068,3M,8.69,rotto,2026-05-01
+US74975E3036,US74975E3036,3M,-0.84,a_ridosso,
+US75321W1036,US75321W1036,3M,1.79,rotto,2026-05-06
+US75410B1017,US75410B1017,3M,-0.9,a_ridosso,
+US75955J4022,US75955J4022,3M,2.23,rotto,2026-05-01
+US76119X1054,US76119X1054,3M,-0.29,a_ridosso,
+US7616811052,US7616811052,3M,1.03,rotto,2026-05-06
+US76674Q1076,US76674Q1076,3M,2.79,rotto,2026-05-01
+US78112T2069,US78112T2069,3M,1.78,rotto,2026-05-06
+US78392B1070,US78392B1070,3M,30.37,rotto,2026-05-04
+US78408D1054,US78408D1054,3M,-0.72,a_ridosso,
+US78518H2022,US78518H2022,3M,0.36,rotto,2026-05-04
+US79376W4069,US79376W4069,3M,0.0,rotto,2026-05-04
+US80917Q1067,US80917Q1067,3M,1.16,rotto,2026-05-01
+US8166452040,US8166452040,3M,16.57,rotto,2026-05-01
+US82728C1027,US82728C1027,3M,17.08,rotto,2026-05-01
+US83405K1025,US83405K1025,3M,-0.14,a_ridosso,
+US8344374025,US8344374025,3M,0.3,rotto,2026-05-06
+US84252A1060,US84252A1060,3M,-0.24,a_ridosso,
+US84470P1093,US84470P1093,3M,-0.09,a_ridosso,
+US8660821005,US8660821005,3M,4.39,rotto,2026-05-01
+US8683581024,US8683581024,3M,3.49,rotto,2026-05-06
+US8716071076,US8716071076,3M,-0.23,a_ridosso,
+US8722801029,US8722801029,3M,-0.88,a_ridosso,
+US87240R1077,US87240R1077,3M,-0.1,a_ridosso,
+US8740391003,US8740391003,3M,1.68,rotto,2026-05-06
+US87874R3084,US87874R3084,3M,1.45,rotto,2026-05-04
+US87876P2011,US87876P2011,3M,9.65,rotto,2026-05-01
+US8793822086,US8793822086,3M,0.66,rotto,2026-05-06
+US87960M2052,US87960M2052,3M,1.65,rotto,2026-05-01
+US8796VP1054,US8796VP1054,3M,0.15,rotto,2026-05-06
+US8901101092,US8901101092,3M,-0.57,a_ridosso,
+US8946501009,US8946501009,3M,6.04,rotto,2026-05-01
+US90011Q1004,US90011Q1004,6M,-0.93,a_ridosso,
+US9092143067,US9092143067,3M,16.73,rotto,2026-05-04
+US91324P1021,US91324P1021,6M,-0.21,a_ridosso,
+US9152711001,US9152711001,3M,0.63,rotto,2026-05-01
+US92023R4074,US92023R4074,3M,2.0,rotto,2026-05-04
+US92334N1037,US92334N1037,3M,1.32,rotto,2026-05-01
+US92552R4065,US92552R4065,3M,-0.31,a_ridosso,
+US9280311039,US9280311039,3M,0.94,rotto,2026-05-05
+US9588921018,US9588921018,3M,-0.97,a_ridosso,
+US96145W1036,US96145W1036,3M,0.42,rotto,2026-05-06
+US97727L4086,US97727L4086,3M,1.63,rotto,2026-05-06
+US98421M1062,US98421M1062,3M,9.4,rotto,2026-05-01
+US9896961094,US9896961094,3M,-0.49,a_ridosso,
+US98980B1035,US98980B1035,3M,1.98,rotto,2026-05-01
+USN070451026,USN070451026,3M,0.62,rotto,2026-05-06
+VGG320891077,eToro Group Ltd. Registered Sh,3M,-0.85,a_ridosso,
+ZAE000012373,ZAE000012373,3M,0.96,rotto,2026-05-04
+DE0005933923,DE0005933923,3M,-0.79,a_ridosso,
+DE0005933972,DE0005933972,3M,0.5,rotto,2026-05-05
+DE000A0F5UH1,DE000A0F5UH1,3M,1.08,rotto,2026-05-06
+DE000A0F5UK5,DE000A0F5UK5,3M,-0.58,a_ridosso,
+DE000A0H08E0,DE000A0H08E0,3M,-0.73,a_ridosso,
+DE000A0H08G5,DE000A0H08G5,3M,-0.85,a_ridosso,
+DE000A0H08J9,DE000A0H08J9,3M,-0.09,a_ridosso,
+DE000A0H08Q4,DE000A0H08Q4,3M,3.36,rotto,2026-05-05
+DE000A0H08R2,DE000A0H08R2,3M,1.16,rotto,2026-05-05
+DE000ETF7011,DE000ETF7011,3M,0.93,rotto,2026-05-04
+DE000ETF9082,DE000ETF9082,3M,0.22,rotto,2026-05-05
+FR0007056841,FR0007056841,3M,0.5,rotto,2026-05-06
+FR0010010827,FR0010010827,3M,2.42,rotto,2026-05-05
+FR0010429068,FR0010429068,3M,5.52,rotto,2026-05-04
+FR0010435297,FR0010435297,3M,2.27,rotto,2026-05-04
+FR0010717090,FR0010717090,3M,-0.07,a_ridosso,
+FR0011550193,FR0011550193,3M,-0.66,a_ridosso,
+FR0011550672,FR0011550672,3M,-0.64,a_ridosso,
+FR0011660927,FR0011660927,3M,1.9,rotto,2026-05-05
+FR0011669845,FR0011669845,3M,2.11,rotto,2026-05-01
+FR0012399806,FR0012399806,3M,-0.79,a_ridosso,
+FR0014003N93,FR0014003N93,3M,0.49,rotto,2026-05-05
+GB00B15KYH63,GB00B15KYH63,3M,-0.04,a_ridosso,
+IE0000QLH0G6,IE0000QLH0G6,3M,2.56,rotto,2026-05-01
+IE0000ZVYDH0,IE0000ZVYDH0,3M,2.56,rotto,2026-05-05
+IE0001JABD69,IE0001JABD69,3M,2.42,rotto,2026-05-05
+IE0001R850E1,IE0001R850E1,3M,-0.47,a_ridosso,
+IE0001UQQ933,IE0001UQQ933,3M,2.31,rotto,2026-05-05
+IE0002DDYPW4,IE0002DDYPW4,3M,1.84,rotto,2026-05-05
+IE00032YLFR3,IE00032YLFR3,3M,1.9,rotto,2026-05-04
+IE0004I037N4,IE0004I037N4,3M,2.33,rotto,2026-05-05
+IE0004MFRED4,IE0004MFRED4,3M,1.02,rotto,2026-05-01
+IE00050EGWG5,IE00050EGWG5,3M,1.93,rotto,2026-05-04
+IE00050J4789,IE00050J4789,3M,2.65,rotto,2026-05-04
+IE0005CH3U28,IE0005CH3U28,3M,2.87,rotto,2026-05-01
+IE0006D3PGW3,IE0006D3PGW3,3M,2.54,rotto,2026-05-05
+IE0006FFX5U1,IE0006FFX5U1,3M,-0.97,a_ridosso,
+IE0006K7DEL9,IE0006K7DEL9,3M,-0.82,a_ridosso,
+IE0006WW1TQ4,IE0006WW1TQ4,3M,-0.92,a_ridosso,
+IE000716YHJ7,IE000716YHJ7,3M,2.49,rotto,2026-05-01
+IE00077FRP95,IE00077FRP95,3M,0.58,rotto,2026-05-01
+IE00077IIPQ8,IE00077IIPQ8,3M,1.01,rotto,2026-05-06
+IE0007HKA9K1,IE0007HKA9K1,3M,0.56,rotto,2026-05-01
+IE0007Y8Y157,IE0007Y8Y157,6M,3.65,rotto,2026-05-05
+IE0008D0AIU9,IE0008D0AIU9,3M,0.49,rotto,2026-05-06
+IE0008GBXCA4,IE0008GBXCA4,3M,0.42,rotto,2026-05-06
+IE000940RNE6,IE000940RNE6,3M,0.01,rotto,2026-05-06
+IE00094GSCQ4,IE00094GSCQ4,3M,0.64,rotto,2026-05-01
+IE000A7N3IV0,IE000A7N3IV0,3M,2.22,rotto,2026-05-01
+IE000AWRDWI7,IE000AWRDWI7,3M,1.51,rotto,2026-05-05
+IE000AZOUN82,IE000AZOUN82,3M,1.93,rotto,2026-05-05
+IE000BXC49I6,IE000BXC49I6,3M,1.92,rotto,2026-05-01
+IE000C692SN6,IE000C692SN6,3M,0.78,rotto,2026-05-06
+IE000CBYU7J5,IE000CBYU7J5,3M,5.85,rotto,2026-05-01
+IE000CL68Z69,IE000CL68Z69,3M,1.95,rotto,2026-05-04
+IE000E7EI9P0,IE000E7EI9P0,3M,2.66,rotto,2026-05-05
+IE000FF2EBQ8,IE000FF2EBQ8,3M,1.37,rotto,2026-05-05
+IE000FJJZA01,IE000FJJZA01,3M,0.75,rotto,2026-05-01
+IE000FNVOB27,IE000FNVOB27,3M,2.0,rotto,2026-05-01
+IE000FPWSL69,IE000FPWSL69,3M,2.71,rotto,2026-05-04
+IE000FYTRRJ6,IE000FYTRRJ6,3M,0.2,rotto,2026-05-01
+IE000G6GSP88,IE000G6GSP88,3M,-0.39,a_ridosso,
+IE000GOJO2A3,IE000GOJO2A3,3M,3.71,rotto,2026-05-05
+IE000GWA2J58,IE000GWA2J58,3M,0.11,rotto,2026-05-06
+IE000HFXP0D2,IE000HFXP0D2,3M,2.0,rotto,2026-05-01
+IE000I8KRLL9,IE000I8KRLL9,3M,3.94,rotto,2026-05-05
+IE000IDLWOL4,IE000IDLWOL4,3M,0.28,rotto,2026-05-06
+IE000IIED424,IE000IIED424,3M,1.75,rotto,2026-05-04
+IE000IMGE5W5,IE000IMGE5W5,3M,-0.72,a_ridosso,
+IE000JLILKH0,IE000JLILKH0,3M,0.51,rotto,2026-05-01
+IE000JNKVS10,IE000JNKVS10,3M,2.59,rotto,2026-05-04
+IE000K1P4V37,IE000K1P4V37,3M,2.39,rotto,2026-05-05
+IE000KCS7J59,IE000KCS7J59,3M,5.71,rotto,2026-05-04
+IE000KF370H3,IE000KF370H3,3M,2.2,rotto,2026-05-01
+IE000KHX9DX6,IE000KHX9DX6,3M,-0.55,a_ridosso,
+IE000KYX7IP4,IE000KYX7IP4,3M,-0.41,a_ridosso,
+IE000LUZJNI7,IE000LUZJNI7,3M,-0.62,a_ridosso,
+IE000LYBU7X5,IE000LYBU7X5,3M,-0.35,a_ridosso,
+IE000M86QRT4,IE000M86QRT4,3M,-0.64,a_ridosso,
+IE000MO2MB07,IE000MO2MB07,3M,2.33,rotto,2026-05-06
+IE000N42HDP2,IE000N42HDP2,3M,0.09,rotto,2026-05-06
+IE000N6I8IU2,IE000N6I8IU2,3M,0.96,rotto,2026-05-05
+IE000NM0ALX6,IE000NM0ALX6,3M,-0.46,a_ridosso,
+IE000O58J820,IE000O58J820,3M,2.87,rotto,2026-05-01
+IE000O5FBC47,IE000O5FBC47,6M,1.6,rotto,2026-05-04
+IE000OEF25S1,IE000OEF25S1,3M,-0.43,a_ridosso,
+IE000PJL7R74,IE000PJL7R74,3M,4.41,rotto,2026-05-01
+IE000PSF3A70,IE000PSF3A70,3M,-0.39,a_ridosso,
+IE000PWGE381,IE000PWGE381,3M,4.4,rotto,2026-05-04
+IE000PY7F8J9,IE000PY7F8J9,3M,1.25,rotto,2026-05-05
+IE000Q0IU5T1,IE000Q0IU5T1,3M,3.15,rotto,2026-05-05
+IE000QLV3SY5,IE000QLV3SY5,3M,4.22,rotto,2026-05-01
+IE000QMIHY81,IE000QMIHY81,3M,2.08,rotto,2026-05-05
+IE000R85HL30,IE000R85HL30,3M,0.72,rotto,2026-05-04
+IE000RLUE8E9,IE000RLUE8E9,3M,2.66,rotto,2026-05-01
+IE000SBU19F7,IE000SBU19F7,3M,-0.1,a_ridosso,
+IE000STIHQB2,IE000STIHQB2,3M,0.04,rotto,2026-05-06
+IE000TD3TI26,IE000TD3TI26,3M,0.61,rotto,2026-05-06
+IE000TZ4SIN6,IE000TZ4SIN6,3M,2.12,rotto,2026-05-01
+IE000UFAX9L6,IE000UFAX9L6,3M,2.04,rotto,2026-05-01
+IE000UOXRAM8,IE000UOXRAM8,3M,3.18,rotto,2026-05-01
+IE000UQND7H4,IE000UQND7H4,3M,2.16,rotto,2026-05-01
+IE000UZCJS58,IE000UZCJS58,3M,2.46,rotto,2026-05-04
+IE000V0GDVU7,IE000V0GDVU7,3M,-0.81,a_ridosso,
+IE000W080FK3,IE000W080FK3,3M,2.98,rotto,2026-05-01
+IE000WX2HZQ7,IE000WX2HZQ7,3M,0.16,rotto,2026-05-06
+IE000X9TLGN8,IE000X9TLGN8,3M,2.32,rotto,2026-05-06
+IE000XFORJ80,IE000XFORJ80,3M,5.97,rotto,2026-05-01
+IE000XNILW20,IE000XNILW20,3M,0.82,rotto,2026-05-06
+IE000Y2JPPS4,IE000Y2JPPS4,3M,-0.44,a_ridosso,
+IE000Y6L6LE6,IE000Y6L6LE6,3M,-0.34,a_ridosso,
+IE000Y83YZ44,IE000Y83YZ44,3M,2.89,rotto,2026-05-01
+IE000YGEAK03,IE000YGEAK03,3M,3.72,rotto,2026-05-01
+IE000Z4OBQK4,IE000Z4OBQK4,3M,4.41,rotto,2026-05-04
+IE00B02KXM00,IE00B02KXM00,3M,0.32,rotto,2026-05-06
+IE00B0M62Q58,IE00B0M62Q58,3M,2.02,rotto,2026-05-01
+IE00B0M62S72,IE00B0M62S72,3M,0.83,rotto,2026-05-06
+IE00B0M62V02,IE00B0M62V02,3M,0.1,rotto,2026-05-06
+IE00B0M63177,IE00B0M63177,3M,4.62,rotto,2026-05-05
+IE00B0M63730,IE00B0M63730,3M,6.56,rotto,2026-05-04
+IE00B14X4N27,IE00B14X4N27,3M,-0.37,a_ridosso,
+IE00B14X4T88,IE00B14X4T88,3M,-0.41,a_ridosso,
+IE00B1FZS350,IE00B1FZS350,3M,-0.66,a_ridosso,
+IE00B1FZS574,IE00B1FZS574,3M,-0.36,a_ridosso,
+IE00B1FZSC47,IE00B1FZSC47,3M,-0.4,a_ridosso,
+IE00B1FZSF77,IE00B1FZSF77,3M,0.46,rotto,2026-05-06
+IE00B1XNH568,IE00B1XNH568,3M,2.49,rotto,2026-05-06
+IE00B23D8X81,IE00B23D8X81,3M,-0.38,a_ridosso,
+IE00B23D9570,IE00B23D9570,3M,-0.95,a_ridosso,
+IE00B3DWVS88,IE00B3DWVS88,3M,5.66,rotto,2026-05-01
+IE00B3F81G20,IE00B3F81G20,3M,0.84,rotto,2026-05-06
+IE00B3RBWM25,IE00B3RBWM25,3M,2.38,rotto,2026-05-01
+IE00B3VSSL01,IE00B3VSSL01,3M,4.35,rotto,2026-05-01
+IE00B3VVMM84,IE00B3VVMM84,3M,2.3,rotto,2026-05-05
+IE00B3VWM098,IE00B3VWM098,3M,2.37,rotto,2026-05-04
+IE00B3VWMM18,IE00B3VWMM18,3M,-0.9,a_ridosso,
+IE00B3YC1100,IE00B3YC1100,3M,-0.35,a_ridosso,
+IE00B466KX20,IE00B466KX20,3M,6.51,rotto,2026-05-01
+IE00B469F816,IE00B469F816,3M,5.54,rotto,2026-05-04
+IE00B4LN9N13,IE00B4LN9N13,3M,-0.97,a_ridosso,
+IE00B4WXJD03,IE00B4WXJD03,3M,-0.14,a_ridosso,
+IE00B4X9L533,IE00B4X9L533,3M,2.07,rotto,2026-05-01
+IE00B4YBJ215,IE00B4YBJ215,3M,1.76,rotto,2026-05-06
+IE00B51B7Z02,IE00B51B7Z02,3M,-0.36,a_ridosso,
+IE00B52MJD48,IE00B52MJD48,3M,0.49,rotto,2026-05-05
+IE00B52MJY50,IE00B52MJY50,3M,0.22,rotto,2026-05-06
+IE00B5377D42,IE00B5377D42,3M,-0.88,a_ridosso,
+IE00B53L4350,IE00B53L4350,3M,-0.48,a_ridosso,
+IE00B5BD5K76,IE00B5BD5K76,3M,-0.95,a_ridosso,
+IE00B5L01S80,IE00B5L01S80,3M,-0.23,a_ridosso,
+IE00B5L8K969,IE00B5L8K969,3M,6.54,rotto,2026-05-04
+IE00B5M1WJ87,IE00B5M1WJ87,3M,-0.95,a_ridosso,
+IE00B5SG8Z57,IE00B5SG8Z57,3M,-0.11,a_ridosso,
+IE00B5SSQT16,IE00B5SSQT16,3M,5.14,rotto,2026-05-01
+IE00B5ZR2157,IE00B5ZR2157,3M,-0.01,a_ridosso,
+IE00B60SWW18,IE00B60SWW18,3M,-0.44,a_ridosso,
+IE00B60SWY32,IE00B60SWY32,3M,-0.95,a_ridosso,
+IE00B60SX394,IE00B60SX394,3M,2.14,rotto,2026-05-04
+IE00B60SX402,IE00B60SX402,3M,2.91,rotto,2026-05-01
+IE00B652H904,IE00B652H904,3M,-0.7,a_ridosso,
+IE00B6SPMN59,IE00B6SPMN59,3M,-0.17,a_ridosso,
+IE00B7K93397,IE00B7K93397,3M,1.62,rotto,2026-05-04
+IE00B7KQ7B66,IE00B7KQ7B66,3M,1.54,rotto,2026-05-05
+IE00B7WK2W23,IE00B7WK2W23,3M,6.4,rotto,2026-05-04
+IE00B8GF1M35,IE00B8GF1M35,3M,0.24,rotto,2026-05-06
+IE00B8KGV557,IE00B8KGV557,3M,1.87,rotto,2026-05-05
+IE00B8X9NW27,IE00B8X9NW27,3M,0.2,rotto,2026-05-01
+IE00B8X9NX34,IE00B8X9NX34,3M,1.41,rotto,2026-05-01
+IE00B8X9NY41,IE00B8X9NY41,3M,1.35,rotto,2026-05-06
+IE00B910VR50,IE00B910VR50,3M,-0.21,a_ridosso,
+IE00B99FL386,IE00B99FL386,6M,0.44,rotto,2026-05-05
+IE00B9MRHC27,IE00B9MRHC27,3M,-0.55,a_ridosso,
+IE00BBQ2W338,IE00BBQ2W338,3M,7.16,rotto,2026-05-01
+IE00BCBJG560,IE00BCBJG560,3M,1.71,rotto,2026-05-06
+IE00BCLWRD08,IE00BCLWRD08,3M,0.48,rotto,2026-05-06
+IE00BCLWRF22,IE00BCLWRF22,3M,-0.9,a_ridosso,
+IE00BCLWRG39,IE00BCLWRG39,3M,-0.54,a_ridosso,
+IE00BD0B9B76,IE00BD0B9B76,3M,2.16,rotto,2026-05-01
+IE00BD1F4K20,IE00BD1F4K20,3M,1.21,rotto,2026-05-05
+IE00BD1F4L37,IE00BD1F4L37,3M,1.21,rotto,2026-05-01
+IE00BD34DK07,IE00BD34DK07,3M,1.3,rotto,2026-05-04
+IE00BD45KH83,IE00BD45KH83,3M,5.33,rotto,2026-05-01
+IE00BD5HBQ97,IE00BD5HBQ97,3M,-0.36,a_ridosso,
+IE00BD6GCF16,IE00BD6GCF16,3M,-0.01,a_ridosso,
+IE00BD93YH54,IE00BD93YH54,3M,-0.23,a_ridosso,
+IE00BD9MMF62,IE00BD9MMF62,3M,-0.04,a_ridosso,
+IE00BDDRF478,IE00BDDRF478,3M,0.97,rotto,2026-05-01
+IE00BDDRF700,IE00BDDRF700,3M,3.91,rotto,2026-05-05
+IE00BDF12W49,IE00BDF12W49,3M,2.85,rotto,2026-05-01
+IE00BDFL4P12,IE00BDFL4P12,3M,-0.25,a_ridosso,
+IE00BDGN9Z19,IE00BDGN9Z19,3M,-0.17,a_ridosso,
+IE00BDQYWQ65,IE00BDQYWQ65,3M,-0.04,a_ridosso,
+IE00BDR55471,IE00BDR55471,3M,3.06,rotto,2026-05-05
+IE00BDR55927,IE00BDR55927,3M,0.82,rotto,2026-05-05
+IE00BDZVH966,IE00BDZVH966,3M,-0.64,a_ridosso,
+IE00BDZZTM54,IE00BDZZTM54,3M,2.0,rotto,2026-05-06
+IE00BF0M2Z96,IE00BF0M2Z96,3M,1.99,rotto,2026-05-06
+IE00BF1B7389,IE00BF1B7389,3M,2.4,rotto,2026-05-05
+IE00BF2B0K52,IE00BF2B0K52,3M,1.53,rotto,2026-05-06
+IE00BF2B0L69,IE00BF2B0L69,3M,-0.66,a_ridosso,
+IE00BF2B0M76,IE00BF2B0M76,3M,-0.33,a_ridosso,
+IE00BF2B0P08,IE00BF2B0P08,3M,2.01,rotto,2026-05-01
+IE00BF4G6Y48,IE00BF4G6Y48,3M,1.85,rotto,2026-05-01
+IE00BF4G6Z54,IE00BF4G6Z54,3M,5.81,rotto,2026-05-01
+IE00BF4RFH31,IE00BF4RFH31,3M,1.41,rotto,2026-05-06
+IE00BF4TWC33,IE00BF4TWC33,3M,-0.48,a_ridosso,
+IE00BFMNHK08,IE00BFMNHK08,3M,-0.83,a_ridosso,
+IE00BFNM3B99,IE00BFNM3B99,3M,-0.39,a_ridosso,
+IE00BFNM3J75,IE00BFNM3J75,3M,2.13,rotto,2026-05-01
+IE00BFNM3K80,IE00BFNM3K80,3M,2.28,rotto,2026-05-01
+IE00BFNM3N12,IE00BFNM3N12,3M,5.15,rotto,2026-05-01
+IE00BFNM3P36,IE00BFNM3P36,3M,5.26,rotto,2026-05-04
+IE00BFWXDV39,IE00BFWXDV39,3M,7.58,rotto,2026-05-01
+IE00BG04LZ52,IE00BG04LZ52,3M,2.36,rotto,2026-05-04
+IE00BG0J4841,IE00BG0J4841,3M,1.92,rotto,2026-05-05
+IE00BG0J4C88,IE00BG0J4C88,3M,1.85,rotto,2026-05-05
+IE00BG370F43,IE00BG370F43,3M,0.82,rotto,2026-05-06
+IE00BGBN6P67,IE00BGBN6P67,3M,6.42,rotto,2026-05-05
+IE00BGHQ0G80,IE00BGHQ0G80,3M,2.78,rotto,2026-05-04
+IE00BGQYRR35,IE00BGQYRR35,3M,-0.99,a_ridosso,
+IE00BGQYRS42,IE00BGQYRS42,3M,3.92,rotto,2026-05-01
+IE00BGV5VM45,IE00BGV5VM45,3M,-0.58,a_ridosso,
+IE00BGV5VN51,IE00BGV5VN51,3M,7.89,rotto,2026-05-01
+IE00BH4GR342,IE00BH4GR342,3M,0.16,rotto,2026-05-06
+IE00BHJYDV33,IE00BHJYDV33,3M,-0.74,a_ridosso,
+IE00BHNGHX58,IE00BHNGHX58,3M,-0.43,a_ridosso,
+IE00BHZPJ015,IE00BHZPJ015,3M,-0.66,a_ridosso,
+IE00BHZPJ452,IE00BHZPJ452,3M,-0.34,a_ridosso,
+IE00BHZPJ569,IE00BHZPJ569,3M,2.22,rotto,2026-05-04
+IE00BJ0KDQ92,IE00BJ0KDQ92,3M,2.17,rotto,2026-05-01
+IE00BJ38QD84,IE00BJ38QD84,3M,2.9,rotto,2026-05-01
+IE00BJ5CNR11,IE00BJ5CNR11,3M,1.81,rotto,2026-05-01
+IE00BJQRDK83,IE00BJQRDK83,3M,2.07,rotto,2026-05-01
+IE00BJQRDN15,IE00BJQRDN15,3M,2.2,rotto,2026-05-01
+IE00BJRCLL96,IE00BJRCLL96,3M,-0.34,a_ridosso,
+IE00BJXRZJ40,IE00BJXRZJ40,3M,0.7,rotto,2026-05-05
+IE00BJZ2DD79,IE00BJZ2DD79,3M,3.03,rotto,2026-05-01
+IE00BK1PV551,IE00BK1PV551,3M,2.17,rotto,2026-05-01
+IE00BK5BQV03,IE00BK5BQV03,3M,2.42,rotto,2026-05-01
+IE00BK5BQX27,IE00BK5BQX27,3M,-0.88,a_ridosso,
+IE00BK5BR733,IE00BK5BR733,3M,2.14,rotto,2026-05-06
+IE00BKBF6H24,IE00BKBF6H24,3M,1.9,rotto,2026-05-05
+IE00BKLWY790,IE00BKLWY790,3M,2.5,rotto,2026-05-01
+IE00BKSBGV72,IE00BKSBGV72,3M,0.54,rotto,2026-05-01
+IE00BKSCBX74,IE00BKSCBX74,3M,-0.53,a_ridosso,
+IE00BKWQ0J47,IE00BKWQ0J47,3M,0.21,rotto,2026-05-06
+IE00BKWQ0L68,IE00BKWQ0L68,3M,0.26,rotto,2026-05-06
+IE00BKWQ0M75,IE00BKWQ0M75,3M,0.18,rotto,2026-05-06
+IE00BKWQ0Q14,IE00BKWQ0Q14,3M,-0.81,a_ridosso,
+IE00BKY4W127,IE00BKY4W127,3M,-0.13,a_ridosso,
+IE00BKY55W78,IE00BKY55W78,3M,0.69,rotto,2026-05-06
+IE00BKY59G90,IE00BKY59G90,3M,2.34,rotto,2026-05-05
+IE00BKZGB098,IE00BKZGB098,3M,2.03,rotto,2026-05-05
+IE00BL25JL35,IE00BL25JL35,3M,1.06,rotto,2026-05-06
+IE00BL643144,IE00BL643144,3M,1.22,rotto,2026-05-01
+IE00BLCHJT74,IE00BLCHJT74,3M,4.71,rotto,2026-05-01
+IE00BLF7VX27,IE00BLF7VX27,3M,-0.89,a_ridosso,
+IE00BLLZQS08,IE00BLLZQS08,3M,1.67,rotto,2026-05-05
+IE00BLP53M98,IE00BLP53M98,3M,0.47,rotto,2026-05-06
+IE00BLPK3577,IE00BLPK3577,3M,-0.99,a_ridosso,
+IE00BLRPN388,IE00BLRPN388,3M,2.11,rotto,2026-05-01
+IE00BLSNMW37,IE00BLSNMW37,3M,-0.77,a_ridosso,
+IE00BM67HT60,IE00BM67HT60,3M,4.11,rotto,2026-05-01
+IE00BM67HV82,IE00BM67HV82,3M,0.31,rotto,2026-05-06
+IE00BM8QRY62,IE00BM8QRY62,3M,0.56,rotto,2026-05-06
+IE00BM8QS095,IE00BM8QS095,3M,-0.72,a_ridosso,
+IE00BM9TSP27,IE00BM9TSP27,3M,4.85,rotto,2026-05-01
+IE00BMD8KP97,IE00BMD8KP97,3M,1.05,rotto,2026-05-06
+IE00BMDWYZ92,IE00BMDWYZ92,3M,1.21,rotto,2026-05-01
+IE00BMH5Y327,IE00BMH5Y327,3M,4.22,rotto,2026-05-01
+IE00BMH5YF48,IE00BMH5YF48,3M,0.54,rotto,2026-05-05
+IE00BMQ5Y557,IE00BMQ5Y557,3M,0.04,rotto,2026-05-06
+IE00BMW3QX54,IE00BMW3QX54,3M,4.71,rotto,2026-05-01
+IE00BMYDM919,IE00BMYDM919,3M,0.9,rotto,2026-05-06
+IE00BMYDMC42,IE00BMYDMC42,3M,1.82,rotto,2026-05-06
+IE00BMZ17T93,IE00BMZ17T93,3M,1.92,rotto,2026-05-06
+IE00BNC0M913,IE00BNC0M913,3M,0.58,rotto,2026-05-06
+IE00BNC0MH93,IE00BNC0MH93,3M,8.36,rotto,2026-05-04
+IE00BNC1F287,IE00BNC1F287,3M,2.65,rotto,2026-05-05
+IE00BNGFMY78,IE00BNGFMY78,3M,-0.95,a_ridosso,
+IE00BNGJJT35,IE00BNGJJT35,3M,0.65,rotto,2026-05-06
+IE00BP2C1S34,IE00BP2C1S34,3M,0.97,rotto,2026-05-01
+IE00BP2C1V62,IE00BP2C1V62,3M,1.79,rotto,2026-05-01
+IE00BP3QZ601,IE00BP3QZ601,3M,0.99,rotto,2026-05-01
+IE00BP3QZD73,IE00BP3QZD73,3M,-0.43,a_ridosso,
+IE00BQN1K901,IE00BQN1K901,3M,0.86,rotto,2026-05-06
+IE00BQQ3Q067,IE00BQQ3Q067,3M,2.73,rotto,2026-05-05
+IE00BQT3WG13,IE00BQT3WG13,3M,-0.37,a_ridosso,
+IE00BRKWGL70,IE00BRKWGL70,3M,1.27,rotto,2026-05-04
+IE00BSPLC306,IE00BSPLC306,3M,1.25,rotto,2026-05-06
+IE00BTJRMP35,IE00BTJRMP35,3M,5.53,rotto,2026-05-01
+IE00BVXBH163,IE00BVXBH163,3M,-0.94,a_ridosso,
+IE00BVZ6SP04,IE00BVZ6SP04,3M,0.01,rotto,2026-05-05
+IE00BWBXM278,IE00BWBXM278,3M,-0.86,a_ridosso,
+IE00BWBXM724,IE00BWBXM724,3M,-0.25,a_ridosso,
+IE00BWBXM948,IE00BWBXM948,3M,4.03,rotto,2026-05-01
+IE00BWT3KN65,IE00BWT3KN65,3M,1.1,rotto,2026-05-04
+IE00BWZN1T31,IE00BWZN1T31,3M,0.5,rotto,2026-05-06
+IE00BX7RR706,IE00BX7RR706,3M,-0.55,a_ridosso,
+IE00BX7RRJ27,IE00BX7RRJ27,3M,0.75,rotto,2026-05-04
+IE00BXDZNK39,IE00BXDZNK39,6M,2.67,rotto,2026-05-01
+IE00BYM8JD58,IE00BYM8JD58,3M,0.22,rotto,2026-05-06
+IE00BYPLS672,IE00BYPLS672,3M,3.23,rotto,2026-05-05
+IE00BYT5CV85,IE00BYT5CV85,3M,0.79,rotto,2026-05-05
+IE00BYTH6121,IE00BYTH6121,3M,0.3,rotto,2026-05-06
+IE00BYTH6238,IE00BYTH6238,3M,4.01,rotto,2026-05-04
+IE00BYVJRP78,IE00BYVJRP78,3M,2.67,rotto,2026-05-05
+IE00BYWZ0333,IE00BYWZ0333,3M,6.05,rotto,2026-05-01
+IE00BYX2JD69,IE00BYX2JD69,3M,2.24,rotto,2026-05-01
+IE00BYXPXK00,IE00BYXPXK00,3M,0.68,rotto,2026-05-06
+IE00BYXVGX24,IE00BYXVGX24,3M,1.08,rotto,2026-05-01
+IE00BYXVGY31,IE00BYXVGY31,3M,1.12,rotto,2026-05-01
+IE00BYXVGZ48,IE00BYXVGZ48,3M,0.72,rotto,2026-05-06
+IE00BYXZ2585,IE00BYXZ2585,3M,-0.14,a_ridosso,
+IE00BYYLVJ24,IE00BYYLVJ24,3M,-0.03,a_ridosso,
+IE00BYYXBF44,IE00BYYXBF44,3M,-0.5,a_ridosso,
+IE00BYZK4552,IE00BYZK4552,3M,5.98,rotto,2026-05-01
+IE00BYZK4669,IE00BYZK4669,3M,-0.61,a_ridosso,
+IE00BZ0G8977,IE00BZ0G8977,3M,-0.33,a_ridosso,
+IE00BZ0PKS76,IE00BZ0PKS76,3M,1.97,rotto,2026-05-01
+IE00BZ0PKT83,IE00BZ0PKT83,3M,1.5,rotto,2026-05-01
+IE00BZ0PKV06,IE00BZ0PKV06,3M,0.05,rotto,2026-05-06
+IE00BZ1GHD37,IE00BZ1GHD37,3M,-0.07,a_ridosso,
+IE00BZ4BMM98,IE00BZ4BMM98,3M,-0.29,a_ridosso,
+IE00BZ56RN96,IE00BZ56RN96,3M,-0.6,a_ridosso,
+IE00BZ56SW52,IE00BZ56SW52,3M,-0.44,a_ridosso,
+IE00BZ56TQ67,IE00BZ56TQ67,3M,-0.98,a_ridosso,
+JE00B3L54023,JE00B3L54023,3M,-0.97,a_ridosso,
+JE00B3QBQJ84,JE00B3QBQJ84,3M,-0.76,a_ridosso,
+JE00B3SX3R93,JE00B3SX3R93,3M,9634.3,rotto,2026-05-06
+JE00B3WCLY57,JE00B3WCLY57,3M,9018.61,rotto,2026-05-06
+JE00B3WPFZ34,JE00B3WPFZ34,3M,9619.22,rotto,2026-05-06
+JE00B3XR4V72,JE00B3XR4V72,3M,9649.36,rotto,2026-05-06
+JE00B3Y3SZ64,JE00B3Y3SZ64,3M,9752.58,rotto,2026-05-06
+JE00B438PT24,JE00B438PT24,3M,9823.17,rotto,2026-05-06
+JE00B43NB445,JE00B43NB445,3M,9501.48,rotto,2026-05-06
+JE00B45CYD99,JE00B45CYD99,6M,1.38,rotto,2026-05-06
+JE00B63MJ075,JE00B63MJ075,3M,9865.66,rotto,2026-05-06
+JE00B68GT596,JE00B68GT596,3M,-0.97,a_ridosso,
+JE00B766LB87,JE00B766LB87,6M,57.32,rotto,2026-05-06
+JE00B7VG2M16,JE00B7VG2M16,3M,8721.79,rotto,2026-05-06
+LU0147308422,LU0147308422,3M,-0.19,a_ridosso,
+LU0274208692,LU0274208692,3M,2.21,rotto,2026-05-04
+LU0274212538,LU0274212538,3M,2.26,rotto,2026-05-05
+LU0292095535,LU0292095535,3M,0.05,rotto,2026-05-06
+LU0292096186,LU0292096186,3M,0.9,rotto,2026-05-06
+LU0292106084,LU0292106084,3M,0.72,rotto,2026-05-06
+LU0292106167,LU0292106167,3M,-0.74,a_ridosso,
+LU0292107645,LU0292107645,3M,5.35,rotto,2026-05-01
+LU0292107991,LU0292107991,3M,6.91,rotto,2026-05-01
+LU0322252924,LU0322252924,3M,1.61,rotto,2026-05-06
+LU0322253906,LU0322253906,3M,-0.01,a_ridosso,
+LU0328475792,LU0328475792,3M,-0.57,a_ridosso,
+LU0460391732,LU0460391732,3M,-0.15,a_ridosso,
+LU0480132876,LU0480132876,3M,4.45,rotto,2026-05-04
+LU0496786905,LU0496786905,3M,-0.69,a_ridosso,
+LU0533032859,LU0533032859,3M,-0.57,a_ridosso,
+LU0533033311,LU0533033311,3M,103.6,rotto,2026-05-06
+LU0533033667,LU0533033667,3M,3.73,rotto,2026-05-04
+LU0533033741,LU0533033741,3M,404.33,rotto,2026-05-06
+LU0599612842,LU0599612842,3M,-0.69,a_ridosso,
+LU0599613147,LU0599613147,3M,-0.55,a_ridosso,
+LU0629460675,LU0629460675,3M,0.4,rotto,2026-05-06
+LU0629460832,LU0629460832,3M,-0.86,a_ridosso,
+LU0671493277,LU0671493277,3M,1.29,rotto,2026-05-06
+LU0846194776,LU0846194776,3M,-0.03,a_ridosso,
+LU0875160326,LU0875160326,3M,2.14,rotto,2026-05-01
+LU0879397742,LU0879397742,3M,-0.6,a_ridosso,
+LU0908501058,LU0908501058,3M,-0.27,a_ridosso,
+LU0950674332,LU0950674332,3M,2.13,rotto,2026-05-04
+LU0959210278,LU0959210278,3M,-0.64,a_ridosso,
+LU1048314196,LU1048314196,3M,-0.67,a_ridosso,
+LU1048314949,LU1048314949,3M,-0.43,a_ridosso,
+LU1079842321,LU1079842321,3M,1.33,rotto,2026-05-06
+LU1184092051,LU1184092051,3M,-0.45,a_ridosso,
+LU1215415214,LU1215415214,3M,-0.84,a_ridosso,
+LU1215461085,LU1215461085,3M,-0.96,a_ridosso,
+LU1215828218,LU1215828218,3M,-0.54,a_ridosso,
+LU1273642816,LU1273642816,3M,-0.21,a_ridosso,
+LU1273642907,LU1273642907,3M,-0.7,a_ridosso,
+LU1280300770,LU1280300770,3M,1.11,rotto,2026-05-06
+LU1280300853,LU1280300853,3M,0.35,rotto,2026-05-06
+LU1280303014,LU1280303014,3M,1.74,rotto,2026-05-04
+LU1291097779,LU1291097779,3M,5.14,rotto,2026-05-04
+LU1291098827,LU1291098827,3M,-0.22,a_ridosso,
+LU1291101555,LU1291101555,3M,-0.52,a_ridosso,
+LU1291103338,LU1291103338,3M,1.13,rotto,2026-05-06
+LU1291106356,LU1291106356,3M,0.18,rotto,2026-05-06
+LU1377382285,LU1377382285,3M,0.81,rotto,2026-05-06
+LU1390062245,LU1390062245,3M,-0.18,a_ridosso,
+LU1437015735,LU1437015735,3M,-0.92,a_ridosso,
+LU1437017350,LU1437017350,3M,5.5,rotto,2026-05-04
+LU1437018168,LU1437018168,3M,-0.83,a_ridosso,
+LU1437018838,LU1437018838,3M,0.28,rotto,2026-05-06
+LU1452600197,LU1452600197,3M,-0.21,a_ridosso,
+LU1452600270,LU1452600270,3M,-0.48,a_ridosso,
+LU1481201702,LU1481201702,3M,-0.62,a_ridosso,
+LU1481203070,LU1481203070,3M,-0.98,a_ridosso,
+LU1484799769,LU1484799769,3M,3.32,rotto,2026-05-04
+LU1484799843,LU1484799843,3M,-0.95,a_ridosso,
+LU1525418643,LU1525418643,3M,-0.78,a_ridosso,
+LU1525418726,LU1525418726,3M,-0.69,a_ridosso,
+LU1547515137,LU1547515137,3M,-0.88,a_ridosso,
+LU1547516291,LU1547516291,3M,-0.29,a_ridosso,
+LU1574142243,LU1574142243,3M,-0.7,a_ridosso,
+LU1598689153,LU1598689153,3M,1.37,rotto,2026-05-05
+LU1598690169,LU1598690169,3M,0.11,rotto,2026-05-06
+LU1602144575,LU1602144575,3M,2.88,rotto,2026-05-05
+LU1602144906,LU1602144906,3M,-0.46,a_ridosso,
+LU1602145036,LU1602145036,3M,-0.69,a_ridosso,
+LU1615090864,LU1615090864,3M,1.33,rotto,2026-05-06
+LU1615092217,LU1615092217,3M,1.17,rotto,2026-05-06
+LU1645381689,LU1645381689,3M,-0.66,a_ridosso,
+LU1646360971,LU1646360971,3M,-0.1,a_ridosso,
+LU1646361276,LU1646361276,3M,-0.15,a_ridosso,
+LU1659681230,LU1659681230,3M,2.75,rotto,2026-05-05
+LU1659681313,LU1659681313,3M,2.34,rotto,2026-05-06
+LU1659681586,LU1659681586,3M,0.7,rotto,2026-05-06
+LU1659681669,LU1659681669,3M,0.64,rotto,2026-05-06
+LU1681037518,LU1681037518,3M,2.5,rotto,2026-05-05
+LU1681038672,LU1681038672,3M,2.5,rotto,2026-05-04
+LU1681038839,LU1681038839,3M,3.03,rotto,2026-05-04
+LU1681038912,LU1681038912,3M,-0.97,a_ridosso,
+LU1681039217,LU1681039217,3M,-0.64,a_ridosso,
+LU1681039308,LU1681039308,3M,-0.9,a_ridosso,
+LU1681039647,LU1681039647,3M,-0.96,a_ridosso,
+LU1681040900,LU1681040900,3M,0.09,rotto,2026-05-06
+LU1681041114,LU1681041114,3M,-0.01,a_ridosso,
+LU1681041544,LU1681041544,3M,-0.85,a_ridosso,
+LU1681042518,LU1681042518,3M,-0.93,a_ridosso,
+LU1681043672,LU1681043672,3M,2.18,rotto,2026-05-05
+LU1681043912,LU1681043912,3M,-0.61,a_ridosso,
+LU1681044308,LU1681044308,3M,-0.53,a_ridosso,
+LU1681044480,LU1681044480,3M,6.68,rotto,2026-05-04
+LU1681044563,LU1681044563,3M,6.74,rotto,2026-05-04
+LU1681045370,LU1681045370,3M,5.63,rotto,2026-05-04
+LU1681045453,LU1681045453,3M,5.37,rotto,2026-05-04
+LU1681046188,LU1681046188,3M,5.14,rotto,2026-05-06
+LU1681047665,LU1681047665,3M,-0.42,a_ridosso,
+LU1681048127,LU1681048127,3M,-0.49,a_ridosso,
+LU1681048556,LU1681048556,3M,-0.38,a_ridosso,
+LU1772333404,LU1772333404,3M,-0.82,a_ridosso,
+LU1781541252,LU1781541252,3M,-0.99,a_ridosso,
+LU1781541849,LU1781541849,3M,6.83,rotto,2026-05-01
+LU1806495575,LU1806495575,3M,-0.79,a_ridosso,
+LU1812092168,LU1812092168,3M,0.65,rotto,2026-05-06
+LU1829218749,LU1829218749,3M,-0.37,a_ridosso,
+LU1832418773,LU1832418773,3M,0.53,rotto,2026-05-06
+LU1834983550,LU1834983550,3M,-0.36,a_ridosso,
+LU1834983634,LU1834983634,3M,0.53,rotto,2026-05-06
+LU1834988278,LU1834988278,3M,-0.06,a_ridosso,
+LU1834988518,LU1834988518,3M,2.48,rotto,2026-05-05
+LU1834988609,LU1834988609,3M,1.12,rotto,2026-05-06
+LU1861132840,LU1861132840,1Y,0.64,rotto,2026-05-05
+LU1861137484,LU1861137484,3M,0.1,rotto,2026-05-06
+LU1861138961,LU1861138961,3M,3.78,rotto,2026-05-04
+LU1875395870,LU1875395870,3M,3.0,rotto,2026-05-05
+LU1900066033,LU1900066033,3M,7.19,rotto,2026-05-04
+LU1900067601,LU1900067601,3M,0.52,rotto,2026-05-06
+LU1900068161,LU1900068161,3M,6.05,rotto,2026-05-04
+LU1900068328,LU1900068328,3M,5.95,rotto,2026-05-04
+LU1923163676,LU1923163676,3M,0.31,rotto,2026-05-06
+LU1940199711,LU1940199711,3M,-0.53,a_ridosso,
+LU1940199984,LU1940199984,3M,-0.77,a_ridosso,
+LU1953136527,LU1953136527,3M,1.4,rotto,2026-05-06
+LU2009202107,LU2009202107,3M,6.6,rotto,2026-05-01
+LU2023678282,LU2023678282,6M,3.57,rotto,2026-05-04
+LU2023678449,LU2023678449,3M,1.27,rotto,2026-05-06
+LU2023678878,LU2023678878,6M,0.67,rotto,2026-05-05
+LU2023679090,LU2023679090,3M,1.52,rotto,2026-05-06
+LU2037748774,LU2037748774,3M,-0.18,a_ridosso,
+LU2089238625,LU2089238625,3M,-0.93,a_ridosso,
+LU2099295466,LU2099295466,3M,-0.43,a_ridosso,
+LU2109787049,LU2109787049,3M,5.48,rotto,2026-05-04
+LU2109787635,LU2109787635,3M,1.05,rotto,2026-05-06
+LU2182388582,LU2182388582,3M,-0.49,a_ridosso,
+LU2194447293,LU2194447293,3M,-0.45,a_ridosso,
+LU2194449075,LU2194449075,3M,2.82,rotto,2026-05-06
+LU2206597804,LU2206597804,3M,-0.45,a_ridosso,
+LU2244386053,LU2244386053,3M,-0.53,a_ridosso,
+LU2244386137,LU2244386137,3M,-0.51,a_ridosso,
+LU2244387887,LU2244387887,3M,0.03,rotto,2026-05-06
+LU2345046655,LU2345046655,3M,2.9,rotto,2026-05-05
+LU2491210618,LU2491210618,3M,-0.35,a_ridosso,
+LU2573967036,LU2573967036,3M,5.43,rotto,2026-05-01
+LU2807512947,LU2807512947,3M,-0.37,a_ridosso,
+LU2872291948,LU2872291948,3M,0.01,rotto,2026-05-06
+LU2872292086,LU2872292086,3M,0.9,rotto,2026-05-05
+LU2881684745,LU2881684745,3M,-0.95,a_ridosso,
+LU2993402101,LU2993402101,3M,-0.71,a_ridosso,
+LU3025345516,LU3025345516,3M,-0.05,a_ridosso,
+XS2425842106,XS2425842106,3M,-0.27,a_ridosso,
+XS3087774306,XS3087774306,3M,3.08,rotto,2026-05-04
