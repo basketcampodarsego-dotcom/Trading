@@ -1,6 +1,6 @@
 isin,name,pm,settore,score,prezzo,bid,ask,spread_pct,prezzo_limite,data_chiusura
-DE000A0D6554,Nordex,P,european,76.9,48.0,0,0,0,0,06/05/2026
-DE0006766504,Aurubis,P,european,73.8,193.1,0,0,0,0,06/05/2026
-GB00BPJHV584,Ithaca Energy Plc,P,energy,67.3,292.4944,0,0,0,0,06/05/2026
-US55405W1045,MYR Group,P,other,66.4,386.9723,0,0,0,0,06/05/2026
-JP3166000004,Ebara,P,em_asia,66.2,28.5509,0,0,0,0,01/05/2026
+DE000A0D6554,Nordex,P,european,75.7,47.12,0,0,0,0,08/05/2026
+DE0006766504,Aurubis,P,european,73.6,192.4,0,0,0,0,08/05/2026
+JP3166000004,Ebara,P,em_asia,73.5,31.1766,0,0,0,0,08/05/2026
+US55405W1045,MYR Group,P,other,89.4,363.0593,0,0,0,0,07/05/2026
+US3023011063,EZCORP,P,finance,78.7,27.9316,0,0,0,0,07/05/2026
