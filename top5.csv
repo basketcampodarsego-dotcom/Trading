@@ -1,6 +1,6 @@
 isin,name,pm,settore,score,prezzo,bid,ask,spread_pct,prezzo_limite,data_chiusura
-DE000A0D6554,Nordex,P,european,75.2,46.74,0,0,0,0,08/05/2026
-JP3166000004,Ebara,P,em_asia,73.5,31.168,0,0,0,0,08/05/2026
-DE0006766504,Aurubis,P,european,71.8,186.6,0,0,0,0,08/05/2026
-JP3224200000,Kawasaki Heavy Industries,P,em_asia,69.9,17.7034,0,0,0,0,08/05/2026
-GB00BPJHV584,Ithaca Energy Plc,P,energy,69.3,303.3599,0,0,0,0,08/05/2026
+US6078281002,Modine Manufacturing,P,other,86.0,215.1446,0,0,0,0,21/05/2026
+DE0006766504,Aurubis,P,european,74.4,195.0,0,0,0,0,21/05/2026
+DE000A0D6554,Nordex,P,european,53.3,43.62,0,0,0,0,21/05/2026
+GB00BPJHV584,Ithaca Energy Plc,P,energy,69.5,296.185,0,0,0,0,21/05/2026
+JP3166000004,Ebara,P,em_asia,48.3,27.2796,0,0,0,0,21/05/2026
