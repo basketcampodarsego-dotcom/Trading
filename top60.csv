@@ -1,61 +1,61 @@
 isin,name,pm,settore,score,stato,prezzo,spread_pct,prezzo_limite,data_chiusura
-US31188V1008,Fastly (A),M,us_tech,89.1,ALT,16.834,0,0,08/05/2026
-US9108734057,United Microelectronics (ADR),M,semiconductors,88.3,ALT,12.9936,0,0,08/05/2026
-US7672921050,Riot Platforms,M,finance,87.6,ALT,20.5682,0,0,08/05/2026
-IL0010952641,Camtek,M,semiconductors,87.0,ALT,171.378,0,0,08/05/2026
-US5763231090,MasTec,M,other,87.0,ALT,350.2372,0,0,08/05/2026
-US3687361044,Generac,M,other,85.4,,226.8151,0,0,08/05/2026
-US8618961085,StoneX,M,finance,84.9,,102.8794,0,0,08/05/2026
-US5335351004,Lincoln Educational Services Corp.,M,other,84.2,,37.5253,0,0,08/05/2026
-DE000A1K0235,Suess MicroTec,M,semiconductors,83.7,,88.5,0,0,08/05/2026
-JP3914400001,Murata Manufacturing,M,semiconductors,83.1,,31.7101,0,0,08/05/2026
-JP3385820000,GS Yuasa,M,em_asia,82.4,,35.8839,0,0,08/05/2026
-US74762E1029,Quanta Services,M,other,82.2,,638.1799,0,0,08/05/2026
-US49338L1035,Keysight Technologies,M,us_tech,81.8,,305.4556,0,0,08/05/2026
-US50012A1088,Kodiak Gas Services,M,energy,81.7,,58.4415,0,0,08/05/2026
-US6098391054,Monolithic Power Systems,M,semiconductors,81.7,,1357.8859,0,0,08/05/2026
-US6677461013,Northwest Pipe,M,commodity,81.7,,93.8238,0,0,08/05/2026
-CA4957802073,Kingman Minerals,M,energy,81.6,,58.3821,0,0,08/05/2026
-US7291321005,Plexus,M,semiconductors,81.5,,225.8942,0,0,08/05/2026
-US0420682058,ARM (ADR),M,semiconductors,81.3,,182.9967,0,0,08/05/2026
-US25525P1075,Diversified Hlthc.,M,other,79.8,,7.0654,0,0,08/05/2026
-US3023011063,EZCORP,P,finance,79.5,,28.249,0,0,08/05/2026
-US44951W1062,IES Holdings,M,other,79.2,,563.8084,0,0,08/05/2026
-MHY410531021,International Seaways,M,energy,78.9,,76.9431,0,0,08/05/2026
-US78440P3064,SK Telecom (ADR),M,us_tech,78.5,,31.996,0,0,08/05/2026
-US7404441047,Preformed Line Products,M,other,78.0,,293.5101,0,0,08/05/2026
-US3665051054,Garrett Motion,M,other,77.6,,24.5699,0,0,08/05/2026
-US88362T1034,Thermon,M,other,77.6,,55.505,0,0,08/05/2026
-PLTSQGM00016,Ten Square Games S.A.,M,energy,77.3,,37.0542,0,0,08/05/2026
-US5370081045,Littelfuse,M,semiconductors,77.2,,385.1782,0,0,08/05/2026
-US4834971032,KalVista Pharma.,M,healthcare,77.0,,22.6815,0,0,08/05/2026
-US92922P1066,W&T Offshore,M,energy,76.7,,3.119,0,0,08/05/2026
-US03676C1009,Anterix,M,us_tech,76.4,,47.1623,0,0,08/05/2026
-JP3982800009,Rohm,M,semiconductors,76.2,,21.1346,0,0,08/05/2026
-CY0200352116,Frontline,M,energy,76.1,,33.1757,0,0,08/05/2026
-PLFERRO00016,Ferro S.A.,M,energy,76.1,,33.1502,0,0,08/05/2026
-SG9999003735,XP Power,M,em_asia,76.1,,2205.2018,0,0,08/05/2026
-JP3497800007,DAIHEN,M,em_asia,75.5,,93.6667,0,0,08/05/2026
-DE000A0D6554,Nordex,P,european,75.2,TOP-5,46.74,0,0,08/05/2026
-US28618M1062,Element Solutions,M,commodity,75.1,,36.3244,0,0,08/05/2026
-GB00BDSFG982,TechnipFMC,M,energy,74.9,,60.3426,0,0,08/05/2026
-US8485603067,Spire Global,M,other,74.4,,15.6797,0,0,08/05/2026
-US1491231015,Caterpillar,M,other,74.3,,765.6589,0,0,08/05/2026
-US49926D1090,Knowles,M,semiconductors,74.3,,29.6154,0,0,08/05/2026
-CA14875E1025,CAT Strategic Metals,M,canadian,74.2,,764.9672,0,0,08/05/2026
-US29275Y1029,Enersys,M,other,74.0,,195.5871,0,0,08/05/2026
-US9282981086,Vishay Intertechnology (B),M,semiconductors,74.0,,28.754,0,0,08/05/2026
-CA26916F1045,E Split,M,canadian,73.9,,195.4153,0,0,08/05/2026
-GRS284183001,The House of Agriculture Spiroy,M,other,73.9,,15.6076,0,0,08/05/2026
-US45662N1037,Infineon (ADR),M,semiconductors,73.8,,61.675,0,0,08/05/2026
-BMG657731060,Nordic American Tankers,M,energy,73.7,,5.0407,0,0,08/05/2026
-CA84859H2072,Spirit Blockchain Capital,M,crypto,73.7,,15.5821,0,0,08/05/2026
-JP3166000004,Ebara,P,em_asia,73.5,TOP-5,31.168,0,0,08/05/2026
-JP3549600009,Denka,M,commodity,73.5,,23.6769,0,0,08/05/2026
-US21873S1087,"CoreWeave Inc. Registered Shares A DL-,0001",M,us_tech,73.5,,96.7009,0,0,08/05/2026
-US4663131039,Jabil Circuit,M,semiconductors,73.5,,302.1541,0,0,08/05/2026
-JP3879250003,Maruwa,M,semiconductors,73.4,,373.6368,0,0,08/05/2026
-JP3866800000,Panasonic,M,us_tech,73.1,,17.9853,0,0,08/05/2026
-PLSUNEX00013,Sunex,M,us_tech,73.1,,202.3089,0,0,08/05/2026
-US87162W1009,Synnex,M,us_tech,73.0,,202.1009,0,0,08/05/2026
-CA6744822033,Obsidian Energy,M,energy,72.7,,10.6936,0,0,08/05/2026
+CA4957802073,Kingman Minerals,M,energy,89.9,ALT,62.2699,0,0,21/05/2026
+US50012A1088,Kodiak Gas Services,M,energy,89.9,ALT,62.2699,0,0,21/05/2026
+JP3919800007,Meidensha,M,em_asia,89.2,ALT,58.0693,0,0,21/05/2026
+US5335351004,Lincoln Educational Services Corp.,M,other,88.4,ALT,40.2918,0,0,21/05/2026
+US7672921050,Riot Platforms,M,finance,88.4,ALT,21.0491,0,0,21/05/2026
+JP3661800007,Nichicon,M,semiconductors,88.3,,16.9279,0,0,21/05/2026
+CA7029251088,Pason Systems,M,us_tech,87.6,,129.6493,0,0,21/05/2026
+US6078281002,Modine Manufacturing,P,other,86.0,TOP-5,215.1446,0,0,21/05/2026
+DE0005677108,Elmos Semiconductor,M,semiconductors,85.9,,181.6,0,0,21/05/2026
+US08160H1014,Benchmark Electronics,M,semiconductors,85.8,,70.9149,0,0,21/05/2026
+JP3912700006,Musashi Seimitsu Industry,M,em_asia,85.0,,28.0596,0,0,21/05/2026
+JP3701200002,Nippon Chemi-Con,M,semiconductors,84.7,,15.8336,0,0,21/05/2026
+US25525P1075,Diversified Hlthc.,M,other,84.6,,7.6558,0,0,21/05/2026
+US78440P3064,SK Telecom (ADR),M,us_tech,83.5,,33.6166,0,0,21/05/2026
+US03676C1009,Anterix,M,us_tech,83.0,,51.612,0,0,21/05/2026
+US45662N1037,Infineon (ADR),M,semiconductors,83.0,,68.988,0,0,21/05/2026
+US5763231090,MasTec,M,other,82.5,,334.4199,0,0,21/05/2026
+US5184151042,Lattice Semiconductor,M,semiconductors,82.3,,119.8689,0,0,21/05/2026
+JP3678000005,Nisshinbo Holdings,M,em_asia,82.2,,12.6566,0,0,21/05/2026
+US81617J3014,Select Energy Services,M,energy,82.2,,16.8943,0,0,21/05/2026
+US6677461013,Northwest Pipe,M,commodity,80.7,,93.779,0,0,21/05/2026
+DE0006231004,Infineon Technologies,M,semiconductors,79.9,,68.0,0,0,21/05/2026
+US3023011063,EZCORP,P,finance,79.8,,28.7651,0,0,21/05/2026
+JP3866800000,Panasonic,M,us_tech,79.1,,18.5313,0,0,21/05/2026
+US1572101053,CEVA,M,semiconductors,78.8,,33.0661,0,0,21/05/2026
+IT0003621783,Societa Sportiva Lazio,M,commodity,78.6,,11.4149,0,0,21/05/2026
+US8038663006,Sasol (ADR),M,commodity,78.6,,11.4149,0,0,21/05/2026
+US6098391054,Monolithic Power Systems,M,semiconductors,78.5,,1342.9872,0,0,21/05/2026
+JP3352400000,Citizen Watch,M,em_asia,78.3,,11.4784,0,0,21/05/2026
+US4834971032,KalVista Pharma.,M,healthcare,77.3,,23.0276,0,0,21/05/2026
+US7404441047,Preformed Line Products,M,other,77.1,,293.4228,0,0,21/05/2026
+US74762E1029,Quanta Services,M,other,77.1,,616.6859,0,0,21/05/2026
+US8618961085,StoneX,M,finance,77.0,,96.7037,0,0,21/05/2026
+SGXE34184239,Seatrium Ltd,M,semiconductors,76.7,,56.4807,0,0,21/05/2026
+US8610121027,STMicroelectronics (ADR),M,semiconductors,76.7,,56.4807,0,0,21/05/2026
+US0301112076,American Superconductor,M,other,76.6,,42.5111,0,0,21/05/2026
+CA26916F1045,E Split,M,canadian,76.2,,205.5104,0,0,21/05/2026
+US29275Y1029,Enersys,M,other,76.2,,205.5104,0,0,21/05/2026
+US7291321005,Plexus,M,semiconductors,76.2,,220.5381,0,0,21/05/2026
+US88362T1034,Thermon,M,other,75.7,,55.9474,0,0,21/05/2026
+DE000A1K0235,Suess MicroTec,M,semiconductors,75.6,,86.85,0,0,21/05/2026
+GB00BDSFG982,TechnipFMC,M,energy,75.2,,61.4269,0,0,21/05/2026
+JP3879250003,Maruwa,M,semiconductors,75.0,,378.2089,0,0,21/05/2026
+JP3385820000,GS Yuasa,M,em_asia,74.6,,32.7073,0,0,21/05/2026
+US49926D1090,Knowles,M,semiconductors,74.6,,30.3048,0,0,21/05/2026
+US69888T2078,Par Pacific Holdings,M,energy,74.6,,49.7196,0,0,21/05/2026
+DE0006766504,Aurubis,P,european,74.4,TOP-5,195.0,0,0,21/05/2026
+GB00BP7NQJ77,Kistos Holdings Plc,M,energy,74.4,,338.1503,0,0,21/05/2026
+US5370081045,Littelfuse,M,semiconductors,74.2,,381.8514,0,0,21/05/2026
+CA8629521086,Strathcona Resources,M,energy,74.0,,29.5829,0,0,21/05/2026
+JP3896800004,Mitsubishi Gas Chemical,M,commodity,73.8,,26.9437,0,0,21/05/2026
+CA84859H2072,Spirit Blockchain Capital,M,crypto,73.5,,16.5244,0,0,21/05/2026
+GRS284183001,The House of Agriculture Spiroy,M,other,73.5,,16.5244,0,0,21/05/2026
+US5766901012,Materion,M,commodity,73.5,,180.7452,0,0,21/05/2026
+US8485603067,Spire Global,M,other,73.5,,16.5244,0,0,21/05/2026
+US88031M1099,Tenaris (ADR),M,energy,73.4,,53.1346,0,0,21/05/2026
+DE000A2NB601,Jenoptik,M,semiconductors,73.3,,42.62,0,0,21/05/2026
+US0079731008,Advanced Energy Industries,M,other,73.0,,278.5241,0,0,21/05/2026
+US10948W1036,BrightSphere Investment Group,M,finance,73.0,,62.4247,0,0,21/05/2026
+US4663131039,Jabil Circuit,M,semiconductors,72.9,,306.5839,0,0,21/05/2026
