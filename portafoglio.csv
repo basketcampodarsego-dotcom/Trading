@@ -1,8 +1,6 @@
 isin,name
 IE00B4ND3602,Physical Gold USD (Acc)
 LU1407887915,US Treasury Bond 7-10Y USD (Acc)
-DE000VH1A3V4,Short S&P500 7631.65 (Turbo)
-US08160H1014,Benchmark Electronics Inc.
 US92826C8394,Visa
 US30303M1027,Meta Platforms (A)
 DE000A0D6554,Nordex SE
@@ -15,13 +13,15 @@ JE00BN7KB557,WisdomTree Coffee ETC USD Acc
 IE00BHZRQZ17,FTSE India USD (Acc)
 US5949724083,Strategy Inc. (MicroStrategy A)
 JE00B1VS3333,Physical Silver USD
-LU0659580079,MSCI Japan EUR (Acc)
 JE00B1VS3002,Physical Palladium USD
 US0846707026,Berkshire Hathaway (B)
 IE00BK5BCD43,Artificial Intelligence USD (Acc)
 LU1900066975,MSCI Korea EUR (Acc)
 IE000NFR7C63,MSCI China Tech USD (Acc)
 IE000IM4K4K2,AI Metaverse and Blockchain USD (Acc)
+JP3166000004,Ebara Corp.
+US55405W1045,MYR Group Inc.
+DE0006766504,Aurubis AG
 CRYPTO_XRP,XRP
 CRYPTO_BTC,Bitcoin
 CRYPTO_ETH,Ethereum
