@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portafoglio</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="menu">
+  <span class="menu-logo">◈ PAC v4.0</span>
+  <div style="width:16px"></div>
+  <a href="index.html">Dashboard</a>
+  <a href="portfolio.html">Portafoglio</a>
+  <a href="backtest.html">Backtest</a>
+  <a href="report.html">Report</a>
+</div>
+
+<div class="page-content">
+
+  <div class="page-title">▸ Portafoglio</div>
+
+  <!-- AGGIUNGI POSIZIONE -->
+  <div class="add-form">
+    <!-- Riga 1: ricerca + qty + prezzo + data -->
+    <div class="add-form-row">
+      <div class="search-wrap" style="flex:3;min-width:140px">
+        <input id="p_ticker" placeholder="Ticker / Nome / ISIN" autocomplete="off">
+        <div id="p_ticker_dd"></div>
+      </div>
+      <input id="p_qty"   placeholder="Qtà"   type="number" min="0" step="any" style="flex:1;min-width:70px">
+      <input id="p_price" placeholder="Prezzo" type="number" min="0" step="any" style="flex:1;min-width:80px">
+      <input id="p_date"  placeholder="Data"   type="date"                      style="flex:1;min-width:110px">
+    </div>
+    <!-- Info titolo selezionato -->
+    <div id="p_selected_info" style="display:none;padding:4px 2px;font-family:var(--mono);font-size:11px;color:var(--accent);width:100%"></div>
+    <!-- Riga 2: bottoni -->
+    <div class="add-form-row" style="gap:6px">
+      <button class="btn-primary" onclick="addPosition()" style="flex:2">+ Aggiungi</button>
+      <button onclick="refreshAll()">⟳ Aggiorna</button>
+      <button onclick="exportCSV()">↓ CSV</button>
+      <label style="cursor:pointer;margin:0;flex:1">
+        <span class="btn-importa">↑ Importa CSV</span>
+        <input type="file" accept=".csv" style="display:none" onchange="importCSV(event)">
+      </label>
+    </div>
+  </div>
+
+  <!-- TABELLA -->
+  <div style="overflow-x:auto">
+  <table id="portfolioTable">
+    <thead>
+      <tr>
+        <th onclick="sortBy('ticker')">Ticker ⇅</th>
+        <th onclick="sortBy('qty')">Qty ⇅</th>
+        <th>P.Acquisto</th>
+        <th>P.Attuale</th>
+        <th onclick="sortBy('value')">Valore ⇅</th>
+        <th onclick="sortBy('pl')">P/L € ⇅</th>
+        <th onclick="sortBy('plpct')">P/L % ⇅</th>
+        <th>Segnale</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="portfolioBody">
+      <tr><td colspan="9" class="loading">CARICAMENTO</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary-bar" id="summaryBar">
+    <div><span class="s-label">VALORE TOTALE</span><span class="s-val" id="s-total">–</span></div>
+    <div><span class="s-label">COSTO TOTALE</span><span class="s-val" id="s-cost">–</span></div>
+    <div><span class="s-label">P/L TOTALE €</span><span class="s-val" id="s-pl">–</span></div>
+    <div><span class="s-label">P/L TOTALE %</span><span class="s-val" id="s-plpct">–</span></div>
+    <div><span class="s-label">POSIZIONI</span><span class="s-val" id="s-count">–</span></div>
+    <div id="s-saldo-wrap" style="display:none"><span class="s-label">SALDO CONTANTI</span><span class="s-val td-neu" id="s-saldo">–</span></div>
+  </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script src="core.js"></script>
+<script src="portfolio.js"></script>
+</body>
+</html>

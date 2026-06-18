@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trading Dashboard</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://unpkg.com/lightweight-charts@3.8.0/dist/lightweight-charts.standalone.production.js"></script>
+</head>
+<body>
+
+<div class="menu">
+  <span class="menu-logo">◈ PAC v4.0</span>
+  <div style="width:16px"></div>
+  <a href="index.html">Dashboard</a>
+  <a href="portfolio.html">Portafoglio</a>
+  <a href="backtest.html">Backtest</a>
+  <a href="report.html">Report</a>
+</div>
+
+<div class="dash-header">
+  <h2 id="title">–</h2>
+  <div id="ticker">–</div>
+  <div id="last-price">–</div>
+</div>
+
+<div class="search-bar">
+  <select id="csvSelect" onchange="onCsvChange()"></select>
+  <div class="search-wrap">
+    <input id="search" placeholder="Cerca ticker / nome / ISIN…" autocomplete="off"
+           oninput="onSearchInput()" onkeydown="onSearchKey(event)">
+    <div id="search-dropdown"></div>
+  </div>
+  <button onclick="searchAsset()">Cerca</button>
+</div>
+
+<div style="position:relative">
+  <div id="chart"></div>
+  <div id="spinner" class="spinner">CARICAMENTO…</div>
+</div>
+
+<!-- NAV GRANDI SOTTO GRAFICO -->
+<div class="nav-bottom">
+  <button onclick="nav(-1)">◀ PREC</button>
+  <button onclick="nav(1)">SUCC ▶</button>
+</div>
+
+<!-- ULTIMO SEGNALE -->
+<div id="last-signal-bar"></div>
+
+<div id="infoPanel">
+  <div id="signal">–</div>
+  <div id="tech" style="margin-top:4px"></div>
+  <div id="fund" style="margin-top:2px"></div>
+</div>
+
+<div id="toast"></div>
+
+<script src="core.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
