@@ -1,61 +1,61 @@
 isin,name,pm,settore,score,stato,prezzo,spread_pct,prezzo_limite,data_chiusura
-CNE1000004L9,Weichai Power,M,other,89.4,ALT,4.0507,0,0,16/06/2026
-US21874A1060,Core Scientific,M,us_tech,88.4,ALT,24.2113,0,0,16/06/2026
-US3687361044,Generac,M,other,87.8,ALT,232.8575,0,0,16/06/2026
-US49926D1090,Knowles,M,semiconductors,87.6,,35.2838,0,0,16/06/2026
-PLSUNEX00013,Sunex,M,us_tech,87.0,,244.1452,0,0,16/06/2026
-US87162W1009,Synnex,M,us_tech,87.0,,244.1452,0,0,16/06/2026
-US92537N1081,Vertiv,M,other,86.2,,261.9163,0,0,16/06/2026
-JP3352400000,Citizen Watch,M,em_asia,86.1,,12.6877,0,0,16/06/2026
-GB00B635TG28,Enquest,M,energy,84.7,,29.7846,0,0,16/06/2026
-US5786051079,Mayville Engineering,M,other,84.4,,30.0532,0,0,16/06/2026
-US43289P1066,Himax Technologies (ADR),M,semiconductors,84.3,,14.5444,0,0,16/06/2026
-US7404441047,Preformed Line Products,M,other,84.0,,324.2612,0,0,16/06/2026
-US25525P1075,Diversified Hlthc.,M,other,83.7,,7.5682,0,0,16/06/2026
-SGXE34184239,Seatrium Ltd,M,semiconductors,83.6,,64.6869,0,0,16/06/2026
-US8610121027,STMicroelectronics (ADR),M,semiconductors,83.3,,64.4975,0,0,16/06/2026
-CA4957802073,Kingman Minerals,M,energy,82.8,,58.3414,0,0,16/06/2026
-US0193301092,Allied Motion,M,semiconductors,82.7,,82.9574,0,0,16/06/2026
-US50012A1088,Kodiak Gas Services,M,energy,82.7,,58.3198,0,0,16/06/2026
-US3845561063,Graham,M,other,82.3,,98.6189,0,0,16/06/2026
-US5370081045,Littelfuse,M,semiconductors,82.1,,408.2475,0,0,16/06/2026
-US10948W1036,BrightSphere Investment Group,M,finance,81.4,,71.153,0,0,16/06/2026
-JP3249600002,Kyocera,M,em_asia,80.5,,20.2798,0,0,16/06/2026
-JP3385820000,GS Yuasa,M,em_asia,80.4,,35.2656,0,0,16/06/2026
-JP3538800008,TDK,M,semiconductors,80.4,,20.4141,0,0,16/06/2026
-US30226D1063,Extreme Networks,M,us_tech,80.3,,27.1861,0,0,16/06/2026
-JP3560800009,Tokai Carbon,M,commodity,80.0,,9.7131,0,0,16/06/2026
-HK3808041546,Sinotruk Hong Kong,M,china,79.6,,5.1876,0,0,16/06/2026
-NL0000226223,STMicroelectronics,M,semiconductors,79.5,,65.68,0,0,16/06/2026
-US01741R1023,ATI,M,other,79.5,,169.462,0,0,16/06/2026
-US31188V1008,Fastly (A),M,us_tech,79.5,,15.0158,0,0,16/06/2026
-CH0030380734,Huber & Suhner,M,us_tech,79.4,,266.073,0,0,16/06/2026
-US5763231090,MasTec,M,other,79.1,,319.0091,0,0,16/06/2026
-CY0200352116,Frontline,M,energy,79.0,,33.932,0,0,16/06/2026
-PLFERRO00016,Ferro S.A.,M,energy,79.0,,33.9515,0,0,16/06/2026
-US90184D1000,Twist Bioscience,M,healthcare,79.0,,73.0257,0,0,16/06/2026
-JP3853000002,Horiba,M,us_tech,78.7,,145.0785,0,0,16/06/2026
-JP3166000004,Ebara,P,em_asia,78.6,TOP-5,33.4615,0,0,16/06/2026
-US0079731008,Advanced Energy Industries,M,other,78.6,,304.751,0,0,16/06/2026
-US0538071038,Avnet,M,us_tech,78.4,,78.6179,0,0,16/06/2026
-CA14875E1025,CAT Strategic Metals,M,canadian,77.9,,822.5133,0,0,16/06/2026
-DE0006766504,Aurubis,P,european,77.9,TOP-5,205.8,0,0,16/06/2026
-LU0075646355,Subsea 7,M,energy,77.9,,31.1802,0,0,16/06/2026
-US1491231015,Caterpillar,M,other,77.9,,822.3497,0,0,16/06/2026
-US2641471097,Ducommun,M,defense,77.9,,140.851,0,0,16/06/2026
-US0021211018,A10 Networks,M,us_tech,77.8,,28.1934,0,0,16/06/2026
-JP3912700006,Musashi Seimitsu Industry,M,em_asia,77.1,,25.7458,0,0,16/06/2026
-JP3396350005,SKY Perfect JSAT Holdings,M,us_tech,77.0,,17.5576,0,0,16/06/2026
-US81617J3014,Select Energy Services,M,energy,77.0,,15.6616,0,0,16/06/2026
-US5352191093,Lindblad Expeditions,M,other,76.7,,20.6123,0,0,16/06/2026
-US0427351004,Arrow Electronics,M,us_tech,76.3,,198.0386,0,0,16/06/2026
-GB00BKPG0138,"Seraphim Space Investment Trus Registered Shares LS -,01",M,thematic,76.0,,225.7848,0,0,16/06/2026
-US4663131039,Jabil Circuit,M,semiconductors,76.0,,327.6665,0,0,16/06/2026
-US74762E1029,Quanta Services,M,other,76.0,,624.5178,0,0,16/06/2026
-JP3896800004,Mitsubishi Gas Chemical,M,commodity,75.8,,27.3297,0,0,16/06/2026
-KYG393871085,GlobalFoundries,M,semiconductors,75.8,,70.0854,0,0,16/06/2026
-US0997241064,BorgWarner,M,other,75.6,,62.3278,0,0,16/06/2026
-US01749D1054,ALLEGRO Microsystems,M,semiconductors,75.5,,46.6016,0,0,16/06/2026
-US88362T1034,Thermon,M,other,75.5,,52.6415,0,0,29/05/2026
-US4834971032,KalVista Pharma.,M,healthcare,75.4,,23.247,0,0,12/06/2026
-JP3919800007,Meidensha,M,em_asia,75.3,,50.6325,0,0,16/06/2026
+US92537N1081,Vertiv,M,other,89.6,ALT,277.025,0,0,17/06/2026
+US21874A1060,Core Scientific,M,us_tech,89.1,ALT,24.7559,0,0,17/06/2026
+US5184151042,Lattice Semiconductor,M,semiconductors,87.1,ALT,121.9999,0,0,17/06/2026
+PLSUNEX00013,Sunex,M,us_tech,86.9,,247.5675,0,0,17/06/2026
+US87162W1009,Synnex,M,us_tech,86.9,,247.5675,0,0,17/06/2026
+US49926D1090,Knowles,M,semiconductors,86.1,,35.0926,0,0,17/06/2026
+JP3352400000,Citizen Watch,M,em_asia,85.7,,12.7485,0,0,18/06/2026
+US3687361044,Generac,M,other,85.1,,233.9509,0,0,17/06/2026
+JP3497800007,DAIHEN,M,em_asia,84.6,,98.9079,0,0,18/06/2026
+JP3919800007,Meidensha,M,em_asia,84.4,,55.4188,0,0,18/06/2026
+JP3166000004,Ebara,P,em_asia,83.7,TOP-5,36.2988,0,0,18/06/2026
+US3845561063,Graham,M,other,83.1,,101.0908,0,0,17/06/2026
+JP3385820000,GS Yuasa,M,em_asia,82.9,,36.4235,0,0,18/06/2026
+JP3765150002,Harmonic Drive Systems Inc. Registered Shares o.N.,M,em_asia,82.8,,42.1335,0,0,18/06/2026
+US43289P1066,Himax Technologies (ADR),M,semiconductors,82.7,,14.7855,0,0,17/06/2026
+JP3853000002,Horiba,M,us_tech,82.2,,154.2182,0,0,18/06/2026
+US25525P1075,Diversified Hlthc.,M,other,82.0,,7.4931,0,0,17/06/2026
+US7404441047,Preformed Line Products,M,other,81.6,,317.7614,0,0,17/06/2026
+US10948W1036,BrightSphere Investment Group,M,finance,81.5,,72.1567,0,0,17/06/2026
+JP3896800004,Mitsubishi Gas Chemical,M,commodity,81.0,,29.0542,0,0,18/06/2026
+SGXE34184239,Seatrium Ltd,M,semiconductors,80.8,,63.9919,0,0,17/06/2026
+US8610121027,STMicroelectronics (ADR),M,semiconductors,80.8,,63.9919,0,0,17/06/2026
+US0193301092,Allied Motion,M,semiconductors,80.7,,81.7258,0,0,17/06/2026
+US5786051079,Mayville Engineering,M,other,80.2,,29.2308,0,0,17/06/2026
+JP3538800008,TDK,M,semiconductors,80.1,,20.9041,0,0,18/06/2026
+CH0030380734,Huber & Suhner,M,us_tech,79.9,,268.018,0,0,18/06/2026
+US5763231090,MasTec,M,other,79.9,,327.034,0,0,17/06/2026
+CA4957802073,Kingman Minerals,M,energy,79.8,,58.0516,0,0,17/06/2026
+US50012A1088,Kodiak Gas Services,M,energy,79.8,,58.0516,0,0,17/06/2026
+US01741R1023,ATI,M,other,79.5,,171.721,0,0,17/06/2026
+US31188V1008,Fastly (A),M,us_tech,79.3,,15.1867,0,0,17/06/2026
+NL0000226223,STMicroelectronics,M,semiconductors,79.2,,66.41,0,0,18/06/2026
+US0079731008,Advanced Energy Industries,M,other,78.5,,308.201,0,0,17/06/2026
+US5370081045,Littelfuse,M,semiconductors,78.5,,406.8756,0,0,17/06/2026
+JP3742600004,NHK Spring,M,em_asia,78.4,,22.726,0,0,18/06/2026
+JP3293330001,Kokusai Electric,M,semiconductors,78.3,,52.4852,0,0,18/06/2026
+US30226D1063,Extreme Networks,M,us_tech,78.2,,26.893,0,0,17/06/2026
+CA14875E1025,CAT Strategic Metals,M,canadian,78.0,,833.849,0,0,17/06/2026
+US1491231015,Caterpillar,M,other,78.0,,833.849,0,0,17/06/2026
+JP3249600002,Kyocera,M,em_asia,77.7,,20.0147,0,0,18/06/2026
+US4834971032,KalVista Pharma.,M,healthcare,77.7,,23.5521,0,0,12/06/2026
+JP3549600009,Denka,M,commodity,77.6,,24.445,0,0,18/06/2026
+JP3560800009,Tokai Carbon,M,commodity,77.6,,9.6197,0,0,18/06/2026
+US0021211018,A10 Networks,M,us_tech,77.5,,28.7161,0,0,17/06/2026
+GB00BKPG0138,"Seraphim Space Investment Trus Registered Shares LS -,01",M,thematic,77.4,,229.9725,0,0,18/06/2026
+US5352191093,Lindblad Expeditions,M,other,77.4,,20.9003,0,0,17/06/2026
+HK3808041546,Sinotruk Hong Kong,M,china,76.9,,5.0417,0,0,18/06/2026
+LU0075646355,Subsea 7,M,energy,76.8,,30.6326,0,0,18/06/2026
+US0538071038,Avnet,M,us_tech,76.8,,78.3413,0,0,17/06/2026
+US0427351004,Arrow Electronics,M,us_tech,76.7,,197.1311,0,0,17/06/2026
+US2641471097,Ducommun,M,defense,76.7,,142.6123,0,0,17/06/2026
+US90184D1000,Twist Bioscience,M,healthcare,76.5,,72.2875,0,0,17/06/2026
+CY0200352116,Frontline,M,energy,76.1,,33.8889,0,0,17/06/2026
+PLFERRO00016,Ferro S.A.,M,energy,76.1,,33.8889,0,0,17/06/2026
+US81617J3014,Select Energy Services,M,energy,76.1,,15.7363,0,0,17/06/2026
+US88362T1034,Thermon,M,other,75.6,,53.3324,0,0,29/05/2026
+JP3678000005,Nisshinbo Holdings,M,em_asia,75.4,,11.6667,0,0,18/06/2026
+US01749D1054,ALLEGRO Microsystems,M,semiconductors,75.3,,47.0868,0,0,17/06/2026
+US20451W1018,Compass Pathways ADR,M,healthcare,75.2,,10.4153,0,0,17/06/2026
+JP3738600000,NGK SPARK PLUG,M,em_asia,75.0,,58.9435,0,0,18/06/2026
