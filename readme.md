@@ -2,6 +2,20 @@
 
 ---
 
+## v1.5 — 18/06/2026
+
+### Modifiche
+
+**`portfolio.js`**
+- `exportCSV()` riscritta in formato asincrono: produce ora lo stesso schema di `portafoglio_reale_input.csv` (`isin,nome,valore_eur,pl_acquisto_eur,quantita,prezzo_eur`) invece del vecchio `ticker,qty,buy_price,date,isin,name`
+- Recupera il prezzo corrente di ogni posizione via `getCurrentPrice`; in assenza di prezzo live usa il prezzo di acquisto come fallback e avvisa con un toast
+- Aggiunta riga `SALDO_CONTANTI` nell'export se presente; aggiunta funzione `round2()` per arrotondamento a 2 decimali
+
+**`app.js`, `core.js`, `backtest.js`, `backtest.html`, `style.css`**
+- Consolidamento: ripristinate in questo merge le funzionalità già sviluppate in precedenza (andate perse durante una ricarica completa del repository) — selezione automatica di `Titoli.csv` come lista predefinita, e navigazione PREC/SUCC + ricerca ticker/nome/ISIN nella pagina Backtest con le stesse modalità della Dashboard
+
+---
+
 ## v1.4 — 26/04/2026
 
 ### Modifiche

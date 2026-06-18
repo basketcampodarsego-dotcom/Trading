@@ -121,6 +121,10 @@ async function populateCsvSelect(){
     opt.value = 'Titoli.csv'; opt.textContent = 'Titoli';
     sel.appendChild(opt);
   }
+  // Per definizione, la prima lista caricata è sempre Titoli.csv (se presente)
+  if([...sel.options].some(o=>o.value==='Titoli.csv')){
+    sel.value = 'Titoli.csv';
+  }
   await loadCurrentCSV();
 }
 

@@ -227,7 +227,8 @@ button.btn-primary {
 
 .search-wrap input:focus { border-color: var(--accent); }
 
-#search-dropdown {
+#search-dropdown,
+#bt_ticker_dd {
   display: none;
   position: absolute;
   top: calc(100% + 2px);

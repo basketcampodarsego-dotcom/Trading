@@ -288,6 +288,8 @@ const CRYPTO_MAP = {
 // ── PARSER portafoglio_reale_input.csv ───────────────
 // Ritorna array {ticker, name, isin, qty, buyPrice, value, pl}
 // Righe SALDO_CONTANTI escluse dalla lista posizioni (restituite separatamente)
+// Colonna 'ticker' opzionale: se presente e compilata, viene usata direttamente
+// (nessuna risoluzione ISIN→ticker necessaria per quella riga)
 async function parsePortafoglioCSV(file){
   const text = await file.text();
   const rows = text.split('\n').filter(x=>x.trim());
@@ -299,6 +301,7 @@ async function parsePortafoglioCSV(file){
   const iPL    = header.indexOf('pl_acquisto_eur');
   const iQty   = header.indexOf('quantita');
   const iPrezzo= header.indexOf('prezzo_eur');
+  const iTicker= header.indexOf('ticker');
 
   const positions = [];
   let   saldo     = null;
@@ -306,22 +309,26 @@ async function parsePortafoglioCSV(file){
   for(const row of rows.slice(1)){
     if(!row.trim()) continue;
     const c = row.split(',').map(x=>x.trim().replace(/["\r]/g,''));
-    const isin     = iISIN  >= 0 ? c[iISIN]   : '';
-    const nome     = iNome  >= 0 ? c[iNome]   : '';
-    const valore   = iVal   >= 0 ? parseFloat(c[iVal])    : 0;
-    const pl       = iPL    >= 0 ? parseFloat(c[iPL])     : 0;
-    const qty      = iQty   >= 0 ? parseFloat(c[iQty])    : 0;
-    const prezzo   = iPrezzo>= 0 ? parseFloat(c[iPrezzo]) : 0;
+    const isin      = iISIN   >= 0 ? c[iISIN]   : '';
+    const nome      = iNome   >= 0 ? c[iNome]   : '';
+    const valore    = iVal    >= 0 ? parseFloat(c[iVal])    : 0;
+    const pl        = iPL     >= 0 ? parseFloat(c[iPL])     : 0;
+    const qty       = iQty    >= 0 ? parseFloat(c[iQty])    : 0;
+    const prezzo    = iPrezzo >= 0 ? parseFloat(c[iPrezzo]) : 0;
+    const tickerCSV = iTicker >= 0 ? c[iTicker] : '';
 
     if(isin === 'SALDO_CONTANTI'){
       saldo = {name: nome, value: valore};
       continue;
     }
 
-    // Determina ticker
+    // Determina ticker: CRYPTO_MAP ha priorità, poi la colonna ticker del CSV
+    // (se presente e compilata), infine l'ISIN come placeholder da risolvere
     let ticker = null;
     if(CRYPTO_MAP[isin]){
       ticker = CRYPTO_MAP[isin];
+    } else if(tickerCSV){
+      ticker = tickerCSV; // già fornito dal CSV, nessuna risoluzione necessaria
     } else {
       // Prova a risolvere ISIN → ticker via Yahoo (asincrono)
       ticker = isin; // placeholder, risolto dopo

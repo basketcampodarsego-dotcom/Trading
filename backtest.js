@@ -3,16 +3,12 @@
    ===================================================== */
 
 let btChart    = null;
-let btTickerList = [];
+let btDataList = [];   // titoli del file CSV attualmente selezionato (come dataList in app.js)
+let btIdx      = 0;    // indice corrente nel file, per navigazione PREC/SUCC
 
 // ── INIT ─────────────────────────────────────────────
 (async ()=>{
-  try{
-    const res   = await fetch('./files.json');
-    const files = await res.json();
-    const lists = await Promise.allSettled(files.map(f=>loadCSV(f)));
-    btTickerList = lists.flatMap(r=>r.status==='fulfilled'?r.value:[]);
-  }catch{ btTickerList=[]; }
+  await populateBtCsvSelect();
 
   const input   = document.getElementById('bt_ticker');
   const dd      = document.getElementById('bt_ticker_dd');
@@ -20,20 +16,80 @@ let btTickerList = [];
 
   attachSearchDropdown(
     input, dd,
-    ()=> btTickerList,
-    item => {
-      input.value          = item.ticker || item.isin || '';
-      input.dataset.ticker = item.ticker || '';
-      const parts = [item.ticker, item.name, item.isin].filter(Boolean);
-      infoEl.textContent   = parts.join('  ·  ');
-    }
+    ()=> btDataList,
+    item => selectBtTitolo(item, true)
   );
 
   input.addEventListener('input', ()=>{
     infoEl.textContent   = '';
     input.dataset.ticker = '';
   });
+
+  // Come la dashboard: al primo caricamento seleziona ed esegue subito sul primo titolo del file
+  if(btDataList.length) selectBtTitolo(btDataList[0], true);
 })();
+
+// ── FILES.JSON → SELECT (identico a populateCsvSelect in app.js) ──
+async function populateBtCsvSelect(){
+  const sel = document.getElementById('bt_csvSelect');
+  sel.innerHTML = '';
+  try{
+    const res   = await fetch('./files.json');
+    const files = await res.json();
+    files.forEach(f=>{
+      const opt = document.createElement('option');
+      opt.value = f;
+      opt.textContent = f.replace('.csv','');
+      sel.appendChild(opt);
+    });
+  }catch{
+    toast('⚠ files.json non trovato – uso Titoli.csv');
+    const opt = document.createElement('option');
+    opt.value = 'Titoli.csv'; opt.textContent = 'Titoli';
+    sel.appendChild(opt);
+  }
+  // Per definizione, la prima lista caricata è sempre Titoli.csv (se presente)
+  if([...sel.options].some(o=>o.value==='Titoli.csv')){
+    sel.value = 'Titoli.csv';
+  }
+  await loadBtCurrentCsv();
+}
+
+async function loadBtCurrentCsv(){
+  const csv = document.getElementById('bt_csvSelect').value;
+  try{
+    btDataList = await loadCSV(csv);
+  }catch(e){
+    toast('⚠ ' + e.message);
+    btDataList = [];
+  }
+  btIdx = 0;
+}
+
+async function onBtCsvChange(){
+  await loadBtCurrentCsv();
+  if(btDataList.length) selectBtTitolo(btDataList[0], true);
+}
+
+// ── SELEZIONE TITOLO (da dropdown, da nav, o al caricamento) ──
+function selectBtTitolo(item, autoRun){
+  const input  = document.getElementById('bt_ticker');
+  const infoEl = document.getElementById('bt_selected_info');
+  input.value          = item.ticker || item.isin || '';
+  input.dataset.ticker = item.ticker || '';
+  const parts = [item.ticker, item.name, item.isin].filter(Boolean);
+  infoEl.textContent   = parts.join('  ·  ');
+  const i = btDataList.indexOf(item);
+  if(i>=0) btIdx = i;
+  if(autoRun) runBacktest();
+}
+
+// ── NAV PREC/SUCC sul file selezionato (stesse modalità della dashboard) ──
+function btNav(d){
+  if(!btDataList.length) return;
+  btIdx = (btIdx + d + btDataList.length) % btDataList.length;
+  selectBtTitolo(btDataList[btIdx], true);
+}
 
 async function runBacktest(){
   const input    = document.getElementById('bt_ticker');

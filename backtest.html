@@ -20,6 +20,10 @@
 
 <div class="bt-controls">
   <div>
+    <label>FILE TITOLI</label>
+    <select id="bt_csvSelect" onchange="onBtCsvChange()" style="width:160px"></select>
+  </div>
+  <div>
     <label>TICKER / NOME / ISIN</label>
     <div class="search-wrap" style="width:200px">
       <input id="bt_ticker" placeholder="es: AAPL" autocomplete="off">
@@ -53,6 +57,12 @@
   <div style="margin-top:20px">
     <button class="btn-primary" onclick="runBacktest()">▶ Esegui</button>
   </div>
+</div>
+
+<!-- NAV GRANDI PER SCORRERE I TITOLI DEL FILE SELEZIONATO (come dashboard) -->
+<div class="nav-bottom">
+  <button onclick="btNav(-1)">◀ PREC</button>
+  <button onclick="btNav(1)">SUCC ▶</button>
 </div>
 
 <div id="bt-result">
