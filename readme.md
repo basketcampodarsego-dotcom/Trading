@@ -2,6 +2,15 @@
 
 ---
 
+## v2.1 — 24/06/2026
+
+### Modifiche
+
+**`admin.html`**
+- Fix upload file grandi: sostituito `btoa(String.fromCharCode(...array))` con loop iterativo — risolve "Maximum call stack size exceeded" su file >100KB
+
+---
+
 ## v2.0 — 24/06/2026
 
 ### Modifiche
