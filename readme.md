@@ -2,6 +2,24 @@
 
 ---
 
+## v2.0 — 24/06/2026
+
+### Modifiche
+
+**`admin.html`** *(nuovo)*
+- Pagina dedicata per upload file su GitHub (sostituisce modal in `index.html`)
+- Stessa logica GitHub Contents API PUT; token salvato in localStorage
+- Voce "Admin" aggiunta al menu di navigazione
+
+**`index.html`**
+- Rimossi: pulsante ↑ GitHub, modal overlay, script GitHub (~90 righe)
+- Aggiunta voce "Admin" al menu
+
+**`backtest.html`**
+- Aggiunta voce "Admin" al menu
+
+---
+
 ## v1.9 — 24/06/2026
 
 ### Modifiche
