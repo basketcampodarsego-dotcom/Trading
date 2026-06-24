@@ -2,6 +2,38 @@
 
 ---
 
+## v1.7 — 24/06/2026
+
+### Modifiche
+
+**`backtest.js`**
+- Aggiunta strategia **SP2** (porta da PAC_v4 celle 6/6b):
+  - `sp2Score()`: score v3.1.1 = YTD×0.30 + 1Y×0.40 + 2Y×0.30 (normalizzato 0-100), con penalità volatilità, persistence, cap anti-bubble
+  - `sp2AntiColtello()`: EMA10/20/40 weekly (≡ EMA50/100/200 daily) → moltiplicatore 0/0.5/0.75/1.0
+  - `sp2ATR()`: calcolo ATR(14) per trailing stop
+  - `strategySP2()`: BUY se score≥50 e ac>0; SELL se ac==0 (sotto EMA200) o trailing ATR×2.5 dal picco
+  - Colonna **USCITA** nel trade log (EMA200 / Trailing / aperto)
+- SP2 è ora la strategia default nel select
+
+**`backtest.html`**
+- Aggiunta opzione `SP2 Score + Anti-Coltello` come prima nel select STRATEGIA
+
+---
+
+## v1.6 — 24/06/2026
+
+### Modifiche
+
+**`backtest.js`**
+- Aggiunto grafico a candele del titolo sopra l'equity curve: `btCandleChart` (280px) con `addCandlestickSeries` (colori verde/rosso identici alla dashboard)
+- Marker BUY/SELL (freccia su/giù) posizionati sul grafico a candele in corrispondenza di ogni trade del log
+- Variabile `btCandleChart` aggiunta per gestione destroy/recreate al cambio titolo
+
+**`style.css`**
+- Aggiunto `#bt-candle-chart { height: 280px; margin-bottom: 6px; }`
+
+---
+
 ## v1.5 — 18/06/2026
 
 ### Modifiche

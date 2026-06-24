@@ -2,7 +2,8 @@
    backtest.js  –  simulazione strategie
    ===================================================== */
 
-let btChart    = null;
+let btChart       = null;
+let btCandleChart = null;
 let btDataList = [];   // titoli del file CSV attualmente selezionato (come dataList in app.js)
 let btIdx      = 0;    // indice corrente nel file, per navigazione PREC/SUCC
 
@@ -130,7 +131,9 @@ async function runBacktest(){
   // ── STRATEGIA ────────────────────────────────────
   let trades = [];
 
-  if(strategy === 'ema'){
+  if(strategy === 'sp2'){
+    trades = strategySP2(ohlc, capital, feePct);
+  } else if(strategy === 'ema'){
     trades = strategyEMA(data, capital, feePct);
   } else {
     trades = strategyRSI(data, capital, feePct);
@@ -187,6 +190,7 @@ async function runBacktest(){
         <div class="s-val">${fmtNum(avgWin,2)} / ${fmtNum(avgLoss,2)}</div></div>
     </div>
 
+    <div id="bt-candle-chart"></div>
     <div id="bt-chart"></div>
 
     <div style="padding:0 14px 14px">
@@ -195,7 +199,7 @@ async function runBacktest(){
       <table>
         <thead><tr>
           <th>#</th><th>DATA ENTRATA</th><th>DATA USCITA</th>
-          <th>PREZZO ENT.</th><th>PREZZO USC.</th><th>P/L €</th><th>P/L %</th>
+          <th>PREZZO ENT.</th><th>PREZZO USC.</th><th>P/L €</th><th>P/L %</th><th>USCITA</th>
         </tr></thead>
         <tbody>
           ${tradeLog.map((t,i)=>`
@@ -207,12 +211,43 @@ async function runBacktest(){
             <td>${t.exitPrice ? fmtNum(t.exitPrice,3) : '–'}</td>
             <td class="${t.pl>=0?'td-pos':'td-neg'}">${t.pl!=null?(t.pl>=0?'+':'')+fmtNum(t.pl,2):'aperto'}</td>
             <td class="${t.plpct>=0?'td-pos':'td-neg'}">${t.plpct!=null?(t.plpct>=0?'+':'')+fmtPct(t.plpct):'–'}</td>
+            <td class="td-neu" style="font-size:10px">${t.exitReason||'–'}</td>
           </tr>`).join('')}
         </tbody>
       </table>
       </div>
     </div>
   `;
+
+  // ── CANDLE CHART ─────────────────────────────────
+  if(btCandleChart){ btCandleChart.remove(); btCandleChart=null; }
+
+  btCandleChart = LightweightCharts.createChart(
+    document.getElementById('bt-candle-chart'),
+    {
+      layout: { background:{color:'#070b0f'}, textColor:'#4a6070' },
+      grid:   { vertLines:{color:'#0d1117'}, horzLines:{color:'#0d1117'} },
+      rightPriceScale: { borderColor:'#1e2a38' },
+      timeScale: { borderColor:'#1e2a38', timeVisible:true },
+      height: 280,
+    }
+  );
+
+  const candleSeries = btCandleChart.addCandlestickSeries({
+    upColor:'#00ff88', downColor:'#ff3355',
+    borderUpColor:'#00ff88', borderDownColor:'#ff3355',
+    wickUpColor:'#00ff88', wickDownColor:'#ff3355',
+  });
+  candleSeries.setData(ohlc.map(x=>({time:x.time, open:x.open, high:x.high, low:x.low, close:x.close})));
+
+  // Marker BUY/SELL sui trade
+  const markers = [];
+  for(const t of tradeLog){
+    markers.push({time:t.entryTime, position:'belowBar', color:'#00ff88', shape:'arrowUp',   text:'BUY',  size:1});
+    if(t.exitTime) markers.push({time:t.exitTime, position:'aboveBar', color:'#ff3355', shape:'arrowDown', text:'SELL', size:1});
+  }
+  candleSeries.setMarkers(markers);
+  btCandleChart.timeScale().fitContent();
 
   // ── EQUITY CHART ─────────────────────────────────
   if(btChart){ btChart.remove(); btChart=null; }
@@ -305,6 +340,158 @@ function strategyEMA(data, capital, feePct){
   return {equity, log};
 }
 
+// ── STRATEGIA SP2 — Score v3.1.1 + Anti-Coltello + Trailing ATR ──────
+//
+// Porting da PAC_v4 (celle 6/6b):
+//   BUY  : score > 50 AND anti_coltello > 0 (non sotto EMA200)
+//   SELL : anti_coltello == 0 (sotto EMA200)
+//          OPPURE trailing stop: calo > ATR×2.5 dal picco
+//
+// score_v311 = YTD×0.30 + 1Y×0.40 + 2Y×0.30  (normalizzato 0-100)
+// anti_coltello usa EMA10/20/40 weekly (≡ EMA50/100/200 daily)
+//
+function sp2Score(closes, times, i){
+  if(i < 52) return null;
+  const p0  = closes[i];
+  const now = new Date(times[i] * 1000);
+  const jan1Ts = new Date(now.getFullYear(), 0, 1).getTime() / 1000;
+  const weeksIntoYear = Math.round((times[i] - jan1Ts) / (7*86400));
+
+  function priceAt(wb){ const idx = i - wb; return idx >= 0 ? closes[idx] : null; }
+  const pJan = priceAt(weeksIntoYear) ?? priceAt(52);
+  const p1y  = priceAt(52);
+  const p2y  = priceAt(104) ?? p1y;
+  if(!pJan || !p1y || p0 <= 0) return null;
+
+  const ytd = (p0/pJan - 1)*100;
+  const r1  = (p0/p1y  - 1)*100;
+  const r2  = (p0/p2y  - 1)*100;
+  const norm = x => Math.max(0, Math.min(100, (x + 60) / 180 * 100));
+  const ny = norm(ytd), n1 = norm(r1), n2 = norm(r2);
+
+  let wYtd = 0.30, wR1 = 0.40, wR2 = 0.30;
+  if(weeksIntoYear < 8){ wYtd = 0.00; wR1 = 0.60; wR2 = 0.40; }
+
+  let base = ny*wYtd + n1*wR1 + n2*wR2;
+  if(ytd < -15 && r1 < -10) base *= 0.70;
+
+  const dispersion  = Math.max(ny,n1,n2) - Math.min(ny,n1,n2);
+  const persistence = Math.max(0.70, 1.0 - dispersion/200.0);
+  base *= persistence;
+
+  if(ytd > 300)                   base = Math.min(base, 50);
+  else if(ytd > 150 && base >= 90) base *= 0.50;
+  else if(ytd > 80  && base >= 90) base *= 0.70;
+  if(r1 > 200) base = Math.min(base, 55);
+  if(r2 > 300) base = Math.min(base, 55);
+
+  if(i >= 8){
+    const win = closes.slice(i-8, i+1);
+    const rets = win.slice(1).map((v,j) => Math.abs(v/win[j]-1));
+    const std  = Math.sqrt(rets.reduce((s,r) => s + r*r, 0) / rets.length);
+    if(std > 0.15)      base *= 0.50;
+    else if(std > 0.08) base *= 0.75;
+  }
+  return Math.round(base * 10) / 10;
+}
+
+function sp2AntiColtello(closes, i){
+  if(i < 40) return 1.0;
+  const slice  = closes.slice(0, i+1);
+  const e10arr = emaArr(slice, 10);
+  const e20arr = emaArr(slice, 20);
+  const e40arr = emaArr(slice, 40);
+  const e10 = e10arr[e10arr.length-1];
+  const e20 = e20arr[e20arr.length-1];
+  const e40 = e40arr[e40arr.length-1];
+  const p   = closes[i];
+  if(!e10 || !e20 || !e40) return 1.0;
+  if(p < e40)             return 0.0;
+  if(p < e10 && p < e20)  return 0.5;
+  if(p < e10 || p < e20)  return 0.75;
+  return 1.0;
+}
+
+function sp2ATR(ohlc, i, period=14){
+  if(i < period) return ohlc[i].close * 0.03;
+  let sum = 0;
+  for(let j = i - period + 1; j <= i; j++){
+    const prev = j > 0 ? ohlc[j-1].close : ohlc[j].open;
+    const tr = Math.max(
+      ohlc[j].high - ohlc[j].low,
+      Math.abs(ohlc[j].high - prev),
+      Math.abs(ohlc[j].low  - prev)
+    );
+    sum += tr;
+  }
+  return sum / period;
+}
+
+function strategySP2(ohlc, capital, feePct){
+  const closes = ohlc.map(x => x.close);
+  const times  = ohlc.map(x => x.time);
+  const SP2_BUY_THRESHOLD = 50;
+  const ATR_MULT_TRAIL    = 2.5;
+
+  const equity  = [{time: ohlc[0].time, value: capital}];
+  const log     = [];
+  let inTrade   = false;
+  let entry     = null;
+  let shares    = 0;
+  let cash      = capital;
+  let peak      = 0;
+
+  for(let i = 104; i < ohlc.length; i++){
+    const price = closes[i];
+    const score = sp2Score(closes, times, i);
+    const ac    = sp2AntiColtello(closes, i);
+    const atr   = sp2ATR(ohlc, i);
+
+    if(!inTrade){
+      if(score !== null && score >= SP2_BUY_THRESHOLD && ac > 0){
+        const cost = cash * (1 - feePct);
+        shares  = cost / price;
+        cash    = 0;
+        inTrade = true;
+        peak    = price;
+        entry   = {time: times[i], price, shares};
+      }
+    } else {
+      if(price > peak) peak = price;
+      const trailStop = peak - atr * ATR_MULT_TRAIL;
+      const sellAC    = ac === 0;
+      const sellTrail = price <= trailStop && peak > entry.price * 1.01;
+
+      if(sellAC || sellTrail){
+        const value = shares * price * (1 - feePct);
+        const pl    = value - entry.price * entry.shares;
+        const plpct = pl / (entry.price * entry.shares);
+        log.push({
+          entryTime: entry.time,  exitTime: times[i],
+          entryPrice: entry.price, exitPrice: price,
+          pl, plpct,
+          exitReason: sellAC ? 'EMA200' : 'Trailing'
+        });
+        cash = value; shares = 0; inTrade = false; entry = null; peak = 0;
+      }
+    }
+    const portfolioVal = inTrade ? shares * price : cash;
+    equity.push({time: times[i], value: portfolioVal});
+  }
+
+  if(inTrade){
+    const lastPrice = closes[closes.length-1];
+    const value = shares * lastPrice;
+    const pl = value - entry.price * entry.shares;
+    log.push({
+      entryTime: entry.time, exitTime: null,
+      entryPrice: entry.price, exitPrice: null,
+      pl, plpct: pl/(entry.price*entry.shares),
+      exitReason: 'aperto'
+    });
+  }
+  return {equity, log};
+}
 // ── STRATEGIA RSI MEAN-REVERSION ─────────────────────
 function strategyRSI(data, capital, feePct){
   const equity  = [{time:data[0].time, value:capital}];
