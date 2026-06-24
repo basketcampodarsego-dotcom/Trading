@@ -2,6 +2,19 @@
 
 ---
 
+## v1.9 — 24/06/2026
+
+### Modifiche
+
+**`backtest.html`**
+- Default periodo cambiato da `2y` a `5y`
+- Aggiunta strategia `EMA40 Trend Following` come prima opzione (default)
+
+**`backtest.js`**
+- Aggiunta `strategyEMA40()`: BUY se close > EMA40, SELL se close < EMA40 oppure trailing stop ATR×2 dal picco; warm-up 40 barre; colonna exitReason (EMA40 / Trailing / aperto)
+
+---
+
 ## v1.8 — 24/06/2026
 
 ### Modifiche
