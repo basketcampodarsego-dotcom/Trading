@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin — Trading</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="menu">
+  <span class="menu-logo">◈ PAC v4.0</span>
+  <div style="width:16px"></div>
+  <a href="index.html">Dashboard</a>
+  <a href="portfolio.html">Portafoglio</a>
+  <a href="backtest.html">Backtest</a>
+  <a href="report.html">Report</a>
+  <a href="admin.html" class="active">Admin</a>
+</div>
+
+<div class="dash-header">
+  <h2>Admin</h2>
+  <div id="ticker">Gestione repository GitHub</div>
+</div>
+
+<div style="max-width:480px;margin:32px auto;padding:0 16px;font-family:var(--mono)">
+
+  <div style="font-size:11px;color:var(--accent);letter-spacing:.12em;margin-bottom:18px">↑ AGGIORNA FILE SU GITHUB</div>
+
+  <div style="font-size:10px;color:var(--muted);margin-bottom:4px">GITHUB TOKEN (ghp_…)</div>
+  <input id="gh-token" type="password" placeholder="ghp_…"
+    style="width:100%;box-sizing:border-box;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-family:var(--mono);font-size:12px;padding:7px 10px;border-radius:2px;outline:none;margin-bottom:4px">
+  <label style="font-size:10px;color:var(--muted);display:flex;align-items:center;gap:6px;margin-bottom:18px">
+    <input type="checkbox" id="gh-save-token" checked style="accent-color:var(--accent)"> salva token in localStorage
+  </label>
+
+  <div style="font-size:10px;color:var(--muted);margin-bottom:6px">SELEZIONA FILE (CSV, JS, HTML, CSS…)</div>
+  <label style="display:block;padding:8px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:2px;font-size:11px;color:var(--text);cursor:pointer;margin-bottom:10px">
+    ＋ Sfoglia file…
+    <input type="file" id="gh-filepicker" multiple style="display:none" onchange="ghAddFiles(this.files)">
+  </label>
+
+  <div id="gh-filelist" style="font-size:10px;color:var(--muted);min-height:16px;margin-bottom:14px;line-height:1.8"></div>
+
+  <button class="btn-primary" onclick="ghPush()" style="width:100%;margin-bottom:8px">▶ Carica su GitHub</button>
+
+  <div id="gh-log" style="font-size:10px;color:var(--muted);min-height:20px;margin-top:10px;line-height:1.8"></div>
+</div>
+
+<div id="toast"></div>
+
+<script src="core.js"></script>
+<script>
+const GH_REPO   = 'basketcampodarsego-dotcom/Trading';
+const GH_BRANCH = 'main';
+let ghFiles = {};
+
+window.addEventListener('DOMContentLoaded', () => {
+  const tok = localStorage.getItem('gh_token') || '';
+  document.getElementById('gh-token').value = tok;
+});
+
+function ghAddFiles(fileList){
+  for(const f of fileList) ghFiles[f.name] = f;
+  document.getElementById('gh-filelist').innerHTML =
+    Object.keys(ghFiles).map(n => `<span style="color:var(--accent)">✓</span> ${n}`).join('<br>');
+}
+
+async function ghPush(){
+  const token = document.getElementById('gh-token').value.trim();
+  if(!token){ toast('⚠ Inserisci il GitHub token'); return; }
+  if(!Object.keys(ghFiles).length){ toast('⚠ Seleziona almeno un file'); return; }
+
+  if(document.getElementById('gh-save-token').checked)
+    localStorage.setItem('gh_token', token);
+
+  const logEl = document.getElementById('gh-log');
+  logEl.textContent = 'Caricamento in corso…';
+
+  const headers = {
+    'Authorization': `token ${token}`,
+    'Accept': 'application/vnd.github.v3+json',
+    'Content-Type': 'application/json',
+  };
+  const base = `https://api.github.com/repos/${GH_REPO}/contents/`;
+  const date = new Date().toLocaleDateString('it-IT');
+  let log = [];
+
+  for(const [fname, file] of Object.entries(ghFiles)){
+    try{
+      const buf = await file.arrayBuffer();
+      const b64 = btoa(String.fromCharCode(...new Uint8Array(buf)));
+      const rGet = await fetch(base + fname, {headers});
+      const sha  = rGet.ok ? (await rGet.json()).sha : undefined;
+      const rPut = await fetch(base + fname, {
+        method: 'PUT', headers,
+        body: JSON.stringify({
+          message: `PAC update ${date} — ${fname}`,
+          content: b64, branch: GH_BRANCH,
+          ...(sha ? {sha} : {})
+        })
+      });
+      if(rPut.status === 200 || rPut.status === 201) log.push(`✓ ${fname}`);
+      else { const e = await rPut.json(); log.push(`✗ ${fname}: ${e.message || rPut.status}`); }
+    }catch(e){ log.push(`✗ ${fname}: ${e.message}`); }
+    logEl.innerHTML = log.join('<br>');
+  }
+
+  const ok = log.filter(l => l.startsWith('✓')).length;
+  toast(ok === Object.keys(ghFiles).length
+    ? `✓ ${ok} file caricati su GitHub`
+    : `⚠ ${ok}/${Object.keys(ghFiles).length} file caricati`);
+}
+</script>
+</body>
+</html>
