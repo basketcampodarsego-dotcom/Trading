@@ -53,7 +53,6 @@ async function populateBtCsvSelect(){
   if([...sel.options].some(o=>o.value==='Titoli.csv')){
     sel.value = 'Titoli.csv';
   }
-  toast("DEBUG: loading CSV: " + sel.value);
   await loadBtCurrentCsv();
 }
 
@@ -71,8 +70,10 @@ async function loadBtCurrentCsv(){
 }
 
 async function onBtCsvChange(){
-  toast("DEBUG: loading CSV: " + sel.value);
   await loadBtCurrentCsv();
+  document.getElementById("bt_ticker").value = "";
+  document.getElementById("bt_ticker").dataset.ticker = "";
+  document.getElementById("bt_selected_info").textContent = btDataList.length ? btDataList.length + " titoli" : "⚠ Nessun titolo";
   if(btDataList.length) selectBtTitolo(btDataList[0], true);
 }
 
