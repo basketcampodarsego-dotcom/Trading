@@ -2,6 +2,18 @@
 
 ---
 
+## v2.2 — 24/06/2026
+
+### Modifiche
+
+**`admin.html`**
+- Aggiunta sezione ↓ SCARICA FILE DA GITHUB
+- Pulsante "Elenca file repo": lista cliccabile di tutti i file nel repo
+- Pulsante "Scarica file": download singolo file per nome
+- Token condiviso tra upload e download
+
+---
+
 ## v2.1 — 24/06/2026
 
 ### Modifiche
