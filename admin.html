@@ -89,7 +89,10 @@ async function ghPush(){
   for(const [fname, file] of Object.entries(ghFiles)){
     try{
       const buf = await file.arrayBuffer();
-      const b64 = btoa(String.fromCharCode(...new Uint8Array(buf)));
+      const bytes = new Uint8Array(buf);
+      let bin = '';
+      for(let i=0; i<bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+      const b64 = btoa(bin);
       const rGet = await fetch(base + fname, {headers});
       const sha  = rGet.ok ? (await rGet.json()).sha : undefined;
       const rPut = await fetch(base + fname, {
