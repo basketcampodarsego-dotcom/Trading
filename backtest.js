@@ -32,7 +32,6 @@ let btIdx      = 0;    // indice corrente nel file, per navigazione PREC/SUCC
 
 // ── FILES.JSON → SELECT (identico a populateCsvSelect in app.js) ──
 async function populateBtCsvSelect(){
-  toast("DEBUG: populateBtCsvSelect start");
   const sel = document.getElementById('bt_csvSelect');
   sel.innerHTML = '';
   try{
@@ -59,10 +58,11 @@ async function populateBtCsvSelect(){
 }
 
 async function loadBtCurrentCsv(){
+  btDataList = [];
+  btIdx = 0;
   const csv = document.getElementById('bt_csvSelect').value;
   try{
     btDataList = await loadCSV(csv);
-    toast("DEBUG: loaded " + btDataList.length + " titoli");
   }catch(e){
     toast('⚠ ' + e.message);
     btDataList = [];
