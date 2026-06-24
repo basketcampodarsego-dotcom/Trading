@@ -25,26 +25,38 @@
 
 <div style="max-width:480px;margin:32px auto;padding:0 16px;font-family:var(--mono)">
 
-  <div style="font-size:11px;color:var(--accent);letter-spacing:.12em;margin-bottom:18px">↑ AGGIORNA FILE SU GITHUB</div>
-
   <div style="font-size:10px;color:var(--muted);margin-bottom:4px">GITHUB TOKEN (ghp_…)</div>
   <input id="gh-token" type="password" placeholder="ghp_…"
     style="width:100%;box-sizing:border-box;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-family:var(--mono);font-size:12px;padding:7px 10px;border-radius:2px;outline:none;margin-bottom:4px">
-  <label style="font-size:10px;color:var(--muted);display:flex;align-items:center;gap:6px;margin-bottom:18px">
+  <label style="font-size:10px;color:var(--muted);display:flex;align-items:center;gap:6px;margin-bottom:24px">
     <input type="checkbox" id="gh-save-token" checked style="accent-color:var(--accent)"> salva token in localStorage
   </label>
 
-  <div style="font-size:10px;color:var(--muted);margin-bottom:6px">SELEZIONA FILE (CSV, JS, HTML, CSS…)</div>
+  <!-- UPLOAD -->
+  <div style="font-size:11px;color:var(--accent);letter-spacing:.12em;margin-bottom:14px">↑ CARICA FILE SU GITHUB</div>
+
   <label style="display:block;padding:8px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:2px;font-size:11px;color:var(--text);cursor:pointer;margin-bottom:10px">
     ＋ Sfoglia file…
     <input type="file" id="gh-filepicker" multiple style="display:none" onchange="ghAddFiles(this.files)">
   </label>
-
   <div id="gh-filelist" style="font-size:10px;color:var(--muted);min-height:16px;margin-bottom:14px;line-height:1.8"></div>
-
   <button class="btn-primary" onclick="ghPush()" style="width:100%;margin-bottom:8px">▶ Carica su GitHub</button>
+  <div id="gh-log" style="font-size:10px;color:var(--muted);min-height:20px;margin-top:6px;line-height:1.8"></div>
 
-  <div id="gh-log" style="font-size:10px;color:var(--muted);min-height:20px;margin-top:10px;line-height:1.8"></div>
+  <div style="border-top:1px solid var(--border);margin:28px 0"></div>
+
+  <!-- DOWNLOAD -->
+  <div style="font-size:11px;color:var(--accent);letter-spacing:.12em;margin-bottom:14px">↓ SCARICA FILE DA GITHUB</div>
+
+  <button onclick="ghListFiles()" style="width:100%;margin-bottom:10px;font-size:11px">↺ Elenca file repo</button>
+  <div id="gh-filelist-dl" style="font-size:10px;color:var(--muted);min-height:16px;margin-bottom:14px;line-height:2"></div>
+
+  <div style="font-size:10px;color:var(--muted);margin-bottom:4px">OPPURE SCRIVI NOME FILE</div>
+  <input id="gh-dl-name" type="text" placeholder="Titoli.csv"
+    style="width:100%;box-sizing:border-box;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-family:var(--mono);font-size:12px;padding:7px 10px;border-radius:2px;outline:none;margin-bottom:10px">
+  <button class="btn-primary" onclick="ghDownload()" style="width:100%;margin-bottom:8px">↓ Scarica file</button>
+  <div id="gh-dl-log" style="font-size:10px;color:var(--muted);min-height:16px;margin-top:6px;line-height:1.8"></div>
+
 </div>
 
 <div id="toast"></div>
@@ -60,6 +72,14 @@ window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('gh-token').value = tok;
 });
 
+function getToken(){
+  const t = document.getElementById('gh-token').value.trim();
+  if(!t) toast('⚠ Inserisci il GitHub token');
+  if(document.getElementById('gh-save-token').checked && t)
+    localStorage.setItem('gh_token', t);
+  return t;
+}
+
 function ghAddFiles(fileList){
   for(const f of fileList) ghFiles[f.name] = f;
   document.getElementById('gh-filelist').innerHTML =
@@ -67,16 +87,10 @@ function ghAddFiles(fileList){
 }
 
 async function ghPush(){
-  const token = document.getElementById('gh-token').value.trim();
-  if(!token){ toast('⚠ Inserisci il GitHub token'); return; }
+  const token = getToken(); if(!token) return;
   if(!Object.keys(ghFiles).length){ toast('⚠ Seleziona almeno un file'); return; }
-
-  if(document.getElementById('gh-save-token').checked)
-    localStorage.setItem('gh_token', token);
-
   const logEl = document.getElementById('gh-log');
   logEl.textContent = 'Caricamento in corso…';
-
   const headers = {
     'Authorization': `token ${token}`,
     'Accept': 'application/vnd.github.v3+json',
@@ -85,7 +99,6 @@ async function ghPush(){
   const base = `https://api.github.com/repos/${GH_REPO}/contents/`;
   const date = new Date().toLocaleDateString('it-IT');
   let log = [];
-
   for(const [fname, file] of Object.entries(ghFiles)){
     try{
       const buf = await file.arrayBuffer();
@@ -97,22 +110,56 @@ async function ghPush(){
       const sha  = rGet.ok ? (await rGet.json()).sha : undefined;
       const rPut = await fetch(base + fname, {
         method: 'PUT', headers,
-        body: JSON.stringify({
-          message: `PAC update ${date} — ${fname}`,
-          content: b64, branch: GH_BRANCH,
-          ...(sha ? {sha} : {})
-        })
+        body: JSON.stringify({ message: `PAC update ${date} — ${fname}`, content: b64, branch: GH_BRANCH, ...(sha ? {sha} : {}) })
       });
       if(rPut.status === 200 || rPut.status === 201) log.push(`✓ ${fname}`);
       else { const e = await rPut.json(); log.push(`✗ ${fname}: ${e.message || rPut.status}`); }
     }catch(e){ log.push(`✗ ${fname}: ${e.message}`); }
     logEl.innerHTML = log.join('<br>');
   }
+  const ok = log.filter(l=>l.startsWith('✓')).length;
+  toast(ok === Object.keys(ghFiles).length ? `✓ ${ok} file caricati` : `⚠ ${ok}/${Object.keys(ghFiles).length} caricati`);
+}
 
-  const ok = log.filter(l => l.startsWith('✓')).length;
-  toast(ok === Object.keys(ghFiles).length
-    ? `✓ ${ok} file caricati su GitHub`
-    : `⚠ ${ok}/${Object.keys(ghFiles).length} file caricati`);
+async function ghListFiles(){
+  const token = getToken(); if(!token) return;
+  const dlEl = document.getElementById('gh-filelist-dl');
+  dlEl.textContent = 'Caricamento lista…';
+  try{
+    const r = await fetch(`https://api.github.com/repos/${GH_REPO}/git/trees/${GH_BRANCH}?recursive=1`, {
+      headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+    });
+    const data = await r.json();
+    const files = (data.tree || []).filter(f => f.type === 'blob');
+    dlEl.innerHTML = files.map(f =>
+      `<span style="color:var(--accent);cursor:pointer" onclick="document.getElementById('gh-dl-name').value='${f.path}'">${f.path}</span>`
+    ).join('<br>');
+  }catch(e){ dlEl.textContent = '✗ ' + e.message; }
+}
+
+async function ghDownload(){
+  const token = getToken(); if(!token) return;
+  const fname = document.getElementById('gh-dl-name').value.trim();
+  if(!fname){ toast('⚠ Inserisci nome file'); return; }
+  const logEl = document.getElementById('gh-dl-log');
+  logEl.textContent = 'Download in corso…';
+  try{
+    const r = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${fname}`, {
+      headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+    });
+    if(!r.ok){ const e = await r.json(); logEl.textContent = '✗ ' + (e.message || r.status); return; }
+    const data = await r.json();
+    const bin = atob(data.content.replace(/\n/g,''));
+    const bytes = new Uint8Array(bin.length);
+    for(let i=0; i<bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    const blob = new Blob([bytes]);
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = fname.split('/').pop();
+    a.click();
+    logEl.textContent = `✓ ${fname} scaricato`;
+    toast(`✓ ${fname.split('/').pop()} scaricato`);
+  }catch(e){ logEl.textContent = '✗ ' + e.message; }
 }
 </script>
 </body>
