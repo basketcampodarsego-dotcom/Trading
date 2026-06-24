@@ -32,6 +32,31 @@
     <div id="search-dropdown"></div>
   </div>
   <button onclick="searchAsset()">Cerca</button>
+  <button onclick="openGhUpload()" title="Aggiorna CSV su GitHub">↑ GitHub</button>
+</div>
+
+<!-- MODAL GITHUB UPLOAD -->
+<div id="gh-modal" style="display:none;position:fixed;inset:0;background:rgba(7,11,15,0.92);z-index:1000;align-items:center;justify-content:center;">
+  <div style="background:var(--bg2);border:1px solid var(--accent);border-radius:2px;padding:20px;width:min(420px,94vw);font-family:var(--mono);">
+    <div style="font-size:11px;color:var(--accent);letter-spacing:.12em;margin-bottom:14px">↑ AGGIORNA CSV SU GITHUB</div>
+    <div style="font-size:10px;color:var(--muted);margin-bottom:4px">GITHUB TOKEN (ghp_…)</div>
+    <input id="gh-token" type="password" placeholder="ghp_…"
+      style="width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-family:var(--mono);font-size:12px;padding:7px 10px;border-radius:2px;outline:none;margin-bottom:4px">
+    <label style="font-size:10px;color:var(--muted);display:flex;align-items:center;gap:6px;margin-bottom:12px">
+      <input type="checkbox" id="gh-save-token" checked style="accent-color:var(--accent)"> salva token in localStorage
+    </label>
+    <div style="font-size:10px;color:var(--muted);margin-bottom:6px">SELEZIONA FILE (CSV, JS, HTML, CSS…)</div>
+    <label style="display:block;padding:6px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:2px;font-size:11px;color:var(--text);cursor:pointer;margin-bottom:8px">
+      ＋ Sfoglia file…
+      <input type="file" id="gh-filepicker" multiple style="display:none" onchange="ghAddFiles(this.files)">
+    </label>
+    <div id="gh-filelist" style="font-size:10px;color:var(--muted);min-height:16px;margin-bottom:12px;line-height:1.8"></div>
+    <div id="gh-log" style="font-size:10px;color:var(--muted);min-height:20px;margin-bottom:12px;line-height:1.7"></div>
+    <div style="display:flex;gap:8px">
+      <button class="btn-primary" onclick="ghPush()" style="flex:1">▶ Carica</button>
+      <button onclick="closeGhUpload()" style="flex:1">Annulla</button>
+    </div>
+  </div>
 </div>
 
 <div style="position:relative">
@@ -58,5 +83,100 @@
 
 <script src="core.js"></script>
 <script src="app.js"></script>
-</body>
+<script>
+// ── GITHUB CSV UPLOAD ─────────────────────────────────
+// Stesso metodo di cella 8 PAC_v4: GitHub Contents API PUT
+const GH_REPO   = 'basketcampodarsego-dotcom/Trading';
+const GH_BRANCH = 'main';
+let ghFiles = {};  // filename -> File object
+
+function openGhUpload(){
+  const tok = localStorage.getItem('gh_token') || '';
+  document.getElementById('gh-token').value = tok;
+  ghFiles = {};
+  document.getElementById('gh-filelist').textContent = '';
+  document.getElementById('gh-log').textContent = '';
+  const m = document.getElementById('gh-modal');
+  m.style.display = 'flex';
+}
+
+function closeGhUpload(){
+  document.getElementById('gh-modal').style.display = 'none';
+}
+
+function ghAddFiles(fileList){
+  for(const f of fileList){
+    ghFiles[f.name] = f;
+  }
+  const el = document.getElementById('gh-filelist');
+  el.innerHTML = Object.keys(ghFiles).map(n =>
+    `<span style="color:var(--accent)">✓</span> ${n}`
+  ).join('<br>');
+}
+
+async function ghPush(){
+  const token = document.getElementById('gh-token').value.trim();
+  if(!token){ toast('⚠ Inserisci il GitHub token'); return; }
+  if(!Object.keys(ghFiles).length){ toast('⚠ Seleziona almeno un file CSV'); return; }
+
+  if(document.getElementById('gh-save-token').checked){
+    localStorage.setItem('gh_token', token);
+  }
+
+  const logEl = document.getElementById('gh-log');
+  logEl.textContent = 'Caricamento in corso…';
+
+  const headers = {
+    'Authorization': `token ${token}`,
+    'Accept': 'application/vnd.github.v3+json',
+    'Content-Type': 'application/json',
+  };
+  const base = `https://api.github.com/repos/${GH_REPO}/contents/`;
+  const date = new Date().toLocaleDateString('it-IT');
+  let log = [];
+
+  for(const [fname, file] of Object.entries(ghFiles)){
+    try{
+      // leggi file come base64
+      const buf  = await file.arrayBuffer();
+      const b64  = btoa(String.fromCharCode(...new Uint8Array(buf)));
+
+      // recupera SHA esistente (necessario per update)
+      const rGet = await fetch(base + fname, {headers});
+      const sha  = rGet.ok ? (await rGet.json()).sha : undefined;
+
+      const payload = {
+        message: `PAC update ${date} — ${fname}`,
+        content: b64,
+        branch:  GH_BRANCH,
+        ...(sha ? {sha} : {})
+      };
+
+      const rPut = await fetch(base + fname, {
+        method:  'PUT',
+        headers,
+        body:    JSON.stringify(payload),
+      });
+
+      if(rPut.status === 200 || rPut.status === 201){
+        log.push(`✓ ${fname}`);
+      } else {
+        const err = await rPut.json();
+        log.push(`✗ ${fname}: ${err.message || rPut.status}`);
+      }
+    }catch(e){
+      log.push(`✗ ${fname}: ${e.message}`);
+    }
+    logEl.innerHTML = log.join('<br>');
+  }
+
+  const ok = log.filter(l => l.startsWith('✓')).length;
+  toast(ok === Object.keys(ghFiles).length ? `✓ ${ok} file caricati su GitHub` : `⚠ ${ok}/${Object.keys(ghFiles).length} file caricati`);
+}
+
+// chiudi modal click fuori
+document.getElementById('gh-modal').addEventListener('click', e => {
+  if(e.target === document.getElementById('gh-modal')) closeGhUpload();
+});
+</script>
 </html>

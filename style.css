@@ -522,6 +522,7 @@ tr:hover td { background: rgba(0,229,255,0.03); }
 .bt-stat .s-label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
 .bt-stat .s-val   { font-family: var(--mono); font-size: 18px; font-weight: bold; color: #fff; }
 
+#bt-candle-chart { height: 280px; margin-bottom: 6px; }
 #bt-chart { height: 240px; margin-bottom: 14px; }
 
 /* ── REPORT PAGE ── */
